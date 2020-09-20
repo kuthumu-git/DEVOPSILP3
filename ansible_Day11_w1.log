@@ -1,0 +1,843 @@
+Script started on 2020-09-16 22:10:34+01:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ ansible --version
+ansible 2.9.6
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = ['/home/naveen/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3/dist-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 3.8.2 (default, Jul 16 2020, 14:00:26) [GCC 9.3.0]
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ cd /etc
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ ls
+[0m[01;34macpi[0m                           hdparm.conf          pnm2ppa.conf
+adduser.conf                   host.conf            [01;34mpolkit-1[0m
+[01;34malsa[0m                           hostid               popularity-contest.conf
+[01;34malternatives[0m                   hostname             [01;34mppp[0m
+anacrontab                     hosts                profile
+[01;34mansible[0m                        hosts.allow          [01;34mprofile.d[0m
+apg.conf                       hosts.deny           protocols
+[01;34mapm[0m                            [01;34mhp[0m                   [01;34mpulse[0m
+[01;34mapparmor[0m                       [01;34mifplugd[0m              [01;34mpython3[0m
+[01;34mapparmor.d[0m                     [01;34minit[0m                 [01;34mpython3.8[0m
+[01;34mapport[0m                         [01;34minit.d[0m               [01;34mrc0.d[0m
+appstream.conf                 [01;34minitramfs-tools[0m      [01;34mrc1.d[0m
+[01;34mapt[0m                            inputrc              [01;34mrc2.d[0m
+[01;34mavahi[0m                          [01;34minsserv.conf.d[0m       [01;34mrc3.d[0m
+bash.bashrc                    [01;34miproute2[0m             [01;34mrc4.d[0m
+bash_completion                issue                [01;34mrc5.d[0m
+[01;34mbash_completion.d[0m              issue.net            [01;34mrc6.d[0m
+bindresvport.blacklist         [01;34mjava-11-openjdk[0m      [01;34mrcS.d[0m
+[01;34mbinfmt.d[0m                       [01;34mkernel[0m               [01;36mresolv.conf[0m
+[01;34mbluetooth[0m                      kernel-img.conf      [01;36mrmt[0m
+brlapi.key                     kerneloops.conf      rpc
+[01;34mbrltty[0m                         [01;34mldap[0m                 rsyslog.conf
+brltty.conf                    ld.so.cache          [01;34mrsyslog.d[0m
+[01;34mca-certificates[0m                ld.so.conf           rygel.conf
+ca-certificates.conf           [01;34mld.so.conf.d[0m         [01;34msane.d[0m
+ca-certificates.conf.dpkg-old  legal                [01;34msecurity[0m
+[01;34mcalendar[0m                       libao.conf           [01;34mselinux[0m
+[01;34mchatscripts[0m                    libaudit.conf        sensors3.conf
+[01;34mconsole-setup[0m                  [01;34mlibblockdev[0m          [01;34msensors.d[0m
+[01;34mcracklib[0m                       [01;34mlibnl-3[0m              services
+[01;34mcron.d[0m                         [01;34mlibpaper.d[0m           [01;34msgml[0m
+[01;34mcron.daily[0m                     [01;34mlibreoffice[0m          shadow
+[01;34mcron.hourly[0m                    locale.alias         shadow-
+[01;34mcron.monthly[0m                   locale.gen           shells
+crontab                        [01;36mlocaltime[0m            [01;34mskel[0m
+[01;34mcron.weekly[0m                    [01;34mlogcheck[0m             [01;34msnmp[0m
+[01;34mcups[0m                           login.defs           [01;34mspeech-dispatcher[0m
+[01;34mcupshelpers[0m                    logrotate.conf       [01;34mssh[0m
+daemon.conf                    [01;34mlogrotate.d[0m          [01;34mssl[0m
+[01;34mdbus-1[0m                         lsb-release          subgid
+[01;34mdconf[0m                          ltrace.conf          subgid-
+debconf.conf                   machine-id           subuid
+debian_version                 magic                subuid-
+[01;34mdefault[0m                        magic.mime           sudoers
+deluser.conf                   mailcap              [01;34msudoers.d[0m
+[01;34mdepmod.d[0m                       mailcap.order        sysctl.conf
+[01;34mdhcp[0m                           manpath.config       [01;34msysctl.d[0m
+[01;34mdictionaries-common[0m            [01;34mmaven[0m                [01;34msystemd[0m
+[01;34mdpkg[0m                           mime.types           [01;34mterminfo[0m
+e2scrub.conf                   mke2fs.conf          [01;34mthermald[0m
+[01;34memacs[0m                          [01;34mmodprobe.d[0m           [01;34mthunderbird[0m
+environment                    modules              timezone
+[01;34menvironment.d[0m                  [01;34mmodules-load.d[0m       [01;34mtmpfiles.d[0m
+ethertypes                     [01;36mmtab[0m                 [01;34mubuntu-advantage[0m
+[01;34mfirefox[0m                        mtools.conf          ucf.conf
+[01;34mfonts[0m                          [01;34mmysql[0m                [01;34mudev[0m
+fprintd.conf                   nanorc               [01;34mudisks2[0m
+fstab                          [01;34mnetplan[0m              [01;34mufw[0m
+fuse.conf                      [01;34mnetwork[0m              [01;34mupdate-manager[0m
+[01;34mfwupd[0m                          [01;34mnetworkd-dispatcher[0m  [01;34mupdate-motd.d[0m
+gai.conf                       [01;34mNetworkManager[0m       [01;34mupdate-notifier[0m
+gamemode.ini                   networks             [01;34mUPower[0m
+[01;34mgdb[0m                            [01;34mnewt[0m                 usb_modeswitch.conf
+[01;34mgdm3[0m                           nsswitch.conf        [01;34musb_modeswitch.d[0m
+[01;34mgeoclue[0m                        [01;34mopenvpn[0m              vdpau_wrapper.cfg
+[01;34mghostscript[0m                    [01;34mopt[0m                  [01;34mvim[0m
+[01;34mglvnd[0m                          [01;36mos-release[0m           [01;34mvmware-tools[0m
+[01;34mgnome[0m                          [01;34mPackageKit[0m           [01;36mvtrgb[0m
+[01;34mgroff[0m                          pam.conf             [01;34mvulkan[0m
+group                          [01;34mpam.d[0m                wgetrc
+group-                         papersize            [01;34mwpa_supplicant[0m
+[01;34mgrub.d[0m                         passwd               [01;34mX11[0m
+gshadow                        passwd-              xattr.conf
+gshadow-                       [01;34mpcmcia[0m               [01;34mxdg[0m
+[01;34mgss[0m                            [01;34mperl[0m                 [01;34mxml[0m
+[01;34mgtk-2.0[0m                        [01;34mpki[0m                  zsh_command_not_found
+[01;34mgtk-3.0[0m                        [01;34mpm[0m
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ cd ansible/
+]0;naveen@naveen-VirtualBox: /etc/ansible[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc/ansible[00m$ ls
+ansible.cfg  hosts
+]0;naveen@naveen-VirtualBox: /etc/ansible[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc/ansible[00m$ vi ansible.cfg 
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;24r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[24;1H"ansible.cfg" [readonly] 490 lines, 19985 characters[1;1H# config file for ansible -- https://ansible.com/
+# ===============================================
+
+# nearly all parameters can be overridden in ansible-playbook
+# or with command line flags. ansible will read ANSIBLE_CONFIG,
+# ansible.cfg in the current working directory, .ansible.cfg in
+# the home directory or /etc/ansible/ansible.cfg, whichever it
+# finds first
+
+[defaults]
+
+# some basic default values...
+
+#inventory      = /etc/ansible/hosts
+#library[8C= /usr/share/my_modules/
+#module_utils   = /usr/share/my_module_utils/
+#remote_tmp     = ~/.ansible/tmp
+#local_tmp      = ~/.ansible/tmp
+#plugin_filters_cfg = /etc/ansible/plugin_filters.yml
+#forks[10C= 5
+#poll_interval  = 15
+#sudo_user      = root
+#ask_sudo_pass = True[1;1H[?25h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[?25l[1;23r[23;1H
+[1;24r[23;1H#ask_pass      = True[24;1H[K[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#transport      = smart[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#remote_port    = 22[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#module_lang    = C[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#module_set_locale = False[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# plays will gather facts by default, which contain information about[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# the remote system.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# smart - gather by default, but don't regather if already gathered[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# implicit - gather by default, turn off with gather_facts: False[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# explicit - do not gather by default, must say gather_facts: True[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#gathering = implicit[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# This only affects the gathering done by a play's gather_facts directive,[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# by default gathering retrieves all facts subsets[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# all - gather all subsets[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# network - gather min and network facts[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# hardware - gather hardware facts (longest facts to retrieve)[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# virtual - gather min and virtual facts[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# facter - import facts from facter[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# ohai - import facts from ohai[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# You can combine them using comma (ex: network,virtual)[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# You can negate them using ! (ex: !hardware,!facter,!ohai)[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# A minimal set of facts is always gathered.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#gather_subset = all[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# some hardware related facts are collected[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# with a maximum timeout of 10 seconds. This[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# option lets you increase or decrease that[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# timeout to something more suitable for the[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# environment.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# gather_timeout = 10[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# Ansible facts are available inside the ansible_facts.* dictionary[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# namespace. This setting maintains the behaviour which was the default prior[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# to 2.5, duplicating these variables into the main namespace, each with a[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# prefix of 'ansible_'.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# This variable is set to True by default for backwards compatibility. It[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# will be changed to a default of 'False' in a future release.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# ansible_facts.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# inject_facts_as_vars = True[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# additional paths to search for roles in, colon separated[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#roles_path    = /etc/ansible/roles[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# uncomment this to disable SSH key host checking[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#host_key_checking = False[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H# change the default callback, you can only have one 'stdout' type  enabled at aa[23;1H time.[22;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#stdout_callback = skippy[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H## Ansible ships with some plugins that require whitelisting,[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H## this is done to avoid running all of a type by default.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H## These setting lists those that you want enabled for your system.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H## Custom plugins should not need this unless plugin author specifies it.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H# enable callback plugins, they can output to stdout but cannot be 'stdout' typee[23;1H.[22;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#callback_whitelist = timer, mail[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# Determine whether includes in tasks and handlers are "static" by[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# default. As of 2.0, includes are dynamic by default. Setting these[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# values to True will make includes behave more like they did in the[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# 1.x versions.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#task_includes_static = False[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#handler_includes_static = False[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H# Controls if a missing handler for a notification event is an error or a warninn[23;1Hg[22;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H#error_on_missing_handler = True[?25h
+[?25l[1;23r[23;1H
+[1;24r[23;1H# change this for alternative sudo implementations[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#sudo_exe = sudo[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# What flags to pass to sudo[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# WARNING: leaving out the defaults might create unexpected behaviours[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#sudo_flags = -H -S -n[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# SSH timeout[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H#timeout = 10[?25h
+[?25l[1;23r[23;1H
+[1;24r[23;1H# default user to use for playbooks if user is not specified[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# (/usr/bin/ansible will use current user as default)[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#remote_user = root[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# logging is off by default unless this path is defined[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# if so defined, consider logrotate[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#log_path = /var/log/ansible.log[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# default module name for /usr/bin/ansible[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H#module_name = command[?25h[21;1H
+
+[22;1H[21;1H[20;1H[19;1H[18;1H[17;1H[16;1H[15;1H[14;1H[13;1H[12;1H[11;1H[10;1H[9;1H[8;1H[7;1H[6;1H[5;1H[4;1H[3;1H[2;1H[1;1H[?25l[1;23r[1;1H[2L[1;24r[1;1H# Controls if a missing handler for a notification event is an error or a warninn[2;1Hg[1;1H[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H#handler_includes_static = False[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H#task_includes_static = False[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# 1.x versions.[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# values to True will make includes behave more like they did in the[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# default. As of 2.0, includes are dynamic by default. Setting these[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# Determine whether includes in tasks and handlers are "static" by[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H#callback_whitelist = timer, mail[?25h[?25l[1;23r[1;1H[2L[1;24r[1;1H# enable callback plugins, they can output to stdout but cannot be 'stdout' typee[2;1H.[1;1H[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H## Custom plugins should not need this unless plugin author specifies it.[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H## These setting lists those that you want enabled for your system.[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H## this is done to avoid running all of a type by default.[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H## Ansible ships with some plugins that require whitelisting,[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H#stdout_callback = skippy[?25h[?25l[1;23r[1;1H[2L[1;24r[1;1H# change the default callback, you can only have one 'stdout' type  enabled at aa[2;1H time.[1;1H[?25h[?25l[1;23r[1;1H[L[1;24r[23;1H[94m@                                                                               [1;1H[?25h[?25l[1;23r[m[1;1H[L[1;24r[1;1H#host_key_checking = False[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# uncomment this to disable SSH key host checking[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H#roles_path    = /etc/ansible/roles[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# additional paths to search for roles in, colon separated[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# inject_facts_as_vars = True[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# ansible_facts.[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# will be changed to a default of 'False' in a future release.[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# This variable is set to True by default for backwards compatibility. It[?25h[?25l[1;23r[1;1H[L[1;24r[1;1H# prefix of 'ansible_'.[23;1H[94m@                                                                               [1;1H[?25h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[?25l[1;23r[m[23;1H
+[1;24r[22;1H# enable callback plugins, they can output to stdout but cannot be 'stdout' typee[23;1H.[22;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#callback_whitelist = timer, mail[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# Determine whether includes in tasks and handlers are "static" by[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# default. As of 2.0, includes are dynamic by default. Setting these[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# values to True will make includes behave more like they did in the[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# 1.x versions.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#task_includes_static = False[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#handler_includes_static = False[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H# Controls if a missing handler for a notification event is an error or a warninn[23;1Hg[22;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H#error_on_missing_handler = True[?25h
+[?25l[1;23r[23;1H
+[1;24r[23;1H# change this for alternative sudo implementations[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#sudo_exe = sudo[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# What flags to pass to sudo[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# WARNING: leaving out the defaults might create unexpected behaviours[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#sudo_flags = -H -S -n[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# SSH timeout[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H#timeout = 10[?25h
+[?25l[1;23r[23;1H
+[1;24r[23;1H# default user to use for playbooks if user is not specified[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# (/usr/bin/ansible will use current user as default)[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#remote_user = root[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# logging is off by default unless this path is defined[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# if so defined, consider logrotate[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#log_path = /var/log/ansible.log[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# default module name for /usr/bin/ansible[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H#module_name = command[?25h
+[?25l[1;23r[23;1H
+[1;24r[23;1H# use this shell for commands executed under sudo[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# you may need to change this to bin/bash in rare instances[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# if sudo is constrained[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#executable = /bin/sh[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# if inventory variables overlap, does the higher precedence one win[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# or are hash values merged together?  The default is 'replace' but[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# this can also be set to 'merge'.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#hash_behaviour = replace[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# by default, variables from roles will be visible in the global variable[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# scope. To prevent this, the following option can be enabled, and only[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# tasks and handlers within the role will see the variables there[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#private_role_vars = yes[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# list any Jinja2 extensions to enable here:[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#jinja2_extensions = jinja2.ext.do,jinja2.ext.i18n[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# if set, always use this private key file for authentication, same as[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# if passing --private-key to ansible or ansible-playbook[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#private_key_file = /path/to/file[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# If set, configures the path to the Vault password file as an alternative to[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# specifying --vault-password-file on the command line.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#vault_password_file = /path/to/vault_password_file[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# format of string {{ ansible_managed }} available within Jinja2[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# templates indicates to users editing templates files will be replaced.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# replacing {file}, {host} and {uid} and strftime codes with proper values.[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H#ansible_managed = Ansible managed: {file} modified on %Y-%m-%d %H:%M:%S by {uidd[23;1H} on {host}[22;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# {file}, {host}, {uid}, and the timestamp can all interfere with idempotence[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# in some situations so the default is a static string:[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#ansible_managed = Ansible managed[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H# by default, ansible-playbook will display "Skipping [host]" if it determines aa[23;1H task[22;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H# should not be run on a host.  Set this to "False" if you don't want to see thee[23;1Hse "Skipping"[22;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H# messages. NOTE: the task header will still be shown regardless of whether or nn[23;1Hot the[22;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# task is skipped.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#display_skipped_hosts = True[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# by default, if a task in a playbook does not include a name: field then[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# ansible-playbook will construct a header that includes the task's action but[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# not the task's args.  This is a security feature because ansible cannot know[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# if the *module* considers an argument to be no_log at the time that the[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# header is printed.  If your environment doesn't have a problem securing[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# stdout from ansible-playbook (or you have manually specified no_log in your[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# playbook on all of the tasks where you have secret information) then you can[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# safely set this to True to get more informative messages.[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H#display_args_to_stdout = False[?25h
+[?25l[1;23r[1;1H[2M[1;24r[22;1H# by default (as of 1.3), Ansible will raise errors when attempting to dereferenn[23;1Hce[22;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H# Jinja2 variables that are not set in templates or action lines. Uncomment thiss[23;1H line[22;1H[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H# to revert the behavior to pre-1.3.
+#error_on_undefined_vars = False[22;1H[?25h
+[?25l[1;23r[1;1H[2M[1;24r[23;1H# by default (as of 1.6), Ansible may display warnings based on the configuratio[23;1H[94m@                                                                               [22;1H[?25h[?25l[1;23r[m[1;1H[2M[1;24r[21;1H# by default (as of 1.6), Ansible may display warnings based on the configuratioo[22;1Hn of the
+# system running ansible itself. This may include warnings about 3rd party packa[23;1H[94m@                                                                               [21;1H[?25h[?25l[1;23r[m[23;1H
+[1;24r[22;1H# system running ansible itself. This may include warnings about 3rd party packaa[23;1Hges or[22;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# other conditions that should be resolved if possible.[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# to disable these warnings, set the following value to False:[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#system_warnings = True[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# by default (as of 1.4), Ansible may display deprecation warnings for language[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# features that should no longer be used and will be removed in future versions.[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# to disable these warnings, set the following value to False:[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#deprecation_warnings = True[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# (as of 1.8), Ansible can optionally warn when usage of the shell and[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# command module appear to be simplified by using a default Ansible module[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# instead.  These warnings can be silenced by adjusting the following[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H# setting or adding warn=yes or warn=no to the end of the command line
+# parameter string.  This will for example suggest using the git module[22;1H[?25h
+[?25l[1;23r[1;1H[2M[1;24r[22;1H# instead of shelling out to the git command.
+# command_warnings = False[22;1H[?25h
+[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H# set plugin path directories here, separate with colons[?25h[?25l[1;23r[1;1H[2M[1;24r[22;1H#action_plugins     = /usr/share/ansible/plugins/action
+#become_plugins     = /usr/share/ansible/plugins/become[22;1H[?25h
+[?25l[1;23r[1;1H[2M[1;24r[22;1H#cache_plugins      = /usr/share/ansible/plugins/cache
+#callback_plugins   = /usr/share/ansible/plugins/callback[22;1H[?25h
+[?25l[1;23r[23;1H
+[1;24r[23;1H#connection_plugins = /usr/share/ansible/plugins/connection[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#lookup_plugins     = /usr/share/ansible/plugins/lookup[?25h[?25l[1;23r[23;1H
+[1;24r[23;1H#inventory_plugins  = /usr/share/ansible/plugins/inventory[?25h[?25l
+:[?2004h[?25hq![?25l[?2004l[24;1H[K[24;1H[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t]0;naveen@naveen-VirtualBox: /etc/ansible[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc/ansible[00m$ c[Kvi hosts 
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;24r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[24;1H"hosts" [readonly] 44 lines, 982 characters[1;1H# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+# Ex 1: Ungrouped hosts, specify before any group headers.
+
+#green.example.com
+#blue.example.com
+#192.168.100.1
+#192.168.100.10
+
+# Ex 2: A collection of hosts belonging to the 'webservers' group
+
+#[webservers]
+#alpha.example.org
+#beta.example.org
+#192.168.1.100[1;1H[?25h
+
+
+[?25l[24;1HType  :qa  and press <Enter> to exit Vim[24;41H[K[4;1H[?25h[?25l[?25h[?25l[?25h[?25l[?25h[?25l[?25h[?25l[24;1H[K[24;1H:[?2004h[?25hwq[?25l[97m[41mE45: 'readonly' option is set (add ! to override)[?2004h[4;1H[?25h[?25l[m[24;1H[K[24;1H:[?2004h[?25hq![?25l[?2004l[24;1H[K[24;1H[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t]0;naveen@naveen-VirtualBox: /etc/ansible[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc/ansible[00m$ pwd
+/etc/ansible
+]0;naveen@naveen-VirtualBox: /etc/ansible[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc/ansible[00m$ cd /home
+]0;naveen@naveen-VirtualBox: /home[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/home[00m$ ls
+[0m[01;34mnaveen[0m
+]0;naveen@naveen-VirtualBox: /home[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/home[00m$ cd naveen/
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ ls
+Day11_w1.log  [0m[01;34mDocuments[0m  [01;34mgit_workspace[0m  [01;34mMusic[0m     [01;34mPublic[0m  [01;34mTemplates[0m
+[01;34mDesktop[0m       [01;34mDownloads[0m  mozilla.pdf    [01;34mPictures[0m  [01;34msnap[0m    [01;34mVideos[0m
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ mkdir s[Kansilab
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ cd ansilab/
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat /etc//[Khost
+cat: /etc/host: No such file or directory
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat /etc/hosts
+127.0.0.1	localhost
+127.0.1.1	naveen-VirtualBox
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible all -i 'locl[Kalhost,' -m ping -c local [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kl
+[0;32mlocalhost | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat ansiserver
+cat: ansiserver: No such file or directory
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ vi asn[K[Knsiserver
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;24r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[24;1H"ansiserver" [New File][2;1H[94m~                                                                               [3;1H~                                                                               [4;1H~                                                                               [5;1H~                                                                               [6;1H~                                                                               [7;1H~                                                                               [8;1H~                                                                               [9;1H~                                                                               [10;1H~                                                                               [11;1H~                                                                               [12;1H~                                                                               [13;1H~                                                                               [14;1H~                                                                               [15;1H~                                                                               [16;1H~                                                                               [17;1H~                                                                               [18;1H~                                                                               [19;1H~                                                                               [20;1H~                                                                               [21;1H~                                                                               [22;1H~                                                                               [23;1H~                                                                               [1;1H[?25h[?2004l[>4;m[?25l[m[[?25h[?25ll[?25h[?25lo[?25h[?25lc[?25h[?25la[?25h[?25ll[?25h[?25l][?25h[?25l[2;1H[K[2;1H[?25h[?25ll[?25h[?25lo[?25h[?25lc[?25h[?25la[?25h[?25ll[?25h[?25lh[?25h[?25lo[?25h[?25ls[?25h[?25lt[?25h[?2004h[>4;2m[?25l[24;1H[K[24;1H:[?2004h[?25hwq![?25l[?2004l"ansiserver" [New File] 2 lines, 18 characters written
+[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ a[K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ a[K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ a[K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ a[K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible all -i '/home/naveen/ansilab/ansise rver' -m ping -c local
+[0;32mlocalhost | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible all -i '/home/naveen/ansilab/ansiserver' -m ping -c local[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -i '/home/naveen/ansilab/ansiserv[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C -i '/home/naveen/ansilab/ansiserve[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C -i '/home/naveen/ansilab/ansiserver[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[Cl -i '/home/naveen/ansilab/ansiserve[1@r[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[Co -i '/home/naveen/ansilab/ansiserv[1@e[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[Cc -i '/home/naveen/ansilab/ansiser[1@v[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[Ca -i '/home/naveen/ansilab/ansise[1@r[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[Cl -i '/home/naveen/ansilab/ansis[1@e[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[Ch -i '/home/naveen/ansilab/ansi[1@s[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[Co -i '/home/naveen/ansilab/ans[1@i[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cs -i '/home/naveen/ansilab/an[1@s[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ct -i '/home/naveen/ansilab/a[1@n[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[0;32mlocalhost | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -i '/home/naveen/ansilab/ansiserver' -m ping -c local[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -i '/home/naveen/ansilab/an[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -i '/home/naveen/ansilab/ans[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -i '/home/naveen/ansilab/ansi[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C -i '/home/naveen/ansilab/ansis[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[0;32mlocalhost | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ pwd
+/home/naveen/ansilab
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ vi ansible.cfg
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;23r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[23;1H"ansible.cfg" [New File][2;1H[94m~                                                                              [3;1H~                                                                              [4;1H~                                                                              [5;1H~                                                                              [6;1H~                                                                              [7;1H~                                                                              [8;1H~                                                                              [9;1H~                                                                              [10;1H~                                                                              [11;1H~                                                                              [12;1H~                                                                              [13;1H~                                                                              [14;1H~                                                                              [15;1H~                                                                              [16;1H~                                                                              [17;1H~                                                                              [18;1H~                                                                              [19;1H~                                                                              [20;1H~                                                                              [21;1H~                                                                              [22;1H~                                                                              [1;1H[?25h[?2004l[>4;m[?25l[m[[?25h[?25ld[?25h[?25le[?25h[?25lf[?25h[?25la[?25h[?25lu[?25h[?25ll[?25h[?25lt[?25h[?25ls[?25h[?25l][?25h[?25l[2;1H[K[2;1H[?25h[?25li[?25h[?25ln[?25h[?25lv[?25h[?25le[?25h[?25ln[?25h[?25lt[?25h[?25lo[?25h[?25lr[?25h[?25ly[?25h[?25l [?25h[?25l=[?25h[?25l [?25h[?25l/[?25h[?25lh[?25h[?25lo[?25h[?25lm[?25h[?25le[?25h[?25l/[?25h[?25ln[?25h[?25la[?25h[?25lv[?25h[?25le[?25h[?25le[?25h[?25ln[?25h[?25l/[?25h[?25la[?25h[?25ln[?25h[?25ls[?25h[?25li[?25h[?25lb[?25h[?25ll[?25h[?25le[?25h[?25l/[?25h[?25la[?25h[?25ln[?25h[?25ls[?25h[?25li[?25h[?25ls[?25h[?25le[?25h[?25lr[?25h[?25lv[?25h[?25le[?25h[?25lr[?25h[?2004h[>4;2m[?2004l[>4;m[?25l[2;22r[2;1H[L[1;23r[2;1HD[23;1H[K[2;2H[?25h[?2004h[>4;2m[?2004l[>4;m[?25l[2;22r[2;1H[L[1;23r[2;1HD[?25h[?2004h[>4;2m[?25l[2;22r[22;1H
+[1;23r[22;1H[94m~                                                                              [2;1H[?25h[?25l[2;22r[m[22;1H
+[1;23r[22;1H[94m~                                                                              [2;1H[?25h[minventory = /home/naveen/ansi[?2004l[>4;m[?25ll[?25h[?25la[?25h[?25lb[?25h[?2004h[>4;2m[?25l[23;1H:[?2004h[?25hwq![?25l[?2004l"ansible.cfg" [New File] 2 lines, 55 characters written
+[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ pwd
+/home/naveen/ansilab
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible.cfg  ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ pwd
+/home/naveen/ansilab
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible.cfg  ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat ansible.cfg 
+[defaults]
+inventory = /home/naveen/ansilab/ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat ansible.cfg ls[Kpwd[1Plspwdvi ansible.cfgls[Kpwdansible local -i '/home/naveen/ansilab/ansiserver' -m ping -c local[C[1P[1P[1P[1P[1P[1P[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m [1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m p[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m pi[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m pin[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping [1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping -[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping -c[1P local[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping -c [1Plocal[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping -c l[1Pocal[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping -c lo[1Pcal[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping -c loc[1Pal[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping -c loca[1Pl[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping -c local[K[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -m ping -c local [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1@c[1@a[1@l[1@h[1@o[1@s[1@t
+[0;32mlocalhost | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m ping -c local[K[K[K[K[K[K[K[K[K
+[1;31mlocalhost | UNREACHABLE! => {[0m
+[1;31m    "changed": false,[0m
+[1;31m    "msg": "Failed to connect to the host via ssh: ssh: connect to host localhost port 22: Connection refused",[0m
+[1;31m    "unreachable": true[0m
+[1;31m}[0m
+[1;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m ping -k -u naveen
+SSH password: 
+[0;31mlocalhost | FAILED! => {[0m
+[0;31m    "msg": "to use the 'ssh' connection type with passwords, you must install the sshpass program"[0m
+[0;31m}[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ 
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat ansiserver
+[local]
+localhost
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ vi ansiserver 
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;22r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[22;1H"ansiserver" 2 lines, 18 characters[1;1H[local]
+localhost
+[94m~                                                                             [4;1H~                                                                             [5;1H~                                                                             [6;1H~                                                                             [7;1H~                                                                             [8;1H~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [1;1H[?25h
+[mlocalhos[?2004l[>4;mt[?25l [?25h[?25la[?25h[?25ln[?25h[?25ls[?25h[?25li[?25h[?25lb[?25h[?25ll[?25h[?25le[?25h[?25l_[?25h[?25lc[?25h[?25lo[?25h[?25ln[?25h[?25ln[?25h[?25le[?25h[?25lc[?25h[?25lt[?25h[?25li[?25h[?25lo[?25h[?25ln[?25h[?25l=[?25h[?25ll[?25h[?25lo[?25h[?25lc[?25h[?25la[?25h[?25ll[?25h[?2004h[>4;2m[?25l[22;1H[K[22;1H:[?2004h[?25hwq![?25l[?2004l"ansiserver" 2 lines, 43 characters written
+[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ vi ansiserver cat ansiserveransible localhost -m ping -k -u naveen[K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m ping -k -u naveen[K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m ping -k -u naveen[K[K[K[K[K[K[K[K[K[K[K[K[K
+[0;32mlocalhost | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat /etc/hosts
+127.0.0.1	localhost
+127.0.1.1	naveen-VirtualBox
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ whoami
+naveen
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible.cfg  ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ vi ansiserver 
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;32r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[32;1H"ansiserver" 2 lines, 43 characters[1;1H[local]
+localhost ansible_connection=local
+[94m~                                                                                                                                             [4;1H~                                                                                                                                             [5;1H~                                                                                                                                             [6;1H~                                                                                                                                             [7;1H~                                                                                                                                             [8;1H~                                                                                                                                             [9;1H~                                                                                                                                             [10;1H~                                                                                                                                             [11;1H~                                                                                                                                             [12;1H~                                                                                                                                             [13;1H~                                                                                                                                             [14;1H~                                                                                                                                             [15;1H~                                                                                                                                             [16;1H~                                                                                                                                             [17;1H~                                                                                                                                             [18;1H~                                                                                                                                             [19;1H~                                                                                                                                             [20;1H~                                                                                                                                             [21;1H~                                                                                                                                             [22;1H~                                                                                                                                             [23;1H~                                                                                                                                             [24;1H~                                                                                                                                             [25;1H~                                                                                                                                             [26;1H~                                                                                                                                             [27;1H~                                                                                                                                             [28;1H~                                                                                                                                             [29;1H~                                                                                                                                             [30;1H~                                                                                                                                             [31;1H~                                                                                                                                             [1;1H[?25h
+[1;1H
+[1;1H
+[1;1H[?25l[m[32;1H[K[32;1H:[?2004h[?25hq![?25l[?2004l[32;1H[K[32;1H[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ vi ansiserver 
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;32r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[32;1H"ansiserver" 2 lines, 43 characters[1;1H[local]
+localhost ansible_connection=local
+[94m~                                                                                                                                             [4;1H~                                                                                                                                             [5;1H~                                                                                                                                             [6;1H~                                                                                                                                             [7;1H~                                                                                                                                             [8;1H~                                                                                                                                             [9;1H~                                                                                                                                             [10;1H~                                                                                                                                             [11;1H~                                                                                                                                             [12;1H~                                                                                                                                             [13;1H~                                                                                                                                             [14;1H~                                                                                                                                             [15;1H~                                                                                                                                             [16;1H~                                                                                                                                             [17;1H~                                                                                                                                             [18;1H~                                                                                                                                             [19;1H~                                                                                                                                             [20;1H~                                                                                                                                             [21;1H~                                                                                                                                             [22;1H~                                                                                                                                             [23;1H~                                                                                                                                             [24;1H~                                                                                                                                             [25;1H~                                                                                                                                             [26;1H~                                                                                                                                             [27;1H~                                                                                                                                             [28;1H~                                                                                                                                             [29;1H~                                                                                                                                             [30;1H~                                                                                                                                             [31;1H~                                                                                                                                             [1;1H[?25h
+[mlocalhost ansible_connection=loca[?2004l[>4;ml[?25l[3;1H[K[3;1H[?25h[?25ln[?25h[?25la[?25h[?25lv[?25h[?25le[?25h[?25le[?25h[?25ln[?25h[?25l-[?25h[?25lV[?25h[?25lu[?25h[?25l[?25h[?25li[?25h[?25lr[?25h[?25lt[?25h[?25lu[?25h[?25la[?25h[?25ll[?25h[?25lB[?25h[?25lo[?25h[?25lx[?25h[?25l [?25h[?25lh[?25h[?25lo[?25h[?25ls[?25h[?25lt[?25h[?25ln[?25h[?25la[?25h[?25lm[?25h[?25le[?25h[?25l=[?25h[?25l1[?25h[?25l2[?25h[?25l7[?25h[?25l.[?25h[?25l0[?25h[?25l.[?25h[?25l1[?25h[?25l.[?25h[?25l1[?25h[?25l [?25h[?25la[?25h[?25ln[?25h[?25ls[?25h[?25li[?25h[?25lb[?25h[?25ll[?25h[?25le[?25h[?25l_[?25h[?25ls[?25h[?25ls[?25h[?25lh[?25h[?25l_[?25h[?25lu[?25h[?25ls[?25h[?25le[?25h[?25lr[?25h[?25l=[?25h[?25ln[?25h[?25la[?25h[?25lv[?25h[?25le[?25h[?25le[?25h[?25ln[?25h[?2004h[>4;2m[?25l[32;1H[K[32;1H:[?2004h[?25hwq![?25l[?2004l"ansiserver" 3 lines, 104 characters written
+[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible naveen-Vir[KrtualBox -m ip[K[Kping -k -u naveen
+SSH password: 
+[0;31mnaveen-VirtualBox | FAILED! => {[0m
+[0;31m    "msg": "to use the 'ssh' connection type with passwords, you must install the sshpass program"[0m
+[0;31m}[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ping V[Knaveen-VirtualBox
+PING naveen-VirtualBox (127.0.1.1) 56(84) bytes of data.
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=1 ttl=64 time=0.051 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=2 ttl=64 time=0.082 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=3 ttl=64 time=0.083 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=4 ttl=64 time=0.052 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=5 ttl=64 time=0.080 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=6 ttl=64 time=0.044 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=7 ttl=64 time=0.053 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=8 ttl=64 time=0.038 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=9 ttl=64 time=0.049 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=10 ttl=64 time=0.082 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=11 ttl=64 time=0.046 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=12 ttl=64 time=0.046 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=13 ttl=64 time=0.048 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=14 ttl=64 time=0.083 ms
+64 bytes from naveen-VirtualBox (127.0.1.1): icmp_seq=15 ttl=64 time=0.044 ms
+^C
+--- naveen-VirtualBox ping statistics ---
+15 packets transmitted, 15 received, 0% packet loss, time 14328ms
+rtt min/avg/max/mdev = 0.038/0.058/0.083/0.016 ms
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ssh naveen-VirtualBox
+ssh: connect to host naveen-virtualbox port 22: Connection refused
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ssh naveen-VirtualBox[C[Cnaveen-VirtualBoxanaveen-VirtualBoxvnaveen-VirtualBoxenaveen-VirtualBoxenaveen-VirtualBox[Cnaveen-VirtualBox@naveen-VirtualBox
+ssh: connect to host naveen-virtualbox port 22: Connection refused
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ sudo apt install openssh-server
+[sudo] password for naveen: 
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 4%Reading package lists... 4%Reading package lists... 7%Reading package lists... 7%Reading package lists... 9%Reading package lists... 9%Reading package lists... 11%Reading package lists... 11%Reading package lists... 11%Reading package lists... 11%Reading package lists... 11%Reading package lists... 11%Reading package lists... 11%Reading package lists... 11%Reading package lists... 11%Reading package lists... 11%Reading package lists... 18%Reading package lists... 28%Reading package lists... 40%Reading package lists... 42%Reading package lists... 48%Reading package lists... 48%Reading package lists... 52%Reading package lists... 68%Reading package lists... 68%Reading package lists... 69%Reading package lists... 69%Reading package lists... 81%Reading package lists... 88%Reading package lists... 88%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 92%Reading package lists... 92%Reading package lists... 93%Reading package lists... 93%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 96%Reading package lists... 96%Reading package lists... 97%Reading package lists... 97%Reading package lists... 97%Reading package lists... 97%Reading package lists... 97%Reading package lists... 97%Reading package lists... 97%Reading package lists... 97%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 99%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... 99%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+The following additional packages will be installed:
+  ncurses-term openssh-sftp-server ssh-import-id
+Suggested packages:
+  molly-guard monkeysphere ssh-askpass
+The following NEW packages will be installed
+  ncurses-term openssh-server openssh-sftp-server ssh-import-id
+0 to upgrade, 4 to newly install, 0 to remove and 122 not to upgrade.
+Need to get 688 kB of archives.
+After this operation, 6,010 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+[33m0% [Working][0m            Get:1 http://archive.ubuntu.com/ubuntu focal/main amd64 ncurses-term all 6.2-0ubuntu2 [249 kB]
+[33m2% [1 ncurses-term 14.3 kB/249 kB 6%][0m[33m28% [1 ncurses-term 244 kB/249 kB 98%][0m[33m                                      34% [Working][0m             Get:2 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 openssh-sftp-server amd64 1:8.2p1-4ubuntu0.1 [51.5 kB]
+[33m34% [2 openssh-sftp-server 0 B/51.5 kB 0%][0m[33m                                          45% [Waiting for headers][0m                         Get:3 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 openssh-server amd64 1:8.2p1-4ubuntu0.1 [377 kB]
+[33m46% [3 openssh-server 12.3 kB/377 kB 3%][0m[33m80% [3 openssh-server 297 kB/377 kB 79%][0m[33m                                        94% [Waiting for headers][0m                         Get:4 http://archive.ubuntu.com/ubuntu focal/main amd64 ssh-import-id all 5.10-0ubuntu1 [10.0 kB]
+[33m94% [4 ssh-import-id 2,911 B/10.0 kB 29%][0m[33m                                         100% [Working][0m              Fetched 688 kB in 2s (330 kB/s)
+Preconfiguring packages ...
+
+7[0;31r8[1ASelecting previously unselected package ncurses-term.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 232041 files and directories currently installed.)
+Preparing to unpack .../ncurses-term_6.2-0ubuntu2_all.deb ...
+7[32;0f[42m[30mProgress: [  0%][49m[39m [........................................................................................................................] 87[32;0f[42m[30mProgress: [  6%][49m[39m [#######.................................................................................................................] 8Unpacking ncurses-term (6.2-0ubuntu2) ...
+7[32;0f[42m[30mProgress: [ 12%][49m[39m [##############..........................................................................................................] 8Selecting previously unselected package openssh-sftp-server.
+Preparing to unpack .../openssh-sftp-server_1%3a8.2p1-4ubuntu0.1_amd64.deb ...
+7[32;0f[42m[30mProgress: [ 18%][49m[39m [#####################...................................................................................................] 8Unpacking openssh-sftp-server (1:8.2p1-4ubuntu0.1) ...
+7[32;0f[42m[30mProgress: [ 24%][49m[39m [############################............................................................................................] 8Selecting previously unselected package openssh-server.
+Preparing to unpack .../openssh-server_1%3a8.2p1-4ubuntu0.1_amd64.deb ...
+7[32;0f[42m[30mProgress: [ 29%][49m[39m [###################################.....................................................................................] 8Unpacking openssh-server (1:8.2p1-4ubuntu0.1) ...
+7[32;0f[42m[30mProgress: [ 35%][49m[39m [##########################################..............................................................................] 8Selecting previously unselected package ssh-import-id.
+Preparing to unpack .../ssh-import-id_5.10-0ubuntu1_all.deb ...
+7[32;0f[42m[30mProgress: [ 41%][49m[39m [#################################################.......................................................................] 8Unpacking ssh-import-id (5.10-0ubuntu1) ...
+7[32;0f[42m[30mProgress: [ 47%][49m[39m [########################################################................................................................] 8Setting up openssh-sftp-server (1:8.2p1-4ubuntu0.1) ...
+7[32;0f[42m[30mProgress: [ 53%][49m[39m [###############################################################.........................................................] 87[32;0f[42m[30mProgress: [ 59%][49m[39m [######################################################################..................................................] 8Setting up openssh-server (1:8.2p1-4ubuntu0.1) ...
+7[32;0f[42m[30mProgress: [ 65%][49m[39m [#############################################################################...........................................] 8
+Creating config file /etc/ssh/sshd_config with new version
+Creating SSH2 RSA key; this may take some time ...
+3072 SHA256:HbC2ejFe57cn2zNyy1kf3Beumbz8tDdnVKlOWlIw+ZI root@naveen-VirtualBox (RSA)
+Creating SSH2 ECDSA key; this may take some time ...
+256 SHA256:QtDWSfn3SOk5M9fXqGhw1VaAsrvZ0GyqLUQH7k3S9b4 root@naveen-VirtualBox (ECDSA)
+Creating SSH2 ED25519 key; this may take some time ...
+256 SHA256:RB7wMWLDFOlnvjdtEOdO5X1rbLInsXLFdnhNHa/QNwY root@naveen-VirtualBox (ED25519)
+Created symlink /etc/systemd/system/sshd.service → /lib/systemd/system/ssh.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/ssh.service → /lib/systemd/system/ssh.service.
+rescue-ssh.target is a disabled or a static unit, not starting it.
+7[32;0f[42m[30mProgress: [ 71%][49m[39m [####################################################################################....................................] 8Setting up ssh-import-id (5.10-0ubuntu1) ...
+7[32;0f[42m[30mProgress: [ 76%][49m[39m [###########################################################################################.............................] 8Attempting to convert /etc/ssh/ssh_import_id
+7[32;0f[42m[30mProgress: [ 82%][49m[39m [##################################################################################################......................] 8Setting up ncurses-term (6.2-0ubuntu2) ...
+7[32;0f[42m[30mProgress: [ 88%][49m[39m [#########################################################################################################...............] 87[32;0f[42m[30mProgress: [ 94%][49m[39m [################################################################################################################........] 8Processing triggers for systemd (245.4-4ubuntu3.2) ...
+Processing triggers for man-db (2.9.1-1) ...
+Processing triggers for ufw (0.36-6) ...
+
+7[0;32r8[1A[J]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ sudo apt install openssh-server[3Psh naveen@naveen-VirtualBox
+The authenticity of host 'naveen-virtualbox (127.0.1.1)' can't be established.
+ECDSA key fingerprint is SHA256:QtDWSfn3SOk5M9fXqGhw1VaAsrvZ0GyqLUQH7k3S9b4.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+Please type 'yes', 'no' or the fingerprint: yes
+Warning: Permanently added 'naveen-virtualbox' (ECDSA) to the list of known hosts.
+naveen@naveen-virtualbox's password: 
+Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-47-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+ * Kubernetes 1.19 is out! Get it in one command with:
+
+     sudo snap install microk8s --channel=1.19 --classic
+
+   https://microk8s.io/ has docs and details.
+
+122 updates can be installed immediately.
+0 of these updates are security updates.
+To see these additional updates run: apt list --upgradable
+
+Your Hardware Enablement Stack (HWE) is supported until April 2025.
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ exit
+logout
+Connection to naveen-virtualbox closed.
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible.cfg  ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls ../.ssh/
+known_hosts
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat [K[K[K[Kansible naveee[Kn-Vr[Kirta[KualBox -m ping -k -u naveen
+SSH password: 
+[0;31mnaveen-VirtualBox | FAILED! => {[0m
+[0;31m    "msg": "to use the 'ssh' connection type with passwords, you must install the sshpass program"[0m
+[0;31m}[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ whoami
+naveen
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ sudo systemctl status ssh
+[sudo] password for naveen: 
+[?1h=[0;1;32m●[0m ssh.service - OpenBSD Secure Shell server[m
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)[m
+     Active: [0;1;32mactive (running)[0m since Sun 2020-09-20 15:12:33 BST; 15min ago[m
+       Docs: man:sshd(8)[m
+             man:sshd_config(5)[m
+   Main PID: 31206 (sshd)[m
+      Tasks: 1 (limit: 3772)[m
+     Memory: 2.2M[m
+     CGroup: /system.slice/ssh.service[m
+             └─31206 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups[m
+[m
+Sep 20 15:12:33 naveen-VirtualBox systemd[1]: Starting OpenBSD Secure Shell server...[m
+Sep 20 15:12:33 naveen-VirtualBox sshd[31206]: Server listening on 0.0.0.0 port 22.[m
+Sep 20 15:12:33 naveen-VirtualBox sshd[31206]: Server listening on :: port 22.[m
+Sep 20 15:12:33 naveen-VirtualBox systemd[1]: Started OpenBSD Secure Shell server.[m
+Sep 20 15:13:39 naveen-VirtualBox sshd[32504]: Accepted password for naveen from 127.0.0.1 port 47894 ssh2[m
+Sep 20 15:13:39 naveen-VirtualBox sshd[32504]: pam_unix(sshd:session): session opened for user naveen by (uid=0)[m
+[K[?1l>]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ sudo ufw allow ssh
+Rules updated
+Rules updated (v6)
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ sudo ufw allow ssh[7@systemctl status[C[C[C[Cwhoami[Kansible naveen-VirtualBox -m ping -k -u naveen
+SSH password: 
+[0;31mnaveen-VirtualBox | FAILED! => {[0m
+[0;31m    "msg": "to use the 'ssh' connection type with passwords, you must install the sshpass program"[0m
+[0;31m}[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible naveen-VirtualBox -m ping -k -u naveen[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[28Psudo ufw allow ssh[7@systemctl status[C[C[C[Cwhoami[Kansible naveen-VirtualBox -m ping -k -u naveen[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls ../.ssh/[K[Kssh naveen@naveen-VirtualBoxudo apt install openssh-server[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksshpass
+Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... 94%Reading state information... Done
+The following NEW packages will be installed
+  sshpass
+0 to upgrade, 1 to newly install, 0 to remove and 122 not to upgrade.
+Need to get 10.5 kB of archives.
+After this operation, 30.7 kB of additional disk space will be used.
+[33m0% [Working][0m            Get:1 http://archive.ubuntu.com/ubuntu focal/universe amd64 sshpass amd64 1.06-1 [10.5 kB]
+[33m80% [1 sshpass 10.5 kB/10.5 kB 100%][0m[33m                                    100% [Working][0m              Fetched 10.5 kB in 0s (35.6 kB/s)
+
+7[0;31r8[1ASelecting previously unselected package sshpass.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 234888 files and directories currently installed.)
+Preparing to unpack .../sshpass_1.06-1_amd64.deb ...
+7[32;0f[42m[30mProgress: [  0%][49m[39m [........................................................................................................................] 87[32;0f[42m[30mProgress: [ 20%][49m[39m [########################................................................................................................] 8Unpacking sshpass (1.06-1) ...
+7[32;0f[42m[30mProgress: [ 40%][49m[39m [################################################........................................................................] 8Setting up sshpass (1.06-1) ...
+7[32;0f[42m[30mProgress: [ 60%][49m[39m [########################################################################................................................] 87[32;0f[42m[30mProgress: [ 80%][49m[39m [################################################################################################........................] 8Processing triggers for man-db (2.9.1-1) ...
+
+7[0;32r8[1A[J]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ sudo apt install sshpassansible naveen-VirtualBox -m ping -k -u naveen
+SSH password: 
+[0;32mnaveen-VirtualBox | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible naveen-VirtualBox -m ping -k -u naveen[K[K[K[K[K[K[K[K[K[K
+SSH password: 
+[0;32mnaveen-VirtualBox | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ pwd
+/home/naveen/ansilab
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ ls
+[0m[01;34mansilab[0m  Day11_w1.log  [01;34mDesktop[0m  [01;34mDocuments[0m  [01;34mDownloads[0m  [01;34mgit_workspace[0m  mozilla.pdf  [01;34mMusic[0m  [01;34mPictures[0m  [01;34mPublic[0m  [01;34msnap[0m  [01;34mTemplates[0m  [01;34mVideos[0m
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ ls .ssh
+known_hosts
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ cd ansilab/
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/naveen/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/naveen/.ssh/id_rsa
+Your public key has been saved in /home/naveen/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:tgFJHjNELiMM3kNCB6OiG+HFU8vcYEHrGJ+wZjDEIdQ naveen@naveen-VirtualBox
+The key's randomart image is:
++---[RSA 3072]----+
+|*O+o.OO          |
+|=+BE=+==         |
+|++oOo==.         |
+|+.+.Xo..         |
+|o. = +  S        |
+| oo    . o       |
+|.       .        |
+|                 |
+|                 |
++----[SHA256]-----+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ssh-keygencd ansilab/[4Pls .ssh[K[K[K[K../.ssh/
+id_rsa  id_rsa.pub  known_hosts
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ssh-copy-id-[K -i ../.ssh/id_rsa.pub naveen-VirtualBox
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "../.ssh/id_rsa.pub"
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+naveen@naveen-virtualbox's password: 
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'naveen-VirtualBox'"
+and check to make sure that only the key(s) you wanted were added.
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ssh naveen-VirtualBox
+Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-47-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+ * Kubernetes 1.19 is out! Get it in one command with:
+
+     sudo snap install microk8s --channel=1.19 --classic
+
+   https://microk8s.io/ has docs and details.
+
+122 updates can be installed immediately.
+0 of these updates are security updates.
+To see these additional updates run: apt list --upgradable
+
+Your Hardware Enablement Stack (HWE) is supported until April 2025.
+Last login: Sun Sep 20 15:32:57 2020 from 127.0.0.1
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ ls ../.ssh/
+ls: cannot access '../.ssh/': No such file or directory
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ ec[Kxit
+logout
+Connection to naveen-virtualbox closed.
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls ../.ssh/
+authorized_keys  id_rsa  id_rsa.pub  known_hosts
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls ../.ssh/ssh naveen-VirtualBox-copy-id -i ../.ssh/id_rsa.pub naveen-VirtualBox[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls ../.ssh/[K[1Pssh-keygencd ansilab/[4Pls .ssh[Kcd ..[2Ppwdansible naveen-VirtualBox -m ping -k[K[K[K
+[0;32mnaveen-VirtualBox | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible naveen-VirtualBox -m ping[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1@l[1@o[1@c[1@a[1@l
+[0;32mlocalhost | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m[0;32mnaveen-VirtualBox | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible local -m ping[1P[1P[1P[1P[1@a[C[1@l
+[0;32mlocalhost | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m[0;32mnaveen-VirtualBox | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat /etc/hosts
+127.0.0.1	localhost
+127.0.1.1	naveen-VirtualBox
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible --list-hosts all
+  hosts (2):
+    localhost
+    naveen-VirtualBox
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible --list-hosts all[K[K[Klocal
+  hosts (2):
+    localhost
+    naveen-VirtualBox
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible --list-hosts local[Klhost
+  hosts (1):
+    localhost
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ exit
+exit
+
+Script done on 2020-09-20 15:59:23+01:00 [COMMAND_EXIT_CODE="0"]
