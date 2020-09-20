@@ -1,0 +1,1585 @@
+Script started on 2020-09-20 17:10:02+01:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="142" LINES="32"]
+]0;naveen@naveen-VirtualBox: ~/git_workspace/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/git_workspace/DEVOPSILP3[00m$ cd ../..
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ ls
+[0m[01;34mansilab[0m  [01;34mDesktop[0m  [01;34mDocuments[0m  [01;34mDownloads[0m  [01;34mgit_workspace[0m  mozilla.pdf  [01;34mMusic[0m  [01;34mPictures[0m  [01;34mPublic[0m  [01;34msnap[0m  [01;34mTemplates[0m  [01;34mVideos[0m
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ cd ansilab/
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible.cfg  ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat ansible.cfg 
+[defaults]
+inventory = /home/naveen/ansilab/ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ vi ansible.cfg 
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;32r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[32;1H"ansible.cfg" 2 lines, 55 characters[1;1H[defaults]
+inventory = /home/naveen/ansilab/ansiserver
+[94m~                                                                                                                                             [4;1H~                                                                                                                                             [5;1H~                                                                                                                                             [6;1H~                                                                                                                                             [7;1H~                                                                                                                                             [8;1H~                                                                                                                                             [9;1H~                                                                                                                                             [10;1H~                                                                                                                                             [11;1H~                                                                                                                                             [12;1H~                                                                                                                                             [13;1H~                                                                                                                                             [14;1H~                                                                                                                                             [15;1H~                                                                                                                                             [16;1H~                                                                                                                                             [17;1H~                                                                                                                                             [18;1H~                                                                                                                                             [19;1H~                                                                                                                                             [20;1H~                                                                                                                                             [21;1H~                                                                                                                                             [22;1H~                                                                                                                                             [23;1H~                                                                                                                                             [24;1H~                                                                                                                                             [25;1H~                                                                                                                                             [26;1H~                                                                                                                                             [27;1H~                                                                                                                                             [28;1H~                                                                                                                                             [29;1H~                                                                                                                                             [30;1H~                                                                                                                                             [31;1H~                                                                                                                                             [1;1H[?25h
+[minventory = /home/naveen/ansilab/ansiserve[?2004l[>4;mr[?25l[3;1H[K[3;1H[?25h[?25ll[?25h[?25lo[?25h[?25lg[?25h[?25l_[?25h[?25lp[?25h[?25la[?25h[?25lt[?25h[?25lh[?25h[?25l [?25h[?25l=[?25h[?25l [?25h[?25l/[?25h[?25lh[?25h[?25lo[?25h[?25lm[?25h[?25le[?25h[?25l/[?25h[?25ln[?25h[?25la[?25h[?25lv[?25h[?25le[?25h[?25le[?25h[?25ln[?25h[?25l/[?25h[?25la[?25h[?25ln[?25h[?25ls[?25h[?25li[?25h[?25ll[?25h[?25la[?25h[?25lb[?25h[?25l/[?25h[?25la[?25h[?25ln[?25h[?25ls[?25h[?25li[?25h[?25lb[?25h[?25ll[?25h[?25le[?25h[?25l.[?25h[?25ll[?25h[?25lo[?25h[?25lg[?25h[?2004h[>4;2m[?25l[32;1H[K[32;1H:[?2004h[?25hwq![?25l[?2004l"ansible.cfg" 3 lines, 99 characters written
+[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat ansible.cfg 
+[defaults]
+inventory = /home/naveen/ansilab/ansiserver
+log_path = /home/naveen/ansilab/ansible.log
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ -cat ansiserver 
+^C]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ -cat ansiserver [C[1P
+[local]
+localhost ansible_connection=local
+naveen-VirtualBox hostname=127.0.1.1 ansible_ssh_user=naveen
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m ping
+[0;32mlocalhost | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "ping": "pong"[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat ansible.log 
+2020-09-20 16:50:48,209 p=43494 u=naveen n=ansible | localhost | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m command -a ansi[K[K[K[K'echo "He llow[K World"'
+[0;33mlocalhost | CHANGED | rc=0 >>[0m
+[0;33mHello World[0m
+[0;33m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m command -a 'echo "Hello World"'[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a 'echo "Hell[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a 'echo "Hello[1P World"'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a 'echo "Hello [1PWorld"'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a 'echo "Hello W[1Porld"'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a 'echo "Hello Wo[1Prld"'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a 'echo "Hello Wor[1Pld"'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a 'echo "Hello Worl[1Pd"'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a 'echo "Hello World[1P"'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a 'echo "Hello World"[1P'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-a 'echo "Hello World"'[K[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ca 'echo "Hello World"' [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[0;33mlocalhost | CHANGED | rc=0 >>[0m
+[0;33mHello World[0m
+[0;33m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -a 'echo "Hello World"' [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[C[1P[1P[1P World"'[1PWorld"'[1Porld"'[1Prld"'[1Pld"'[1Pd"'[1P"'[1P'h'o's't'n'a'm'e'
+[0;33mlocalhost | CHANGED | rc=0 >>[0m
+[0;33mnaveen-VirtualBox[0m
+[0;33m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ hostname
+naveen-VirtualBox
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ hostnameansible localhost -a 'hostname'[K[K[K[K[K[K[K[K[K[K[K[Km shell -a cat [K[K[K[K'cat /etc/r esolv.cfg[K[Konf'
+[0;33mlocalhost | CHANGED | rc=0 >>[0m
+[0;33m# This file is managed by man:systemd-resolved(8). Do not edit.[0m
+[0;33m#[0m
+[0;33m# This is a dynamic resolv.conf file for connecting local clients to the[0m
+[0;33m# internal DNS stub resolver of systemd-resolved. This file lists all[0m
+[0;33m# configured search domains.[0m
+[0;33m#[0m
+[0;33m# Run "resolvectl status" to see details about the uplink DNS servers[0m
+[0;33m# currently in use.[0m
+[0;33m#[0m
+[0;33m# Third party programs must not access this file directly, but only through the[0m
+[0;33m# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,[0m
+[0;33m# replace this symlink by a static file or a different symlink.[0m
+[0;33m#[0m
+[0;33m# See man:systemd-resolved.service(8) for details about the supported modes of[0m
+[0;33m# operation for /etc/resolv.conf.[0m
+[0;33m[0m
+[0;33mnameserver 127.0.0.53[0m
+[0;33moptions edns0[0m
+[0;33msearch lan[0m
+[0;33m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m shell -a 'cat /etc/resolv.conf'[K[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m shell -a 'cat /etc/resolv.conf'[K[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m shell -a 'cat /etc/resolv.conf'[C[C[C[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[Ktouch /hom e/naveen/ansilab/testfile'
+[1;35m[WARNING]: Consider using the file module with state=touch rather than running[0m
+[1;35m'touch'.  If you need to use command because file is insufficient you can add[0m
+[1;35m'warn: false' to this command task or set 'command_warnings=False' in[0m
+[1;35mansible.cfg to get rid of this message.[0m
+[1;35m[0m[0;33mlocalhost | CHANGED | rc=0 >>[0m
+[0;33m[0m
+[0;33m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible.cfg  ansible.log  ansiserver  testfile
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible lo[K[K[K[K[K[K[K[K[K[Klsansible localhost -m shell -a 'touch /home/naveen/ansilab/testfile'[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -a 'touch /home/[1Pnaveen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -a 'touch /home/n[1Paveen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -a 'touch /home/na[1Pveen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -a 'touch /home/nav[1Peen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -a 'touch /home/nave[C[1Pn/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cf -a 'touch /home/nav[Cen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci -a 'touch /home/naveen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cl -a 'touch /home/naveen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce -a 'touch /home/naveen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Couch /home/n[1Paveen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cuch /home/na[1Pveen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cch /home/nav[1Peen/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ch /home/nave[C[1Pn/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C /home/navee[1Pn/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/home/naveen[1P/ansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chome/naveen/[1Pansilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Come/naveen/a[1Pnsilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cme/naveen/an[1Psilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce/naveen/ans[1Pilab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/naveen/ansi[1Plab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cnaveen/ansil[1Pab/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Caveen/ansila[1Pb/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cveen/ansilab[1P/testfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ceen/ansilab/[1Ptestfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cn/ansilab/t[1Pestfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cn/ansilab/te[1Pstfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/ansilab/tes[1Ptfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cansilab/test[1Pfile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cnsilab/testf[1Pile'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csilab/testfi[1Ple'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cilab/testfil[1Pe'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clab/testfile[1P'[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cab/testfile'[K[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cb/testfile' [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/testfile'
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Ptestfile'[1Pestfile'[1Pstfile'[1Ptfile'[1Pfile'[1Pile'[1Ple'[1Pe'[1P'p'a't'h'='/'h'o'm'e' [A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/'n'a'v'e'e'n'/'a'n's'i'l'a'b'/'t'e's't'f'i'l'e' 's't'a't'e'='t'o'u'c'h'
+[0;33mlocalhost | CHANGED => {[0m
+[0;33m    "ansible_facts": {[0m
+[0;33m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;33m    },[0m
+[0;33m    "changed": true,[0m
+[0;33m    "dest": "/home/naveen/ansilab/testfile",[0m
+[0;33m    "gid": 1000,[0m
+[0;33m    "group": "naveen",[0m
+[0;33m    "mode": "0664",[0m
+[0;33m    "owner": "naveen",[0m
+[0;33m    "size": 0,[0m
+[0;33m    "state": "file",[0m
+[0;33m    "uid": 1000[0m
+[0;33m}[0m
+[0;33m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m file -a 'path=/home/naveen/ansilab/testfile state=touch'[1P'[1P'[1P'[1P'[1P'f'i'l'e'
+[0;32mlocalhost | SUCCESS => {[0m
+[0;32m    "ansible_facts": {[0m
+[0;32m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;32m    },[0m
+[0;32m    "changed": false,[0m
+[0;32m    "gid": 1000,[0m
+[0;32m    "group": "naveen",[0m
+[0;32m    "mode": "0664",[0m
+[0;32m    "owner": "naveen",[0m
+[0;32m    "path": "/home/naveen/ansilab/testfile",[0m
+[0;32m    "size": 0,[0m
+[0;32m    "state": "file",[0m
+[0;32m    "uid": 1000[0m
+[0;32m}[0m
+[0;32m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible localhost -m file -a 'path=/home/naveen/ansilab/testfile state=file'[1P state=file'[1P state=file'[1P state=file'[1P state=file'[1P state=file'[1P state=file'[1P state=file'[1P state=file'r state=file'e state=file's state=file'o state=file'u state=file'r state=file'c state=file'e state=file'[C[C[C[C[C[C[C[1Pile'[1Ple'[1Pe'[1P'd'i'r'e'c't'o'r'y'
+[0;33mlocalhost | CHANGED => {[0m
+[0;33m    "ansible_facts": {[0m
+[0;33m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;33m    },[0m
+[0;33m    "changed": true,[0m
+[0;33m    "gid": 1000,[0m
+[0;33m    "group": "naveen",[0m
+[0;33m    "mode": "0775",[0m
+[0;33m    "owner": "naveen",[0m
+[0;33m    "path": "/home/naveen/ansilab/resource",[0m
+[0;33m    "size": 4096,[0m
+[0;33m    "state": "directory",[0m
+[0;33m    "uid": 1000[0m
+[0;33m}[0m
+[0;33m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible.cfg  ansible.log  ansiserver  [0m[01;34mresource[0m  testfile
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ lsansible localhost -m file -a 'path=/home/naveen/ansilab/resource state=directory'[C[1P'[1P'[1P'[1P'[1P'[1P'[1P'[1P'[1P'testfile state=file'[1P'[1P'[1P'[1P'a'b's'e'n't'
+[0;33mlocalhost | CHANGED => {[0m
+[0;33m    "ansible_facts": {[0m
+[0;33m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;33m    },[0m
+[0;33m    "changed": true,[0m
+[0;33m    "path": "/home/naveen/ansilab/testfile",[0m
+[0;33m    "state": "absent"[0m
+[0;33m}[0m
+[0;33m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible.cfg  ansible.log  ansiserver  [0m[01;34mresource[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ lsansible localhost -m file -a 'path=/home/naveen/ansilab/testfile state=absent'[Als[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cansible localhost -m file -a 'path=/home/naveen/ansilab/resource state='a'b's'e'n't'
+[0;33mlocalhost | CHANGED => {[0m
+[0;33m    "ansible_facts": {[0m
+[0;33m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;33m    },[0m
+[0;33m    "changed": true,[0m
+[0;33m    "path": "/home/naveen/ansilab/resource",[0m
+[0;33m    "state": "absent"[0m
+[0;33m}[0m
+[0;33m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible.cfg  ansible.log  ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ lsansible localhost -m file -a 'path=/home/naveen/ansilab/resource state=absent'[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -a 'path=/home/na[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -a 'path=/home/nav[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -a 'path=/home/nave[C[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -a 'path=/home/navee[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cc -a 'path=/home/nave[1@e[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Co -a 'path=/home/nav[C[1@e[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cp -a 'path=/home/na[1@v[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cy -a 'path=/home/n[1@a[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cath=/home/na[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cth=/home/nav[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ch=/home/nave[C[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C=/home/navee[1P[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cs=/home/nave[1@e[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cr=/home/nav[C[1@e[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cc=/home/na[1@v[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[1P state=absent'[1Pstate=absent'[1Ptate=absent'[1Pate=absent'[1Pte=absent'[1Pe=absent'[1P=absent'[1Pabsent'[1Pbsent'[1Psent'[1Pent'[1Pnt'[1Pt'[1P'a'n's'i'b'l'e'.'l'o'g' 'd'e's't'='/'h'o'm'e'/'n'a'v'e'e'n'/'a'n's'i'l'a'b'/'a'n's'i'b'l'e'1'.'t'x't'
+[0;33mlocalhost | CHANGED => {[0m
+[0;33m    "ansible_facts": {[0m
+[0;33m        "discovered_interpreter_python": "/usr/bin/python3"[0m
+[0;33m    },[0m
+[0;33m    "changed": true,[0m
+[0;33m    "checksum": "3490f09975d130e983c921f29bf959e1607f4c56",[0m
+[0;33m    "dest": "/home/naveen/ansilab/ansible1.txt",[0m
+[0;33m    "gid": 1000,[0m
+[0;33m    "group": "naveen",[0m
+[0;33m    "md5sum": "763633b5b976dbdb178c3f8601e01cad",[0m
+[0;33m    "mode": "0664",[0m
+[0;33m    "owner": "naveen",[0m
+[0;33m    "size": 3352,[0m
+[0;33m    "src": "/home/naveen/.ansible/tmp/ansible-tmp-1600623000.0759883-95315539239047/source",[0m
+[0;33m    "state": "file",[0m
+[0;33m    "uid": 1000[0m
+[0;33m}[0m
+[0;33m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible1.txt  ansible.cfg  ansible.log  ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ mkdir /home/naveen/resource
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cd ../
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ cd my[K[KDownloads/
+]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ ls
+'Configurations_DevOpsILP2 [Jenkins].pdf'
+'Configurations [Jenkins].pdf'
+'configure_DevOpsILP2 [Jenkins].pdf'
+'configure[Jenkins].pdf'
+'console output_DevOpsILP2 [Jenkins].pdf'
+'console output[Jenkins].pdf'
+[0m[01;34m'Global Tool Configuration [Jenkins]_files'[0m
+'Global Tool Configuration [Jenkins].html'
+'Global Tool Configuration [Jenkins].pdf'
+'Project_DevOpsILP2 [Jenkins].pdf'
+]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ [K]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ [K]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ cd //[K[K..
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ ls
+[0m[01;34mansilab[0m  [01;34mDesktop[0m  [01;34mDocuments[0m  [01;34mDownloads[0m  [01;34mgit_workspace[0m  mozilla.pdf  [01;34mMusic[0m  [01;34mPictures[0m  [01;34mPublic[0m  [01;34mresource[0m  [01;34msnap[0m  [01;34mTemplates[0m  [01;34mVideos[0m
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ cd Desktop/
+]0;naveen@naveen-VirtualBox: ~/Desktop[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Desktop[00m$ ls
+]0;naveen@naveen-VirtualBox: ~/Desktop[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Desktop[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ ls
+[0m[01;34mansilab[0m  [01;34mDesktop[0m  [01;34mDocuments[0m  [01;34mDownloads[0m  [01;34mgit_workspace[0m  mozilla.pdf  [01;34mMusic[0m  [01;34mPictures[0m  [01;34mPublic[0m  [01;34mresource[0m  [01;34msnap[0m  [01;34mTemplates[0m  [01;34mVideos[0m
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ cd Downloads/
+]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ ls
+'Configurations_DevOpsILP2 [Jenkins].pdf'  'console output_DevOpsILP2 [Jenkins].pdf'    'Global Tool Configuration [Jenkins].pdf'
+'Configurations [Jenkins].pdf'             'console output[Jenkins].pdf'                'Project_DevOpsILP2 [Jenkins].pdf'
+'configure_DevOpsILP2 [Jenkins].pdf'       [0m[01;34m'Global Tool Configuration [Jenkins]_files'[0m
+'configure[Jenkins].pdf'                   'Global Tool Configuration [Jenkins].html'
+]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ pwd
+/home/naveen/Downloads
+]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ cd /etc
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ ls
+[0m[01;34macpi[0m                           [01;34mdbus-1[0m               host.conf        ltrace.conf          popularity-contest.conf  subuid
+adduser.conf                   [01;34mdconf[0m                hostid           machine-id           [01;34mppp[0m                      subuid-
+[01;34malsa[0m                           debconf.conf         hostname         magic                profile                  sudoers
+[01;34malternatives[0m                   debian_version       hosts            magic.mime           [01;34mprofile.d[0m                [01;34msudoers.d[0m
+anacrontab                     [01;34mdefault[0m              hosts.allow      mailcap              protocols                sysctl.conf
+[01;34mansible[0m                        deluser.conf         hosts.deny       mailcap.order        [01;34mpulse[0m                    [01;34msysctl.d[0m
+apg.conf                       [01;34mdepmod.d[0m             [01;34mhp[0m               manpath.config       [01;34mpython3[0m                  [01;34msystemd[0m
+[01;34mapm[0m                            [01;34mdhcp[0m                 [01;34mifplugd[0m          [01;34mmaven[0m                [01;34mpython3.8[0m                [01;34mterminfo[0m
+[01;34mapparmor[0m                       [01;34mdictionaries-common[0m  [01;34minit[0m             mime.types           [01;34mrc0.d[0m                    [01;34mthermald[0m
+[01;34mapparmor.d[0m                     [01;34mdpkg[0m                 [01;34minit.d[0m           mke2fs.conf          [01;34mrc1.d[0m                    [01;34mthunderbird[0m
+[01;34mapport[0m                         e2scrub.conf         [01;34minitramfs-tools[0m  [01;34mmodprobe.d[0m           [01;34mrc2.d[0m                    timezone
+appstream.conf                 [01;34memacs[0m                inputrc          modules              [01;34mrc3.d[0m                    [01;34mtmpfiles.d[0m
+[01;34mapt[0m                            environment          [01;34minsserv.conf.d[0m   [01;34mmodules-load.d[0m       [01;34mrc4.d[0m                    [01;34mubuntu-advantage[0m
+[01;34mavahi[0m                          [01;34menvironment.d[0m        [01;34miproute2[0m         [01;36mmtab[0m                 [01;34mrc5.d[0m                    ucf.conf
+bash.bashrc                    ethertypes           issue            mtools.conf          [01;34mrc6.d[0m                    [01;34mudev[0m
+bash_completion                [01;34mfirefox[0m              issue.net        [01;34mmysql[0m                [01;34mrcS.d[0m                    [01;34mudisks2[0m
+[01;34mbash_completion.d[0m              [01;34mfonts[0m                [01;34mjava-11-openjdk[0m  nanorc               [01;36mresolv.conf[0m              [01;34mufw[0m
+bindresvport.blacklist         fprintd.conf         [01;34mkernel[0m           [01;34mnetplan[0m              [01;36mrmt[0m                      [01;34mupdate-manager[0m
+[01;34mbinfmt.d[0m                       fstab                kernel-img.conf  [01;34mnetwork[0m              rpc                      [01;34mupdate-motd.d[0m
+[01;34mbluetooth[0m                      fuse.conf            kerneloops.conf  [01;34mnetworkd-dispatcher[0m  rsyslog.conf             [01;34mupdate-notifier[0m
+brlapi.key                     [01;34mfwupd[0m                [01;34mldap[0m             [01;34mNetworkManager[0m       [01;34mrsyslog.d[0m                [01;34mUPower[0m
+[01;34mbrltty[0m                         gai.conf             ld.so.cache      networks             rygel.conf               usb_modeswitch.conf
+brltty.conf                    gamemode.ini         ld.so.conf       [01;34mnewt[0m                 [01;34msane.d[0m                   [01;34musb_modeswitch.d[0m
+[01;34mca-certificates[0m                [01;34mgdb[0m                  [01;34mld.so.conf.d[0m     nsswitch.conf        [01;34msecurity[0m                 vdpau_wrapper.cfg
+ca-certificates.conf           [01;34mgdm3[0m                 legal            [01;34mopenvpn[0m              [01;34mselinux[0m                  [01;34mvim[0m
+ca-certificates.conf.dpkg-old  [01;34mgeoclue[0m              libao.conf       [01;34mopt[0m                  sensors3.conf            [01;34mvmware-tools[0m
+[01;34mcalendar[0m                       [01;34mghostscript[0m          libaudit.conf    [01;36mos-release[0m           [01;34msensors.d[0m                [01;36mvtrgb[0m
+[01;34mchatscripts[0m                    [01;34mglvnd[0m                [01;34mlibblockdev[0m      [01;34mPackageKit[0m           services                 [01;34mvulkan[0m
+[01;34mconsole-setup[0m                  [01;34mgnome[0m                [01;34mlibnl-3[0m          pam.conf             [01;34msgml[0m                     wgetrc
+[01;34mcracklib[0m                       [01;34mgroff[0m                [01;34mlibpaper.d[0m       [01;34mpam.d[0m                shadow                   [01;34mwpa_supplicant[0m
+[01;34mcron.d[0m                         group                [01;34mlibreoffice[0m      papersize            shadow-                  [01;34mX11[0m
+[01;34mcron.daily[0m                     group-               locale.alias     passwd               shells                   xattr.conf
+[01;34mcron.hourly[0m                    [01;34mgrub.d[0m               locale.gen       passwd-              [01;34mskel[0m                     [01;34mxdg[0m
+[01;34mcron.monthly[0m                   gshadow              [01;36mlocaltime[0m        [01;34mpcmcia[0m               [01;34msnmp[0m                     [01;34mxml[0m
+crontab                        gshadow-             [01;34mlogcheck[0m         [01;34mperl[0m                 [01;34mspeech-dispatcher[0m        zsh_command_not_found
+[01;34mcron.weekly[0m                    [01;34mgss[0m                  login.defs       [01;34mpki[0m                  [01;34mssh[0m
+[01;34mcups[0m                           [01;34mgtk-2.0[0m              logrotate.conf   [01;34mpm[0m                   [01;34mssl[0m
+[01;34mcupshelpers[0m                    [01;34mgtk-3.0[0m              [01;34mlogrotate.d[0m      pnm2ppa.conf         subgid
+daemon.conf                    hdparm.conf          lsb-release      [01;34mpolkit-1[0m             subgid-
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ cd /opt
+]0;naveen@naveen-VirtualBox: /opt[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt[00m$ ls
+[0m[01;34mapache-maven-3.6.3[0m  [01;34mjfrog[0m  [01;36mmaven[0m  [01;34mtomcat[0m  [01;34mVBoxGuestAdditions-6.1.12[0m
+]0;naveen@naveen-VirtualBox: /opt[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt[00m$ cd apa
+bash: cd: apa: No such file or directory
+]0;naveen@naveen-VirtualBox: /opt[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt[00m$ cd pap[K[K[Kapache-maven-3.6.3/
+]0;naveen@naveen-VirtualBox: /opt/apache-maven-3.6.3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt/apache-maven-3.6.3[00m$ ls
+[0m[01;34mbin[0m  [01;34mboot[0m  [01;34mconf[0m  [01;34mlib[0m  LICENSE  NOTICE  README.txt
+]0;naveen@naveen-VirtualBox: /opt/apache-maven-3.6.3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt/apache-maven-3.6.3[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /opt[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt[00m$ cd tomcat/
+]0;naveen@naveen-VirtualBox: /opt/tomcat[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt/tomcat[00m$ ls
+[0m[01;34mapache-tomcat-7.0.105[0m  [01;36mlatest[0m
+]0;naveen@naveen-VirtualBox: /opt/tomcat[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt/tomcat[00m$ cd aoa[K[Kpache-tomcat-7.0.105/ls[K[K
+]0;naveen@naveen-VirtualBox: /opt/tomcat/apache-tomcat-7.0.105[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt/tomcat/apache-tomcat-7.0.105[00m$ ls
+[0m[01;34mbin[0m  BUILDING.txt  [01;34mconf[0m  CONTRIBUTING.md  [01;34mlib[0m  LICENSE  [01;34mlogs[0m  NOTICE  README.md  RELEASE-NOTES  RUNNING.txt  [01;34mtemp[0m  [01;34mwebapps[0m  [01;34mwork[0m
+]0;naveen@naveen-VirtualBox: /opt/tomcat/apache-tomcat-7.0.105[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt/tomcat/apache-tomcat-7.0.105[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /opt/tomcat[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt/tomcat[00m$ cd ...[K
+]0;naveen@naveen-VirtualBox: /opt[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt[00m$ ls
+[0m[01;34mapache-maven-3.6.3[0m  [01;34mjfrog[0m  [01;36mmaven[0m  [01;34mtomcat[0m  [01;34mVBoxGuestAdditions-6.1.12[0m
+]0;naveen@naveen-VirtualBox: /opt[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/opt[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ ls -lrt
+total 2097240
+-rw-r--r--   1 root root       1105 Jul 30 15:36 Release.key
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [0m[01;34msrv[0m
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [01;34mmnt[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:28 [01;34musr[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:35 [01;34mvar[0m
+drwx------   2 root root      16384 Aug  6 21:09 [01;34mlost+found[0m
+-rw-------   1 root root 2147483648 Aug  6 21:09 swapfile
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mbin[0m -> [01;34musr/bin[0m
+lrwxrwxrwx   1 root root         10 Aug  6 21:09 [01;36mlibx32[0m -> [01;34musr/libx32[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib64[0m -> [01;34musr/lib64[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib32[0m -> [01;34musr/lib32[0m
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mlib[0m -> [01;34musr/lib[0m
+lrwxrwxrwx   1 root root          8 Aug  6 21:09 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxrwxr-x   2 root root       4096 Aug  6 21:19 [01;34mcdrom[0m
+drwxr-xr-x   3 root root       4096 Aug  6 21:21 [01;34mhome[0m
+drwxr-xr-x   8 root root       4096 Aug  6 21:35 [01;34msnap[0m
+drwxr-xr-x   3 root root       4096 Aug  6 22:20 [01;34mmedia[0m
+-rw-r--r--   1 root root         37 Aug  9 19:53 1
+drwx------   6 root root       4096 Aug 30 13:42 [01;34mroot[0m
+drwxr-xr-x   6 root root       4096 Sep  5 22:15 [01;34mopt[0m
+drwxr-xr-x   4 root root       4096 Sep 12 17:35 [01;34mboot[0m
+dr-xr-xr-x  13 root root          0 Sep 16 20:37 [01;34msys[0m
+dr-xr-xr-x 240 root root          0 Sep 16 20:37 [01;34mproc[0m
+drwxr-xr-x  18 root root       4060 Sep 19 23:40 [01;34mdev[0m
+drwxr-xr-x 134 root root      12288 Sep 20 15:12 [01;34metc[0m
+drwxr-xr-x  36 root root       1060 Sep 20 15:48 [01;34mrun[0m
+drwxrwxrwt  29 root root       4096 Sep 20 18:47 [30;42mtmp[0m
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ cd /tmp
+]0;naveen@naveen-VirtualBox: /tmp[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/tmp[00m$ ls -lrt
+total 3156
+drwxrwxrwt 2 root    root       4096 Sep 16 20:38 [0m[30;42mVMwareDnD[0m
+drwx------ 3 root    root       4096 Sep 16 20:38 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-resolved.service-hFFNEf[0m
+drwx------ 3 root    root       4096 Sep 16 20:38 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-timesyncd.service-VRUZ1i[0m
+drwx------ 3 root    root       4096 Sep 16 21:04 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-switcheroo-control.service-0OW5ti[0m
+drwx------ 3 root    root       4096 Sep 16 21:04 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-logind.service-zA21vf[0m
+drwx------ 3 root    root       4096 Sep 16 21:04 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-ModemManager.service-7zCnui[0m
+drwxr-x--- 2 tomcat  tomcat     4096 Sep 16 21:04 [01;34mhsperfdata_tomcat[0m
+drwxr-xr-x 2 root    root       4096 Sep 16 21:04 [01;34mhsperfdata_root[0m
+drwxr-xr-x 2 jenkins jenkins    4096 Sep 16 21:04 [01;34mhsperfdata_jenkins[0m
+-rw-r--r-- 1 jenkins jenkins 3140871 Sep 16 21:04 [01;31mwinstone5540221064316322086.jar[0m
+drwx------ 3 root    root       4096 Sep 16 21:08 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-upower.service-BkJUgf[0m
+drwxr-xr-x 2 jenkins jenkins    4096 Sep 16 21:08 [01;34mjetty-0_0_0_0-8080-war-_-any-7219679396477090702.dir[0m
+drwx------ 2 jenkins jenkins    4096 Sep 16 21:08 [01;34mtracker-extract-files.126[0m
+drwx------ 2 gdm     gdm        4096 Sep 16 21:09 [01;34mtracker-extract-files.125[0m
+drwx------ 3 root    root       4096 Sep 16 21:10 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-colord.service-M4f34g[0m
+-rw------- 1 naveen  naveen        0 Sep 16 21:18 config-err-U1U8yC
+drwx------ 2 naveen  naveen     4096 Sep 16 21:19 [01;34mssh-GpckpWn3Pbf1[0m
+drwx------ 3 root    root       4096 Sep 16 21:19 [01;34msnap.snap-store[0m
+drwx------ 2 naveen  naveen     4096 Sep 16 21:23 [01;34mTemp-0207a5cd-3cb2-47df-8eb8-5c2db4ec482c[0m
+drwx------ 2 naveen  naveen     4096 Sep 16 21:23 [01;34mTemp-a0aa2095-d68f-4b03-ba61-5c47fd141867[0m
+srwxrwxr-x 1 naveen  naveen        0 Sep 16 21:55 [01;35mOSL_PIPE_1000_SingleOfficeIPC_fcbddd7753b0d313dad4f9a35f23cdef[0m
+drwxr-xr-x 2 naveen  naveen     4096 Sep 16 21:56 [01;34mhsperfdata_naveen[0m
+drwx------ 2 naveen  naveen     4096 Sep 16 22:11 [01;34mlu98865v7dac.tmp[0m
+drwx------ 2 naveen  naveen     4096 Sep 20 15:59 [01;34mtracker-extract-files.1000[0m
+drwx------ 3 root    root       4096 Sep 20 18:11 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-fwupd.service-FySOWi[0m
+]0;naveen@naveen-VirtualBox: /tmp[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/tmp[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ ls -lrt
+total 2097240
+-rw-r--r--   1 root root       1105 Jul 30 15:36 Release.key
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [0m[01;34msrv[0m
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [01;34mmnt[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:28 [01;34musr[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:35 [01;34mvar[0m
+drwx------   2 root root      16384 Aug  6 21:09 [01;34mlost+found[0m
+-rw-------   1 root root 2147483648 Aug  6 21:09 swapfile
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mbin[0m -> [01;34musr/bin[0m
+lrwxrwxrwx   1 root root         10 Aug  6 21:09 [01;36mlibx32[0m -> [01;34musr/libx32[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib64[0m -> [01;34musr/lib64[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib32[0m -> [01;34musr/lib32[0m
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mlib[0m -> [01;34musr/lib[0m
+lrwxrwxrwx   1 root root          8 Aug  6 21:09 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxrwxr-x   2 root root       4096 Aug  6 21:19 [01;34mcdrom[0m
+drwxr-xr-x   3 root root       4096 Aug  6 21:21 [01;34mhome[0m
+drwxr-xr-x   8 root root       4096 Aug  6 21:35 [01;34msnap[0m
+drwxr-xr-x   3 root root       4096 Aug  6 22:20 [01;34mmedia[0m
+-rw-r--r--   1 root root         37 Aug  9 19:53 1
+drwx------   6 root root       4096 Aug 30 13:42 [01;34mroot[0m
+drwxr-xr-x   6 root root       4096 Sep  5 22:15 [01;34mopt[0m
+drwxr-xr-x   4 root root       4096 Sep 12 17:35 [01;34mboot[0m
+dr-xr-xr-x  13 root root          0 Sep 16 20:37 [01;34msys[0m
+dr-xr-xr-x 240 root root          0 Sep 16 20:37 [01;34mproc[0m
+drwxr-xr-x  18 root root       4060 Sep 19 23:40 [01;34mdev[0m
+drwxr-xr-x 134 root root      12288 Sep 20 15:12 [01;34metc[0m
+drwxr-xr-x  36 root root       1060 Sep 20 15:48 [01;34mrun[0m
+drwxrwxrwt  29 root root       4096 Sep 20 18:47 [30;42mtmp[0m
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ cd .etc[K[K[K[K/etc
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ ls
+[0m[01;34macpi[0m                           [01;34mdbus-1[0m               host.conf        ltrace.conf          popularity-contest.conf  subuid
+adduser.conf                   [01;34mdconf[0m                hostid           machine-id           [01;34mppp[0m                      subuid-
+[01;34malsa[0m                           debconf.conf         hostname         magic                profile                  sudoers
+[01;34malternatives[0m                   debian_version       hosts            magic.mime           [01;34mprofile.d[0m                [01;34msudoers.d[0m
+anacrontab                     [01;34mdefault[0m              hosts.allow      mailcap              protocols                sysctl.conf
+[01;34mansible[0m                        deluser.conf         hosts.deny       mailcap.order        [01;34mpulse[0m                    [01;34msysctl.d[0m
+apg.conf                       [01;34mdepmod.d[0m             [01;34mhp[0m               manpath.config       [01;34mpython3[0m                  [01;34msystemd[0m
+[01;34mapm[0m                            [01;34mdhcp[0m                 [01;34mifplugd[0m          [01;34mmaven[0m                [01;34mpython3.8[0m                [01;34mterminfo[0m
+[01;34mapparmor[0m                       [01;34mdictionaries-common[0m  [01;34minit[0m             mime.types           [01;34mrc0.d[0m                    [01;34mthermald[0m
+[01;34mapparmor.d[0m                     [01;34mdpkg[0m                 [01;34minit.d[0m           mke2fs.conf          [01;34mrc1.d[0m                    [01;34mthunderbird[0m
+[01;34mapport[0m                         e2scrub.conf         [01;34minitramfs-tools[0m  [01;34mmodprobe.d[0m           [01;34mrc2.d[0m                    timezone
+appstream.conf                 [01;34memacs[0m                inputrc          modules              [01;34mrc3.d[0m                    [01;34mtmpfiles.d[0m
+[01;34mapt[0m                            environment          [01;34minsserv.conf.d[0m   [01;34mmodules-load.d[0m       [01;34mrc4.d[0m                    [01;34mubuntu-advantage[0m
+[01;34mavahi[0m                          [01;34menvironment.d[0m        [01;34miproute2[0m         [01;36mmtab[0m                 [01;34mrc5.d[0m                    ucf.conf
+bash.bashrc                    ethertypes           issue            mtools.conf          [01;34mrc6.d[0m                    [01;34mudev[0m
+bash_completion                [01;34mfirefox[0m              issue.net        [01;34mmysql[0m                [01;34mrcS.d[0m                    [01;34mudisks2[0m
+[01;34mbash_completion.d[0m              [01;34mfonts[0m                [01;34mjava-11-openjdk[0m  nanorc               [01;36mresolv.conf[0m              [01;34mufw[0m
+bindresvport.blacklist         fprintd.conf         [01;34mkernel[0m           [01;34mnetplan[0m              [01;36mrmt[0m                      [01;34mupdate-manager[0m
+[01;34mbinfmt.d[0m                       fstab                kernel-img.conf  [01;34mnetwork[0m              rpc                      [01;34mupdate-motd.d[0m
+[01;34mbluetooth[0m                      fuse.conf            kerneloops.conf  [01;34mnetworkd-dispatcher[0m  rsyslog.conf             [01;34mupdate-notifier[0m
+brlapi.key                     [01;34mfwupd[0m                [01;34mldap[0m             [01;34mNetworkManager[0m       [01;34mrsyslog.d[0m                [01;34mUPower[0m
+[01;34mbrltty[0m                         gai.conf             ld.so.cache      networks             rygel.conf               usb_modeswitch.conf
+brltty.conf                    gamemode.ini         ld.so.conf       [01;34mnewt[0m                 [01;34msane.d[0m                   [01;34musb_modeswitch.d[0m
+[01;34mca-certificates[0m                [01;34mgdb[0m                  [01;34mld.so.conf.d[0m     nsswitch.conf        [01;34msecurity[0m                 vdpau_wrapper.cfg
+ca-certificates.conf           [01;34mgdm3[0m                 legal            [01;34mopenvpn[0m              [01;34mselinux[0m                  [01;34mvim[0m
+ca-certificates.conf.dpkg-old  [01;34mgeoclue[0m              libao.conf       [01;34mopt[0m                  sensors3.conf            [01;34mvmware-tools[0m
+[01;34mcalendar[0m                       [01;34mghostscript[0m          libaudit.conf    [01;36mos-release[0m           [01;34msensors.d[0m                [01;36mvtrgb[0m
+[01;34mchatscripts[0m                    [01;34mglvnd[0m                [01;34mlibblockdev[0m      [01;34mPackageKit[0m           services                 [01;34mvulkan[0m
+[01;34mconsole-setup[0m                  [01;34mgnome[0m                [01;34mlibnl-3[0m          pam.conf             [01;34msgml[0m                     wgetrc
+[01;34mcracklib[0m                       [01;34mgroff[0m                [01;34mlibpaper.d[0m       [01;34mpam.d[0m                shadow                   [01;34mwpa_supplicant[0m
+[01;34mcron.d[0m                         group                [01;34mlibreoffice[0m      papersize            shadow-                  [01;34mX11[0m
+[01;34mcron.daily[0m                     group-               locale.alias     passwd               shells                   xattr.conf
+[01;34mcron.hourly[0m                    [01;34mgrub.d[0m               locale.gen       passwd-              [01;34mskel[0m                     [01;34mxdg[0m
+[01;34mcron.monthly[0m                   gshadow              [01;36mlocaltime[0m        [01;34mpcmcia[0m               [01;34msnmp[0m                     [01;34mxml[0m
+crontab                        gshadow-             [01;34mlogcheck[0m         [01;34mperl[0m                 [01;34mspeech-dispatcher[0m        zsh_command_not_found
+[01;34mcron.weekly[0m                    [01;34mgss[0m                  login.defs       [01;34mpki[0m                  [01;34mssh[0m
+[01;34mcups[0m                           [01;34mgtk-2.0[0m              logrotate.conf   [01;34mpm[0m                   [01;34mssl[0m
+[01;34mcupshelpers[0m                    [01;34mgtk-3.0[0m              [01;34mlogrotate.d[0m      pnm2ppa.conf         subgid
+daemon.conf                    hdparm.conf          lsb-release      [01;34mpolkit-1[0m             subgid-
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ cd /etc
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ ls
+[0m[01;34macpi[0m                           [01;34mdbus-1[0m               host.conf        ltrace.conf          popularity-contest.conf  subuid
+adduser.conf                   [01;34mdconf[0m                hostid           machine-id           [01;34mppp[0m                      subuid-
+[01;34malsa[0m                           debconf.conf         hostname         magic                profile                  sudoers
+[01;34malternatives[0m                   debian_version       hosts            magic.mime           [01;34mprofile.d[0m                [01;34msudoers.d[0m
+anacrontab                     [01;34mdefault[0m              hosts.allow      mailcap              protocols                sysctl.conf
+[01;34mansible[0m                        deluser.conf         hosts.deny       mailcap.order        [01;34mpulse[0m                    [01;34msysctl.d[0m
+apg.conf                       [01;34mdepmod.d[0m             [01;34mhp[0m               manpath.config       [01;34mpython3[0m                  [01;34msystemd[0m
+[01;34mapm[0m                            [01;34mdhcp[0m                 [01;34mifplugd[0m          [01;34mmaven[0m                [01;34mpython3.8[0m                [01;34mterminfo[0m
+[01;34mapparmor[0m                       [01;34mdictionaries-common[0m  [01;34minit[0m             mime.types           [01;34mrc0.d[0m                    [01;34mthermald[0m
+[01;34mapparmor.d[0m                     [01;34mdpkg[0m                 [01;34minit.d[0m           mke2fs.conf          [01;34mrc1.d[0m                    [01;34mthunderbird[0m
+[01;34mapport[0m                         e2scrub.conf         [01;34minitramfs-tools[0m  [01;34mmodprobe.d[0m           [01;34mrc2.d[0m                    timezone
+appstream.conf                 [01;34memacs[0m                inputrc          modules              [01;34mrc3.d[0m                    [01;34mtmpfiles.d[0m
+[01;34mapt[0m                            environment          [01;34minsserv.conf.d[0m   [01;34mmodules-load.d[0m       [01;34mrc4.d[0m                    [01;34mubuntu-advantage[0m
+[01;34mavahi[0m                          [01;34menvironment.d[0m        [01;34miproute2[0m         [01;36mmtab[0m                 [01;34mrc5.d[0m                    ucf.conf
+bash.bashrc                    ethertypes           issue            mtools.conf          [01;34mrc6.d[0m                    [01;34mudev[0m
+bash_completion                [01;34mfirefox[0m              issue.net        [01;34mmysql[0m                [01;34mrcS.d[0m                    [01;34mudisks2[0m
+[01;34mbash_completion.d[0m              [01;34mfonts[0m                [01;34mjava-11-openjdk[0m  nanorc               [01;36mresolv.conf[0m              [01;34mufw[0m
+bindresvport.blacklist         fprintd.conf         [01;34mkernel[0m           [01;34mnetplan[0m              [01;36mrmt[0m                      [01;34mupdate-manager[0m
+[01;34mbinfmt.d[0m                       fstab                kernel-img.conf  [01;34mnetwork[0m              rpc                      [01;34mupdate-motd.d[0m
+[01;34mbluetooth[0m                      fuse.conf            kerneloops.conf  [01;34mnetworkd-dispatcher[0m  rsyslog.conf             [01;34mupdate-notifier[0m
+brlapi.key                     [01;34mfwupd[0m                [01;34mldap[0m             [01;34mNetworkManager[0m       [01;34mrsyslog.d[0m                [01;34mUPower[0m
+[01;34mbrltty[0m                         gai.conf             ld.so.cache      networks             rygel.conf               usb_modeswitch.conf
+brltty.conf                    gamemode.ini         ld.so.conf       [01;34mnewt[0m                 [01;34msane.d[0m                   [01;34musb_modeswitch.d[0m
+[01;34mca-certificates[0m                [01;34mgdb[0m                  [01;34mld.so.conf.d[0m     nsswitch.conf        [01;34msecurity[0m                 vdpau_wrapper.cfg
+ca-certificates.conf           [01;34mgdm3[0m                 legal            [01;34mopenvpn[0m              [01;34mselinux[0m                  [01;34mvim[0m
+ca-certificates.conf.dpkg-old  [01;34mgeoclue[0m              libao.conf       [01;34mopt[0m                  sensors3.conf            [01;34mvmware-tools[0m
+[01;34mcalendar[0m                       [01;34mghostscript[0m          libaudit.conf    [01;36mos-release[0m           [01;34msensors.d[0m                [01;36mvtrgb[0m
+[01;34mchatscripts[0m                    [01;34mglvnd[0m                [01;34mlibblockdev[0m      [01;34mPackageKit[0m           services                 [01;34mvulkan[0m
+[01;34mconsole-setup[0m                  [01;34mgnome[0m                [01;34mlibnl-3[0m          pam.conf             [01;34msgml[0m                     wgetrc
+[01;34mcracklib[0m                       [01;34mgroff[0m                [01;34mlibpaper.d[0m       [01;34mpam.d[0m                shadow                   [01;34mwpa_supplicant[0m
+[01;34mcron.d[0m                         group                [01;34mlibreoffice[0m      papersize            shadow-                  [01;34mX11[0m
+[01;34mcron.daily[0m                     group-               locale.alias     passwd               shells                   xattr.conf
+[01;34mcron.hourly[0m                    [01;34mgrub.d[0m               locale.gen       passwd-              [01;34mskel[0m                     [01;34mxdg[0m
+[01;34mcron.monthly[0m                   gshadow              [01;36mlocaltime[0m        [01;34mpcmcia[0m               [01;34msnmp[0m                     [01;34mxml[0m
+crontab                        gshadow-             [01;34mlogcheck[0m         [01;34mperl[0m                 [01;34mspeech-dispatcher[0m        zsh_command_not_found
+[01;34mcron.weekly[0m                    [01;34mgss[0m                  login.defs       [01;34mpki[0m                  [01;34mssh[0m
+[01;34mcups[0m                           [01;34mgtk-2.0[0m              logrotate.conf   [01;34mpm[0m                   [01;34mssl[0m
+[01;34mcupshelpers[0m                    [01;34mgtk-3.0[0m              [01;34mlogrotate.d[0m      pnm2ppa.conf         subgid
+daemon.conf                    hdparm.conf          lsb-release      [01;34mpolkit-1[0m             subgid-
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ cd [K[K[Kls -lrt
+total 1136
+-rw-r--r--  1 root root     887 Apr  1  2013 rpc
+-rw-r--r--  1 root root    2932 Apr  1  2013 protocols
+-rw-r--r--  1 root root     280 Jun 20  2014 fuse.conf
+-rw-r--r--  1 root root     433 Oct  1  2017 apg.conf
+-rw-r--r--  1 root root    1308 Dec  1  2017 kerneloops.conf
+-rw-r--r--  1 root root      27 Jan 18  2018 libao.conf
+-rw-r--r--  1 root root     604 Sep 15  2018 deluser.conf
+-rw-r--r--  1 root root    1260 Dec 14  2018 ucf.conf
+-rw-r--r--  1 root root     533 Jan 21  2019 logrotate.conf
+-rw-r--r--  1 root root   14867 Feb  1  2019 ltrace.conf
+drwxr-xr-x  2 root root    4096 Jun 25  2019 [0m[01;34mlibpaper.d[0m
+-rw-r--r--  1 root root     401 Jul 16  2019 anacrontab
+-rw-r--r--  1 root root    4942 Jul 24  2019 wgetrc
+-rw-r--r--  1 root root    2969 Aug  3  2019 debconf.conf
+-rw-r--r--  1 root root    5060 Aug 21  2019 hdparm.conf
+-rw-r--r--  1 root root      51 Aug 28  2019 vdpau_wrapper.cfg
+-rw-r--r--  1 root root     141 Sep  5  2019 daemon.conf
+-rw-r--r--  1 root root     642 Sep 24  2019 xattr.conf
+-rw-r--r--  1 root root     477 Oct  7  2019 zsh_command_not_found
+-rw-r--r--  1 root root   24546 Oct 19  2019 mime.types
+-rw-r--r--  1 root root     449 Oct 19  2019 mailcap.order
+-rw-r--r--  1 root root   10593 Nov  6  2019 sensors3.conf
+-rw-r--r--  1 root root      91 Dec  5  2019 networks
+-rw-r--r--  1 root root     267 Dec  5  2019 legal
+-rw-r--r--  1 root root      92 Dec  5  2019 host.conf
+-rw-r--r--  1 root root      13 Dec  5  2019 debian_version
+-rw-r--r--  1 root root     552 Dec 17  2019 pam.conf
+-rw-r--r--  1 root root    1816 Dec 27  2019 ethertypes
+-rw-r--r--  1 root root     111 Jan 16  2020 magic.mime
+-rw-r--r--  1 root root     111 Jan 16  2020 magic
+-rw-r--r--  1 root root     769 Jan 18  2020 appstream.conf
+-rw-r--r--  1 root root      45 Jan 26  2020 bash_completion
+-rw-r--r--  1 root root    2584 Feb  1  2020 gai.conf
+-r--r-----  1 root root     755 Feb  3  2020 sudoers
+-rw-r--r--  1 root root   10037 Feb  7  2020 nanorc
+-rw-r--r--  1 root root   10550 Feb  7  2020 login.defs
+-rw-r--r--  1 root root    1523 Feb 10  2020 usb_modeswitch.conf
+-rw-r--r--  1 root root      20 Feb 10  2020 fprintd.conf
+-rw-r--r--  1 root root    1382 Feb 11  2020 rsyslog.conf
+-rw-r--r--  1 root root    1042 Feb 13  2020 crontab
+-rw-r--r--  1 root root    2351 Feb 13  2020 sysctl.conf
+-rw-r--r--  1 root root     808 Feb 14  2020 mke2fs.conf
+-rw-r--r--  1 root root     685 Feb 14  2020 e2scrub.conf
+-rw-r--r--  1 root root   14464 Feb 16  2020 services
+-rw-r--r--  1 root root     191 Feb 18  2020 libaudit.conf
+drwxr-xr-x  2 root root    4096 Feb 24  2020 [01;34musb_modeswitch.d[0m
+-rw-r--r--  1 root root    1748 Feb 25  2020 inputrc
+-rw-r--r--  1 root root    2319 Feb 25  2020 bash.bashrc
+-rw-r--r--  1 root root    5215 Feb 25  2020 manpath.config
+-rw-r--r--  1 root root   26916 Mar  3  2020 brltty.conf
+-rw-r--r--  1 root root    5211 Mar 11  2020 rygel.conf
+-rw-r--r--  1 root root     624 Mar 22 13:50 mtools.conf
+drwxr-xr-x  2 root root    4096 Apr  2 12:25 [01;34mupdate-notifier[0m
+-rw-r--r--  1 root root    2996 Apr 14 20:26 locale.alias
+-rw-r--r--  1 root root      34 Apr 14 20:26 ld.so.conf
+-rw-r--r--  1 root root     367 Apr 14 20:26 bindresvport.blacklist
+drwxr-xr-x  2 root root    4096 Apr 22 10:04 [01;34mtmpfiles.d[0m
+drwxr-xr-x  2 root root    4096 Apr 22 10:04 [01;34mbinfmt.d[0m
+-rw-r--r--  1 root root    4372 May 18 14:05 gamemode.ini
+-rw-r--r--  1 root root     104 Jul 15 09:59 lsb-release
+-rw-r--r--  1 root root      19 Jul 15 09:59 issue.net
+-rw-r--r--  1 root root      26 Jul 15 09:59 issue
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mopt[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mterminfo[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mselinux[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mld.so.conf.d[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34mdpkg[0m
+-rw-r--r--  1 root root     116 Jul 31 17:27 shells
+-rw-r--r--  1 root root    3028 Jul 31 17:27 adduser.conf
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34mdbus-1[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:27 [01;34mca-certificates[0m
+drwxr-xr-x  8 root root    4096 Jul 31 17:27 [01;34mnetworkd-dispatcher[0m
+-rw-r--r--  1 root root     195 Jul 31 17:27 modules
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mdepmod.d[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mcron.hourly[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34mssl[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mnewt[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34miproute2[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mvim[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34mdhcp[0m
+-rw-r--r--  1 root root    5713 Jul 31 17:27 ca-certificates.conf.dpkg-old
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mpython3[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mubuntu-advantage[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mskel[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34msysctl.d[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mpython3.8[0m
+-rw-r--r--  1 root root    5714 Jul 31 17:27 ca-certificates.conf
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34mudev[0m
+drwxr-xr-x  5 root root    4096 Jul 31 17:28 [01;34msystemd[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:28 [01;34mperl[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:28 [01;34mgss[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:28 [01;34malsa[0m
+drwxr-xr-x  5 root root    4096 Jul 31 17:28 [01;34mapm[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:28 [01;34mpolkit-1[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:29 [01;34mglvnd[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:29 [01;34memacs[0m
+drwxr-xr-x  5 root root    4096 Jul 31 17:29 [01;34mvulkan[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:29 [01;34mghostscript[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:29 [01;34mlogcheck[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:29 [01;34mpki[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:29 [01;34mlibblockdev[0m
+drwxr-xr-x  6 root root    4096 Jul 31 17:29 [01;34mxdg[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:29 [01;34mpm[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:29 [01;34mdconf[0m
+drwxr-xr-x  6 root root    4096 Jul 31 17:30 [01;34mnetwork[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:30 [01;34mifplugd[0m
+drwxr-xr-x  7 root root    4096 Jul 31 17:30 [01;34mbrltty[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:30 [01;34msecurity[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:30 [01;34mmysql[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mcron.monthly[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mgnome[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34msensors.d[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mldap[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:30 [01;34mapparmor[0m
+-rw-r--r--  1 root root     711 Jul 31 17:30 hosts.deny
+-rw-r--r--  1 root root     411 Jul 31 17:30 hosts.allow
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mbluetooth[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mcalendar[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mpcmcia[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mlibnl-3[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mgtk-2.0[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mthermald[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:31 [01;34mopenvpn[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mmodprobe.d[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34macpi[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mUPower[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:31 [01;34mfonts[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mcracklib[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mgdb[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mgroff[0m
+drwxr-xr-x  5 root root    4096 Jul 31 17:31 [01;34minitramfs-tools[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mrsyslog.d[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34mufw[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mwpa_supplicant[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34menvironment.d[0m
+-rw-r-----  1 root root      33 Jul 31 17:31 brlapi.key
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mudisks2[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:31 [01;34mspeech-dispatcher[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34mavahi[0m
+-rw-r--r--  1 root root    7649 Jul 31 17:31 pnm2ppa.conf
+-rw-r--r--  1 root root     542 Jul 31 17:31 nsswitch.conf
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mmodules-load.d[0m
+drwxr-xr-x  7 root root    4096 Jul 31 17:31 [01;34mNetworkManager[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mcupshelpers[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mhp[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34mupdate-manager[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mcron.weekly[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mlibreoffice[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mgeoclue[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mupdate-motd.d[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mPackageKit[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34mfwupd[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34mpulse[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mgtk-3.0[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mthunderbird[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34minsserv.conf.d[0m
+drwxr-xr-x 11 root root    4096 Jul 31 17:31 [01;34mX11[0m
+drwxr-xr-x  8 root root    4096 Jul 31 17:31 [01;34mgdm3[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34msgml[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mxml[0m
+-rw-r--r--  1 root root       4 Jul 31 17:33 hostid
+drwxr-xr-x  2 root root    4096 Jul 31 17:35 [01;34mgrub.d[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:35 [01;34mnetplan[0m
+-rw-rw-r--  1 root root     665 Aug  6 21:09 fstab
+lrwxrwxrwx  1 root root      21 Aug  6 21:09 [01;36mos-release[0m -> ../usr/lib/os-release
+lrwxrwxrwx  1 root root      13 Aug  6 21:09 [01;36mrmt[0m -> [01;32m/usr/sbin/rmt[0m
+lrwxrwxrwx  1 root root      23 Aug  6 21:09 [01;36mvtrgb[0m -> /etc/alternatives/vtrgb
+lrwxrwxrwx  1 root root      39 Aug  6 21:19 [01;36mresolv.conf[0m -> ../run/systemd/resolve/stub-resolv.conf
+-rw-r--r--  1 root root     232 Aug  6 21:19 hosts
+-rw-r--r--  1 root root      18 Aug  6 21:19 hostname
+-rw-r--r--  1 root root    9438 Aug  6 21:19 locale.gen
+drwxr-xr-x  2 root root    4096 Aug  6 21:21 [01;34mconsole-setup[0m
+-rw-r--r--  1 root root      14 Aug  6 21:21 timezone
+lrwxrwxrwx  1 root root      33 Aug  6 21:21 [01;36mlocaltime[0m -> /usr/share/zoneinfo/Europe/London
+lrwxrwxrwx  1 root root      19 Aug  6 21:22 [01;36mmtab[0m -> ../proc/self/mounts
+-rw-rw-r--  1 root root     350 Aug  6 21:22 popularity-contest.conf
+-rw-rw-r--  1 root root       3 Aug  6 21:22 papersize
+-rw-r--r--  1 root root     110 Aug  6 21:24 kernel-img.conf
+drwxr-xr-x  2 root root    4096 Aug  6 21:27 [01;34mdictionaries-common[0m
+drwxr-xr-x  2 root root    4096 Aug  6 21:27 [01;34msudoers.d[0m
+drwxr-xr-x  2 root root    4096 Aug  6 21:27 [01;34mcron.d[0m
+drwxr-xr-x  2 root root    4096 Aug  6 21:27 [01;34mrcS.d[0m
+drwxr-xr-x  4 root root    4096 Aug  6 21:29 [01;34mvmware-tools[0m
+-r--r--r--  1 root root      33 Aug  6 21:30 machine-id
+drwxr-xr-x  5 root root    4096 Aug  6 21:50 [01;34mjava-11-openjdk[0m
+-rw-r--r--  1 root root     143 Aug  6 22:07 environment
+drwxr-xr-x  3 root root    4096 Aug  6 22:08 [01;34mmaven[0m
+drwxr-xr-x  2 root root    4096 Aug  6 22:08 [01;34malternatives[0m
+drwxr-xr-x  7 root root    4096 Aug  6 22:21 [01;34mkernel[0m
+drwxr-xr-x  2 root root    4096 Aug  6 22:30 [01;34mprofile.d[0m
+drwxr-xr-x  2 root root    4096 Aug  6 22:39 [01;34mrc6.d[0m
+drwxr-xr-x  2 root root    4096 Aug  6 22:39 [01;34mrc1.d[0m
+drwxr-xr-x  2 root root    4096 Aug  6 22:39 [01;34mrc0.d[0m
+drwxr-xr-x  2 root root    4096 Aug  7 21:32 [01;34minit[0m
+drwxr-xr-x  4 root root    4096 Aug  7 21:35 [01;34mapport[0m
+drwxr-xr-x  2 root root    4096 Aug  7 21:35 [01;34mbash_completion.d[0m
+drwxr-xr-x  2 root root    4096 Aug  7 21:35 [01;34mcron.daily[0m
+drwxr-s---  2 root dip     4096 Aug  7 21:35 [01;34mchatscripts[0m
+drwxr-xr-x  2 root root    4096 Aug  7 21:35 [01;34mlogrotate.d[0m
+drwxr-xr-x  7 root dip     4096 Aug  7 21:35 [01;34mppp[0m
+drwxr-xr-x  7 root root    4096 Aug  9 16:14 [01;34mapt[0m
+-rw-r--r--  1 root root      45 Aug  9 16:18 subuid-
+-rw-r--r--  1 root root      45 Aug  9 16:18 subgid-
+-rw-r-----  1 root shadow   941 Aug  9 16:18 gshadow-
+-rw-r--r--  1 root root    1130 Aug  9 16:18 group-
+-rw-r--r--  1 root root    1111 Aug  9 19:53 group
+-rw-r-----  1 root shadow   925 Aug  9 19:53 gshadow
+-rw-r--r--  1 root root      20 Aug  9 19:53 subuid
+-rw-r--r--  1 root root      20 Aug  9 19:53 subgid
+drwxr-xr-x  3 root root    4096 Aug 24 21:36 [01;34msane.d[0m
+drwxr-xr-x  2 root root    4096 Aug 24 21:37 [01;34msnmp[0m
+-rw-r--r--  1 root root     667 Aug 30 16:44 profile
+drwxr-xr-x  7 root root    4096 Sep  5 21:22 [01;34mapparmor.d[0m
+drwxr-xr-x  3 root root    4096 Sep  5 21:22 [01;34mfirefox[0m
+-rw-r--r--  1 root root   42218 Sep  5 21:22 mailcap
+drwxr-xr-x  2 root root    4096 Sep 16 21:45 [01;34mansible[0m
+-rw-r--r--  1 root root   71601 Sep 19 21:36 ld.so.cache
+drwxr-xr-x  5 root lp      4096 Sep 20 14:25 [01;34mcups[0m
+drwxr-xr-x  3 root root    4096 Sep 20 15:12 [01;34mdefault[0m
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34minit.d[0m
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34mpam.d[0m
+-rw-r-----  1 root shadow  1565 Sep 20 15:12 shadow-
+-rw-r--r--  1 root root    2984 Sep 20 15:12 passwd-
+-rw-r--r--  1 root root    2984 Sep 20 15:12 passwd
+-rw-r-----  1 root shadow  1565 Sep 20 15:12 shadow
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34mrc5.d[0m
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34mrc4.d[0m
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34mrc3.d[0m
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34mrc2.d[0m
+drwxr-xr-x  4 root root    4096 Sep 20 15:12 [01;34mssh[0m
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ cd /tmp
+]0;naveen@naveen-VirtualBox: /tmp[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/tmp[00m$ ls
+config-err-U1U8yC
+[0m[01;34mhsperfdata_jenkins[0m
+[01;34mhsperfdata_naveen[0m
+[01;34mhsperfdata_root[0m
+[01;34mhsperfdata_tomcat[0m
+[01;34mjetty-0_0_0_0-8080-war-_-any-7219679396477090702.dir[0m
+[01;34mlu98865v7dac.tmp[0m
+[01;35mOSL_PIPE_1000_SingleOfficeIPC_fcbddd7753b0d313dad4f9a35f23cdef[0m
+[01;34msnap.snap-store[0m
+[01;34mssh-GpckpWn3Pbf1[0m
+[01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-colord.service-M4f34g[0m
+[01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-fwupd.service-FySOWi[0m
+[01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-ModemManager.service-7zCnui[0m
+[01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-switcheroo-control.service-0OW5ti[0m
+[01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-logind.service-zA21vf[0m
+[01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-resolved.service-hFFNEf[0m
+[01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-timesyncd.service-VRUZ1i[0m
+[01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-upower.service-BkJUgf[0m
+[01;34mTemp-0207a5cd-3cb2-47df-8eb8-5c2db4ec482c[0m
+[01;34mTemp-a0aa2095-d68f-4b03-ba61-5c47fd141867[0m
+[01;34mtracker-extract-files.1000[0m
+[01;34mtracker-extract-files.125[0m
+[01;34mtracker-extract-files.126[0m
+[30;42mVMwareDnD[0m
+[01;31mwinstone5540221064316322086.jar[0m
+]0;naveen@naveen-VirtualBox: /tmp[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/tmp[00m$ cd [K[K[Kls -lrt
+total 3156
+drwxrwxrwt 2 root    root       4096 Sep 16 20:38 [0m[30;42mVMwareDnD[0m
+drwx------ 3 root    root       4096 Sep 16 20:38 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-resolved.service-hFFNEf[0m
+drwx------ 3 root    root       4096 Sep 16 20:38 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-timesyncd.service-VRUZ1i[0m
+drwx------ 3 root    root       4096 Sep 16 21:04 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-switcheroo-control.service-0OW5ti[0m
+drwx------ 3 root    root       4096 Sep 16 21:04 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-logind.service-zA21vf[0m
+drwx------ 3 root    root       4096 Sep 16 21:04 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-ModemManager.service-7zCnui[0m
+drwxr-x--- 2 tomcat  tomcat     4096 Sep 16 21:04 [01;34mhsperfdata_tomcat[0m
+drwxr-xr-x 2 root    root       4096 Sep 16 21:04 [01;34mhsperfdata_root[0m
+drwxr-xr-x 2 jenkins jenkins    4096 Sep 16 21:04 [01;34mhsperfdata_jenkins[0m
+-rw-r--r-- 1 jenkins jenkins 3140871 Sep 16 21:04 [01;31mwinstone5540221064316322086.jar[0m
+drwx------ 3 root    root       4096 Sep 16 21:08 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-upower.service-BkJUgf[0m
+drwxr-xr-x 2 jenkins jenkins    4096 Sep 16 21:08 [01;34mjetty-0_0_0_0-8080-war-_-any-7219679396477090702.dir[0m
+drwx------ 2 jenkins jenkins    4096 Sep 16 21:08 [01;34mtracker-extract-files.126[0m
+drwx------ 2 gdm     gdm        4096 Sep 16 21:09 [01;34mtracker-extract-files.125[0m
+drwx------ 3 root    root       4096 Sep 16 21:10 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-colord.service-M4f34g[0m
+-rw------- 1 naveen  naveen        0 Sep 16 21:18 config-err-U1U8yC
+drwx------ 2 naveen  naveen     4096 Sep 16 21:19 [01;34mssh-GpckpWn3Pbf1[0m
+drwx------ 3 root    root       4096 Sep 16 21:19 [01;34msnap.snap-store[0m
+drwx------ 2 naveen  naveen     4096 Sep 16 21:23 [01;34mTemp-0207a5cd-3cb2-47df-8eb8-5c2db4ec482c[0m
+drwx------ 2 naveen  naveen     4096 Sep 16 21:23 [01;34mTemp-a0aa2095-d68f-4b03-ba61-5c47fd141867[0m
+srwxrwxr-x 1 naveen  naveen        0 Sep 16 21:55 [01;35mOSL_PIPE_1000_SingleOfficeIPC_fcbddd7753b0d313dad4f9a35f23cdef[0m
+drwxr-xr-x 2 naveen  naveen     4096 Sep 16 21:56 [01;34mhsperfdata_naveen[0m
+drwx------ 2 naveen  naveen     4096 Sep 16 22:11 [01;34mlu98865v7dac.tmp[0m
+drwx------ 2 naveen  naveen     4096 Sep 20 15:59 [01;34mtracker-extract-files.1000[0m
+drwx------ 3 root    root       4096 Sep 20 18:11 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-fwupd.service-FySOWi[0m
+]0;naveen@naveen-VirtualBox: /tmp[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/tmp[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ ls -lrt
+total 2097240
+-rw-r--r--   1 root root       1105 Jul 30 15:36 Release.key
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [0m[01;34msrv[0m
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [01;34mmnt[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:28 [01;34musr[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:35 [01;34mvar[0m
+drwx------   2 root root      16384 Aug  6 21:09 [01;34mlost+found[0m
+-rw-------   1 root root 2147483648 Aug  6 21:09 swapfile
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mbin[0m -> [01;34musr/bin[0m
+lrwxrwxrwx   1 root root         10 Aug  6 21:09 [01;36mlibx32[0m -> [01;34musr/libx32[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib64[0m -> [01;34musr/lib64[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib32[0m -> [01;34musr/lib32[0m
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mlib[0m -> [01;34musr/lib[0m
+lrwxrwxrwx   1 root root          8 Aug  6 21:09 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxrwxr-x   2 root root       4096 Aug  6 21:19 [01;34mcdrom[0m
+drwxr-xr-x   3 root root       4096 Aug  6 21:21 [01;34mhome[0m
+drwxr-xr-x   8 root root       4096 Aug  6 21:35 [01;34msnap[0m
+drwxr-xr-x   3 root root       4096 Aug  6 22:20 [01;34mmedia[0m
+-rw-r--r--   1 root root         37 Aug  9 19:53 1
+drwx------   6 root root       4096 Aug 30 13:42 [01;34mroot[0m
+drwxr-xr-x   6 root root       4096 Sep  5 22:15 [01;34mopt[0m
+drwxr-xr-x   4 root root       4096 Sep 12 17:35 [01;34mboot[0m
+dr-xr-xr-x  13 root root          0 Sep 16 20:37 [01;34msys[0m
+dr-xr-xr-x 258 root root          0 Sep 16 20:37 [01;34mproc[0m
+drwxr-xr-x  18 root root       4060 Sep 19 23:40 [01;34mdev[0m
+drwxr-xr-x 134 root root      12288 Sep 20 15:12 [01;34metc[0m
+drwxr-xr-x  36 root root       1060 Sep 20 15:48 [01;34mrun[0m
+drwxrwxrwt  29 root root       4096 Sep 20 18:51 [30;42mtmp[0m
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ cd /[K/var
+]0;naveen@naveen-VirtualBox: /var[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/var[00m$ ls
+[0m[01;34mbackups[0m  [01;34mcache[0m  [30;42mcrash[0m  [01;34mlib[0m  [01;34mlocal[0m  [01;36mlock[0m  [01;34mlog[0m  [01;34mmail[0m  [30;42mmetrics[0m  [01;34mopt[0m  [01;36mrun[0m  [01;34msnap[0m  [01;34mspool[0m  [30;42mtmp[0m
+]0;naveen@naveen-VirtualBox: /var[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/var[00m$ cd opt
+]0;naveen@naveen-VirtualBox: /var/opt[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/var/opt[00m$ ls -lrt
+total 4
+drwxr-xr-x 3 root root 4096 Aug  9 19:53 [0m[01;34mjfrog[0m
+]0;naveen@naveen-VirtualBox: /var/opt[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/var/opt[00m$ cd jfrog
+]0;naveen@naveen-VirtualBox: /var/opt/jfrog[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/var/opt/jfrog[00m$ ls -lrt
+total 4
+drwxr-xr-x 6 root root 4096 Aug  9 19:53 [0m[01;34martifactory.backup.20200809.195300[0m
+]0;naveen@naveen-VirtualBox: /var/opt/jfrog[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/var/opt/jfrog[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /var/opt[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/var/opt[00m$ ls -lrt
+total 4
+drwxr-xr-x 3 root root 4096 Aug  9 19:53 [0m[01;34mjfrog[0m
+]0;naveen@naveen-VirtualBox: /var/opt[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/var/opt[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /var[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/var[00m$ ls -lrt
+total 48
+drwxrwsr-x  2 root staff    4096 Apr 15 12:09 [0m[01;34mlocal[0m
+drwxrwsr-x  2 root mail     4096 Jul 31 17:27 [01;34mmail[0m
+drwxr-xr-x  7 root root     4096 Jul 31 17:30 [01;34mspool[0m
+drwxrwsrwt  2 root whoopsie 4096 Jul 31 17:31 [30;42mmetrics[0m
+lrwxrwxrwx  1 root root        4 Aug  6 21:17 [01;36mrun[0m -> [01;34m/run[0m
+lrwxrwxrwx  1 root root        9 Aug  6 21:17 [01;36mlock[0m -> [30;42m/run/lock[0m
+drwxr-xr-x  7 root root     4096 Aug  6 21:35 [01;34msnap[0m
+drwxr-xr-x 18 root root     4096 Aug  7 21:29 [01;34mcache[0m
+drwxr-xr-x  3 root root     4096 Aug  9 16:18 [01;34mopt[0m
+drwxrwsrwt  2 root whoopsie 4096 Aug 24 21:36 [30;42mcrash[0m
+drwxr-xr-x 69 root root     4096 Sep 16 21:44 [01;34mlib[0m
+drwxrwxr-x 14 root syslog   4096 Sep 20 14:25 [01;34mlog[0m
+drwxr-xr-x  2 root root     4096 Sep 20 18:32 [01;34mbackups[0m
+drwxrwxrwt 10 root root     4096 Sep 20 18:50 [30;42mtmp[0m
+]0;naveen@naveen-VirtualBox: /var[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/var[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ ls -lrt
+total 2097240
+-rw-r--r--   1 root root       1105 Jul 30 15:36 Release.key
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [0m[01;34msrv[0m
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [01;34mmnt[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:28 [01;34musr[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:35 [01;34mvar[0m
+drwx------   2 root root      16384 Aug  6 21:09 [01;34mlost+found[0m
+-rw-------   1 root root 2147483648 Aug  6 21:09 swapfile
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mbin[0m -> [01;34musr/bin[0m
+lrwxrwxrwx   1 root root         10 Aug  6 21:09 [01;36mlibx32[0m -> [01;34musr/libx32[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib64[0m -> [01;34musr/lib64[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib32[0m -> [01;34musr/lib32[0m
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mlib[0m -> [01;34musr/lib[0m
+lrwxrwxrwx   1 root root          8 Aug  6 21:09 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxrwxr-x   2 root root       4096 Aug  6 21:19 [01;34mcdrom[0m
+drwxr-xr-x   3 root root       4096 Aug  6 21:21 [01;34mhome[0m
+drwxr-xr-x   8 root root       4096 Aug  6 21:35 [01;34msnap[0m
+drwxr-xr-x   3 root root       4096 Aug  6 22:20 [01;34mmedia[0m
+-rw-r--r--   1 root root         37 Aug  9 19:53 1
+drwx------   6 root root       4096 Aug 30 13:42 [01;34mroot[0m
+drwxr-xr-x   6 root root       4096 Sep  5 22:15 [01;34mopt[0m
+drwxr-xr-x   4 root root       4096 Sep 12 17:35 [01;34mboot[0m
+dr-xr-xr-x  13 root root          0 Sep 16 20:37 [01;34msys[0m
+dr-xr-xr-x 258 root root          0 Sep 16 20:37 [01;34mproc[0m
+drwxr-xr-x  18 root root       4060 Sep 19 23:40 [01;34mdev[0m
+drwxr-xr-x 134 root root      12288 Sep 20 15:12 [01;34metc[0m
+drwxr-xr-x  36 root root       1060 Sep 20 15:48 [01;34mrun[0m
+drwxrwxrwt  29 root root       4096 Sep 20 18:52 [30;42mtmp[0m
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ cd /tmp
+]0;naveen@naveen-VirtualBox: /tmp[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/tmp[00m$ ls -lrt
+total 3156
+drwxrwxrwt 2 root    root       4096 Sep 16 20:38 [0m[30;42mVMwareDnD[0m
+drwx------ 3 root    root       4096 Sep 16 20:38 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-resolved.service-hFFNEf[0m
+drwx------ 3 root    root       4096 Sep 16 20:38 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-timesyncd.service-VRUZ1i[0m
+drwx------ 3 root    root       4096 Sep 16 21:04 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-switcheroo-control.service-0OW5ti[0m
+drwx------ 3 root    root       4096 Sep 16 21:04 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-systemd-logind.service-zA21vf[0m
+drwx------ 3 root    root       4096 Sep 16 21:04 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-ModemManager.service-7zCnui[0m
+drwxr-x--- 2 tomcat  tomcat     4096 Sep 16 21:04 [01;34mhsperfdata_tomcat[0m
+drwxr-xr-x 2 root    root       4096 Sep 16 21:04 [01;34mhsperfdata_root[0m
+drwxr-xr-x 2 jenkins jenkins    4096 Sep 16 21:04 [01;34mhsperfdata_jenkins[0m
+-rw-r--r-- 1 jenkins jenkins 3140871 Sep 16 21:04 [01;31mwinstone5540221064316322086.jar[0m
+drwx------ 3 root    root       4096 Sep 16 21:08 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-upower.service-BkJUgf[0m
+drwxr-xr-x 2 jenkins jenkins    4096 Sep 16 21:08 [01;34mjetty-0_0_0_0-8080-war-_-any-7219679396477090702.dir[0m
+drwx------ 2 jenkins jenkins    4096 Sep 16 21:08 [01;34mtracker-extract-files.126[0m
+drwx------ 2 gdm     gdm        4096 Sep 16 21:09 [01;34mtracker-extract-files.125[0m
+drwx------ 3 root    root       4096 Sep 16 21:10 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-colord.service-M4f34g[0m
+-rw------- 1 naveen  naveen        0 Sep 16 21:18 config-err-U1U8yC
+drwx------ 2 naveen  naveen     4096 Sep 16 21:19 [01;34mssh-GpckpWn3Pbf1[0m
+drwx------ 3 root    root       4096 Sep 16 21:19 [01;34msnap.snap-store[0m
+drwx------ 2 naveen  naveen     4096 Sep 16 21:23 [01;34mTemp-0207a5cd-3cb2-47df-8eb8-5c2db4ec482c[0m
+drwx------ 2 naveen  naveen     4096 Sep 16 21:23 [01;34mTemp-a0aa2095-d68f-4b03-ba61-5c47fd141867[0m
+srwxrwxr-x 1 naveen  naveen        0 Sep 16 21:55 [01;35mOSL_PIPE_1000_SingleOfficeIPC_fcbddd7753b0d313dad4f9a35f23cdef[0m
+drwxr-xr-x 2 naveen  naveen     4096 Sep 16 21:56 [01;34mhsperfdata_naveen[0m
+drwx------ 2 naveen  naveen     4096 Sep 16 22:11 [01;34mlu98865v7dac.tmp[0m
+drwx------ 2 naveen  naveen     4096 Sep 20 15:59 [01;34mtracker-extract-files.1000[0m
+drwx------ 3 root    root       4096 Sep 20 18:11 [01;34msystemd-private-7fa9bdebcacf4052af975c0f7184da35-fwupd.service-FySOWi[0m
+]0;naveen@naveen-VirtualBox: /tmp[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/tmp[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ ls -lrt
+total 2097240
+-rw-r--r--   1 root root       1105 Jul 30 15:36 Release.key
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [0m[01;34msrv[0m
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [01;34mmnt[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:28 [01;34musr[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:35 [01;34mvar[0m
+drwx------   2 root root      16384 Aug  6 21:09 [01;34mlost+found[0m
+-rw-------   1 root root 2147483648 Aug  6 21:09 swapfile
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mbin[0m -> [01;34musr/bin[0m
+lrwxrwxrwx   1 root root         10 Aug  6 21:09 [01;36mlibx32[0m -> [01;34musr/libx32[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib64[0m -> [01;34musr/lib64[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib32[0m -> [01;34musr/lib32[0m
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mlib[0m -> [01;34musr/lib[0m
+lrwxrwxrwx   1 root root          8 Aug  6 21:09 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxrwxr-x   2 root root       4096 Aug  6 21:19 [01;34mcdrom[0m
+drwxr-xr-x   3 root root       4096 Aug  6 21:21 [01;34mhome[0m
+drwxr-xr-x   8 root root       4096 Aug  6 21:35 [01;34msnap[0m
+drwxr-xr-x   3 root root       4096 Aug  6 22:20 [01;34mmedia[0m
+-rw-r--r--   1 root root         37 Aug  9 19:53 1
+drwx------   6 root root       4096 Aug 30 13:42 [01;34mroot[0m
+drwxr-xr-x   6 root root       4096 Sep  5 22:15 [01;34mopt[0m
+drwxr-xr-x   4 root root       4096 Sep 12 17:35 [01;34mboot[0m
+dr-xr-xr-x  13 root root          0 Sep 16 20:37 [01;34msys[0m
+dr-xr-xr-x 244 root root          0 Sep 16 20:37 [01;34mproc[0m
+drwxr-xr-x  18 root root       4060 Sep 19 23:40 [01;34mdev[0m
+drwxr-xr-x 134 root root      12288 Sep 20 15:12 [01;34metc[0m
+drwxr-xr-x  36 root root       1060 Sep 20 15:48 [01;34mrun[0m
+drwxrwxrwt  29 root root       4096 Sep 20 18:52 [30;42mtmp[0m
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ cd /etc
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ ;s =[K[K[K[Kls -lrt
+total 1136
+-rw-r--r--  1 root root     887 Apr  1  2013 rpc
+-rw-r--r--  1 root root    2932 Apr  1  2013 protocols
+-rw-r--r--  1 root root     280 Jun 20  2014 fuse.conf
+-rw-r--r--  1 root root     433 Oct  1  2017 apg.conf
+-rw-r--r--  1 root root    1308 Dec  1  2017 kerneloops.conf
+-rw-r--r--  1 root root      27 Jan 18  2018 libao.conf
+-rw-r--r--  1 root root     604 Sep 15  2018 deluser.conf
+-rw-r--r--  1 root root    1260 Dec 14  2018 ucf.conf
+-rw-r--r--  1 root root     533 Jan 21  2019 logrotate.conf
+-rw-r--r--  1 root root   14867 Feb  1  2019 ltrace.conf
+drwxr-xr-x  2 root root    4096 Jun 25  2019 [0m[01;34mlibpaper.d[0m
+-rw-r--r--  1 root root     401 Jul 16  2019 anacrontab
+-rw-r--r--  1 root root    4942 Jul 24  2019 wgetrc
+-rw-r--r--  1 root root    2969 Aug  3  2019 debconf.conf
+-rw-r--r--  1 root root    5060 Aug 21  2019 hdparm.conf
+-rw-r--r--  1 root root      51 Aug 28  2019 vdpau_wrapper.cfg
+-rw-r--r--  1 root root     141 Sep  5  2019 daemon.conf
+-rw-r--r--  1 root root     642 Sep 24  2019 xattr.conf
+-rw-r--r--  1 root root     477 Oct  7  2019 zsh_command_not_found
+-rw-r--r--  1 root root   24546 Oct 19  2019 mime.types
+-rw-r--r--  1 root root     449 Oct 19  2019 mailcap.order
+-rw-r--r--  1 root root   10593 Nov  6  2019 sensors3.conf
+-rw-r--r--  1 root root      91 Dec  5  2019 networks
+-rw-r--r--  1 root root     267 Dec  5  2019 legal
+-rw-r--r--  1 root root      92 Dec  5  2019 host.conf
+-rw-r--r--  1 root root      13 Dec  5  2019 debian_version
+-rw-r--r--  1 root root     552 Dec 17  2019 pam.conf
+-rw-r--r--  1 root root    1816 Dec 27  2019 ethertypes
+-rw-r--r--  1 root root     111 Jan 16  2020 magic.mime
+-rw-r--r--  1 root root     111 Jan 16  2020 magic
+-rw-r--r--  1 root root     769 Jan 18  2020 appstream.conf
+-rw-r--r--  1 root root      45 Jan 26  2020 bash_completion
+-rw-r--r--  1 root root    2584 Feb  1  2020 gai.conf
+-r--r-----  1 root root     755 Feb  3  2020 sudoers
+-rw-r--r--  1 root root   10037 Feb  7  2020 nanorc
+-rw-r--r--  1 root root   10550 Feb  7  2020 login.defs
+-rw-r--r--  1 root root    1523 Feb 10  2020 usb_modeswitch.conf
+-rw-r--r--  1 root root      20 Feb 10  2020 fprintd.conf
+-rw-r--r--  1 root root    1382 Feb 11  2020 rsyslog.conf
+-rw-r--r--  1 root root    1042 Feb 13  2020 crontab
+-rw-r--r--  1 root root    2351 Feb 13  2020 sysctl.conf
+-rw-r--r--  1 root root     808 Feb 14  2020 mke2fs.conf
+-rw-r--r--  1 root root     685 Feb 14  2020 e2scrub.conf
+-rw-r--r--  1 root root   14464 Feb 16  2020 services
+-rw-r--r--  1 root root     191 Feb 18  2020 libaudit.conf
+drwxr-xr-x  2 root root    4096 Feb 24  2020 [01;34musb_modeswitch.d[0m
+-rw-r--r--  1 root root    1748 Feb 25  2020 inputrc
+-rw-r--r--  1 root root    2319 Feb 25  2020 bash.bashrc
+-rw-r--r--  1 root root    5215 Feb 25  2020 manpath.config
+-rw-r--r--  1 root root   26916 Mar  3  2020 brltty.conf
+-rw-r--r--  1 root root    5211 Mar 11  2020 rygel.conf
+-rw-r--r--  1 root root     624 Mar 22 13:50 mtools.conf
+drwxr-xr-x  2 root root    4096 Apr  2 12:25 [01;34mupdate-notifier[0m
+-rw-r--r--  1 root root    2996 Apr 14 20:26 locale.alias
+-rw-r--r--  1 root root      34 Apr 14 20:26 ld.so.conf
+-rw-r--r--  1 root root     367 Apr 14 20:26 bindresvport.blacklist
+drwxr-xr-x  2 root root    4096 Apr 22 10:04 [01;34mtmpfiles.d[0m
+drwxr-xr-x  2 root root    4096 Apr 22 10:04 [01;34mbinfmt.d[0m
+-rw-r--r--  1 root root    4372 May 18 14:05 gamemode.ini
+-rw-r--r--  1 root root     104 Jul 15 09:59 lsb-release
+-rw-r--r--  1 root root      19 Jul 15 09:59 issue.net
+-rw-r--r--  1 root root      26 Jul 15 09:59 issue
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mopt[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mterminfo[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mselinux[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mld.so.conf.d[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34mdpkg[0m
+-rw-r--r--  1 root root     116 Jul 31 17:27 shells
+-rw-r--r--  1 root root    3028 Jul 31 17:27 adduser.conf
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34mdbus-1[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:27 [01;34mca-certificates[0m
+drwxr-xr-x  8 root root    4096 Jul 31 17:27 [01;34mnetworkd-dispatcher[0m
+-rw-r--r--  1 root root     195 Jul 31 17:27 modules
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mdepmod.d[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mcron.hourly[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34mssl[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mnewt[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34miproute2[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mvim[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34mdhcp[0m
+-rw-r--r--  1 root root    5713 Jul 31 17:27 ca-certificates.conf.dpkg-old
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mpython3[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mubuntu-advantage[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mskel[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34msysctl.d[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:27 [01;34mpython3.8[0m
+-rw-r--r--  1 root root    5714 Jul 31 17:27 ca-certificates.conf
+drwxr-xr-x  4 root root    4096 Jul 31 17:27 [01;34mudev[0m
+drwxr-xr-x  5 root root    4096 Jul 31 17:28 [01;34msystemd[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:28 [01;34mperl[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:28 [01;34mgss[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:28 [01;34malsa[0m
+drwxr-xr-x  5 root root    4096 Jul 31 17:28 [01;34mapm[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:28 [01;34mpolkit-1[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:29 [01;34mglvnd[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:29 [01;34memacs[0m
+drwxr-xr-x  5 root root    4096 Jul 31 17:29 [01;34mvulkan[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:29 [01;34mghostscript[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:29 [01;34mlogcheck[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:29 [01;34mpki[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:29 [01;34mlibblockdev[0m
+drwxr-xr-x  6 root root    4096 Jul 31 17:29 [01;34mxdg[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:29 [01;34mpm[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:29 [01;34mdconf[0m
+drwxr-xr-x  6 root root    4096 Jul 31 17:30 [01;34mnetwork[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:30 [01;34mifplugd[0m
+drwxr-xr-x  7 root root    4096 Jul 31 17:30 [01;34mbrltty[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:30 [01;34msecurity[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:30 [01;34mmysql[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mcron.monthly[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mgnome[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34msensors.d[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mldap[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:30 [01;34mapparmor[0m
+-rw-r--r--  1 root root     711 Jul 31 17:30 hosts.deny
+-rw-r--r--  1 root root     411 Jul 31 17:30 hosts.allow
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mbluetooth[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mcalendar[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mpcmcia[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mlibnl-3[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mgtk-2.0[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:30 [01;34mthermald[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:31 [01;34mopenvpn[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mmodprobe.d[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34macpi[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mUPower[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:31 [01;34mfonts[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mcracklib[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mgdb[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mgroff[0m
+drwxr-xr-x  5 root root    4096 Jul 31 17:31 [01;34minitramfs-tools[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mrsyslog.d[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34mufw[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mwpa_supplicant[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34menvironment.d[0m
+-rw-r-----  1 root root      33 Jul 31 17:31 brlapi.key
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mudisks2[0m
+drwxr-xr-x  4 root root    4096 Jul 31 17:31 [01;34mspeech-dispatcher[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34mavahi[0m
+-rw-r--r--  1 root root    7649 Jul 31 17:31 pnm2ppa.conf
+-rw-r--r--  1 root root     542 Jul 31 17:31 nsswitch.conf
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mmodules-load.d[0m
+drwxr-xr-x  7 root root    4096 Jul 31 17:31 [01;34mNetworkManager[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mcupshelpers[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mhp[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34mupdate-manager[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mcron.weekly[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mlibreoffice[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mgeoclue[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mupdate-motd.d[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mPackageKit[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34mfwupd[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34mpulse[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mgtk-3.0[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mthunderbird[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34minsserv.conf.d[0m
+drwxr-xr-x 11 root root    4096 Jul 31 17:31 [01;34mX11[0m
+drwxr-xr-x  8 root root    4096 Jul 31 17:31 [01;34mgdm3[0m
+drwxr-xr-x  3 root root    4096 Jul 31 17:31 [01;34msgml[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:31 [01;34mxml[0m
+-rw-r--r--  1 root root       4 Jul 31 17:33 hostid
+drwxr-xr-x  2 root root    4096 Jul 31 17:35 [01;34mgrub.d[0m
+drwxr-xr-x  2 root root    4096 Jul 31 17:35 [01;34mnetplan[0m
+-rw-rw-r--  1 root root     665 Aug  6 21:09 fstab
+lrwxrwxrwx  1 root root      21 Aug  6 21:09 [01;36mos-release[0m -> ../usr/lib/os-release
+lrwxrwxrwx  1 root root      13 Aug  6 21:09 [01;36mrmt[0m -> [01;32m/usr/sbin/rmt[0m
+lrwxrwxrwx  1 root root      23 Aug  6 21:09 [01;36mvtrgb[0m -> /etc/alternatives/vtrgb
+lrwxrwxrwx  1 root root      39 Aug  6 21:19 [01;36mresolv.conf[0m -> ../run/systemd/resolve/stub-resolv.conf
+-rw-r--r--  1 root root     232 Aug  6 21:19 hosts
+-rw-r--r--  1 root root      18 Aug  6 21:19 hostname
+-rw-r--r--  1 root root    9438 Aug  6 21:19 locale.gen
+drwxr-xr-x  2 root root    4096 Aug  6 21:21 [01;34mconsole-setup[0m
+-rw-r--r--  1 root root      14 Aug  6 21:21 timezone
+lrwxrwxrwx  1 root root      33 Aug  6 21:21 [01;36mlocaltime[0m -> /usr/share/zoneinfo/Europe/London
+lrwxrwxrwx  1 root root      19 Aug  6 21:22 [01;36mmtab[0m -> ../proc/self/mounts
+-rw-rw-r--  1 root root     350 Aug  6 21:22 popularity-contest.conf
+-rw-rw-r--  1 root root       3 Aug  6 21:22 papersize
+-rw-r--r--  1 root root     110 Aug  6 21:24 kernel-img.conf
+drwxr-xr-x  2 root root    4096 Aug  6 21:27 [01;34mdictionaries-common[0m
+drwxr-xr-x  2 root root    4096 Aug  6 21:27 [01;34msudoers.d[0m
+drwxr-xr-x  2 root root    4096 Aug  6 21:27 [01;34mcron.d[0m
+drwxr-xr-x  2 root root    4096 Aug  6 21:27 [01;34mrcS.d[0m
+drwxr-xr-x  4 root root    4096 Aug  6 21:29 [01;34mvmware-tools[0m
+-r--r--r--  1 root root      33 Aug  6 21:30 machine-id
+drwxr-xr-x  5 root root    4096 Aug  6 21:50 [01;34mjava-11-openjdk[0m
+-rw-r--r--  1 root root     143 Aug  6 22:07 environment
+drwxr-xr-x  3 root root    4096 Aug  6 22:08 [01;34mmaven[0m
+drwxr-xr-x  2 root root    4096 Aug  6 22:08 [01;34malternatives[0m
+drwxr-xr-x  7 root root    4096 Aug  6 22:21 [01;34mkernel[0m
+drwxr-xr-x  2 root root    4096 Aug  6 22:30 [01;34mprofile.d[0m
+drwxr-xr-x  2 root root    4096 Aug  6 22:39 [01;34mrc6.d[0m
+drwxr-xr-x  2 root root    4096 Aug  6 22:39 [01;34mrc1.d[0m
+drwxr-xr-x  2 root root    4096 Aug  6 22:39 [01;34mrc0.d[0m
+drwxr-xr-x  2 root root    4096 Aug  7 21:32 [01;34minit[0m
+drwxr-xr-x  4 root root    4096 Aug  7 21:35 [01;34mapport[0m
+drwxr-xr-x  2 root root    4096 Aug  7 21:35 [01;34mbash_completion.d[0m
+drwxr-xr-x  2 root root    4096 Aug  7 21:35 [01;34mcron.daily[0m
+drwxr-s---  2 root dip     4096 Aug  7 21:35 [01;34mchatscripts[0m
+drwxr-xr-x  2 root root    4096 Aug  7 21:35 [01;34mlogrotate.d[0m
+drwxr-xr-x  7 root dip     4096 Aug  7 21:35 [01;34mppp[0m
+drwxr-xr-x  7 root root    4096 Aug  9 16:14 [01;34mapt[0m
+-rw-r--r--  1 root root      45 Aug  9 16:18 subuid-
+-rw-r--r--  1 root root      45 Aug  9 16:18 subgid-
+-rw-r-----  1 root shadow   941 Aug  9 16:18 gshadow-
+-rw-r--r--  1 root root    1130 Aug  9 16:18 group-
+-rw-r--r--  1 root root    1111 Aug  9 19:53 group
+-rw-r-----  1 root shadow   925 Aug  9 19:53 gshadow
+-rw-r--r--  1 root root      20 Aug  9 19:53 subuid
+-rw-r--r--  1 root root      20 Aug  9 19:53 subgid
+drwxr-xr-x  3 root root    4096 Aug 24 21:36 [01;34msane.d[0m
+drwxr-xr-x  2 root root    4096 Aug 24 21:37 [01;34msnmp[0m
+-rw-r--r--  1 root root     667 Aug 30 16:44 profile
+drwxr-xr-x  7 root root    4096 Sep  5 21:22 [01;34mapparmor.d[0m
+drwxr-xr-x  3 root root    4096 Sep  5 21:22 [01;34mfirefox[0m
+-rw-r--r--  1 root root   42218 Sep  5 21:22 mailcap
+drwxr-xr-x  2 root root    4096 Sep 16 21:45 [01;34mansible[0m
+-rw-r--r--  1 root root   71601 Sep 19 21:36 ld.so.cache
+drwxr-xr-x  5 root lp      4096 Sep 20 14:25 [01;34mcups[0m
+drwxr-xr-x  3 root root    4096 Sep 20 15:12 [01;34mdefault[0m
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34minit.d[0m
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34mpam.d[0m
+-rw-r-----  1 root shadow  1565 Sep 20 15:12 shadow-
+-rw-r--r--  1 root root    2984 Sep 20 15:12 passwd-
+-rw-r--r--  1 root root    2984 Sep 20 15:12 passwd
+-rw-r-----  1 root shadow  1565 Sep 20 15:12 shadow
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34mrc5.d[0m
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34mrc4.d[0m
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34mrc3.d[0m
+drwxr-xr-x  2 root root    4096 Sep 20 15:12 [01;34mrc2.d[0m
+drwxr-xr-x  4 root root    4096 Sep 20 15:12 [01;34mssh[0m
+]0;naveen@naveen-VirtualBox: /etc[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/etc[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ ls -lrt
+total 2097240
+-rw-r--r--   1 root root       1105 Jul 30 15:36 Release.key
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [0m[01;34msrv[0m
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [01;34mmnt[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:28 [01;34musr[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:35 [01;34mvar[0m
+drwx------   2 root root      16384 Aug  6 21:09 [01;34mlost+found[0m
+-rw-------   1 root root 2147483648 Aug  6 21:09 swapfile
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mbin[0m -> [01;34musr/bin[0m
+lrwxrwxrwx   1 root root         10 Aug  6 21:09 [01;36mlibx32[0m -> [01;34musr/libx32[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib64[0m -> [01;34musr/lib64[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib32[0m -> [01;34musr/lib32[0m
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mlib[0m -> [01;34musr/lib[0m
+lrwxrwxrwx   1 root root          8 Aug  6 21:09 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxrwxr-x   2 root root       4096 Aug  6 21:19 [01;34mcdrom[0m
+drwxr-xr-x   3 root root       4096 Aug  6 21:21 [01;34mhome[0m
+drwxr-xr-x   8 root root       4096 Aug  6 21:35 [01;34msnap[0m
+drwxr-xr-x   3 root root       4096 Aug  6 22:20 [01;34mmedia[0m
+-rw-r--r--   1 root root         37 Aug  9 19:53 1
+drwx------   6 root root       4096 Aug 30 13:42 [01;34mroot[0m
+drwxr-xr-x   6 root root       4096 Sep  5 22:15 [01;34mopt[0m
+drwxr-xr-x   4 root root       4096 Sep 12 17:35 [01;34mboot[0m
+dr-xr-xr-x  13 root root          0 Sep 16 20:37 [01;34msys[0m
+dr-xr-xr-x 244 root root          0 Sep 16 20:37 [01;34mproc[0m
+drwxr-xr-x  18 root root       4060 Sep 19 23:40 [01;34mdev[0m
+drwxr-xr-x 134 root root      12288 Sep 20 15:12 [01;34metc[0m
+drwxr-xr-x  36 root root       1060 Sep 20 15:48 [01;34mrun[0m
+drwxrwxrwt  29 root root       4096 Sep 20 18:53 [30;42mtmp[0m
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ cd /usr
+]0;naveen@naveen-VirtualBox: /usr[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/usr[00m$ ls -lrt
+total 108
+drwxr-xr-x   2 root root  4096 Jul 31 17:27 [0m[01;34mlibx32[0m
+drwxr-xr-x   2 root root  4096 Jul 31 17:27 [01;34mlib32[0m
+drwxr-xr-x  10 root root  4096 Jul 31 17:27 [01;34mlocal[0m
+drwxr-xr-x   2 root root  4096 Jul 31 17:27 [01;34mlib64[0m
+drwxr-xr-x   2 root root  4096 Jul 31 17:29 [01;34mgames[0m
+drwxr-xr-x  12 root root  4096 Aug  6 22:07 [01;34minclude[0m
+drwxr-xr-x  12 root root  4096 Aug 18 14:16 [01;34mlibexec[0m
+drwxr-xr-x   8 root root  4096 Sep 12 17:31 [01;34msrc[0m
+drwxr-xr-x 118 root root  4096 Sep 20 15:12 [01;34mlib[0m
+drwxr-xr-x 257 root root 12288 Sep 20 15:12 [01;34mshare[0m
+drwxr-xr-x   2 root root 20480 Sep 20 15:12 [01;34msbin[0m
+drwxr-xr-x   2 root root 40960 Sep 20 15:30 [01;34mbin[0m
+]0;naveen@naveen-VirtualBox: /usr[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/usr[00m$ pwd
+/usr
+]0;naveen@naveen-VirtualBox: /usr[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/usr[00m$ cd src
+]0;naveen@naveen-VirtualBox: /usr/src[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/usr/src[00m$ ls -lrt
+total 24
+drwxr-xr-x 24 root root 4096 Jul 31 17:30 [0m[01;34mlinux-headers-5.4.0-42[0m
+drwxr-xr-x  7 root root 4096 Jul 31 17:30 [01;34mlinux-headers-5.4.0-42-generic[0m
+drwxr-xr-x 24 root root 4096 Sep  2 20:38 [01;34mlinux-headers-5.4.0-45[0m
+drwxr-xr-x  7 root root 4096 Sep  2 20:39 [01;34mlinux-headers-5.4.0-45-generic[0m
+drwxr-xr-x 24 root root 4096 Sep 12 17:30 [01;34mlinux-headers-5.4.0-47[0m
+drwxr-xr-x  7 root root 4096 Sep 12 17:31 [01;34mlinux-headers-5.4.0-47-generic[0m
+]0;naveen@naveen-VirtualBox: /usr/src[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/usr/src[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /usr[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/usr[00m$ cd ..
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ ls -lrt
+total 2097240
+-rw-r--r--   1 root root       1105 Jul 30 15:36 Release.key
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [0m[01;34msrv[0m
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [01;34mmnt[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:28 [01;34musr[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:35 [01;34mvar[0m
+drwx------   2 root root      16384 Aug  6 21:09 [01;34mlost+found[0m
+-rw-------   1 root root 2147483648 Aug  6 21:09 swapfile
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mbin[0m -> [01;34musr/bin[0m
+lrwxrwxrwx   1 root root         10 Aug  6 21:09 [01;36mlibx32[0m -> [01;34musr/libx32[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib64[0m -> [01;34musr/lib64[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib32[0m -> [01;34musr/lib32[0m
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mlib[0m -> [01;34musr/lib[0m
+lrwxrwxrwx   1 root root          8 Aug  6 21:09 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxrwxr-x   2 root root       4096 Aug  6 21:19 [01;34mcdrom[0m
+drwxr-xr-x   3 root root       4096 Aug  6 21:21 [01;34mhome[0m
+drwxr-xr-x   8 root root       4096 Aug  6 21:35 [01;34msnap[0m
+drwxr-xr-x   3 root root       4096 Aug  6 22:20 [01;34mmedia[0m
+-rw-r--r--   1 root root         37 Aug  9 19:53 1
+drwx------   6 root root       4096 Aug 30 13:42 [01;34mroot[0m
+drwxr-xr-x   6 root root       4096 Sep  5 22:15 [01;34mopt[0m
+drwxr-xr-x   4 root root       4096 Sep 12 17:35 [01;34mboot[0m
+dr-xr-xr-x  13 root root          0 Sep 16 20:37 [01;34msys[0m
+dr-xr-xr-x 241 root root          0 Sep 16 20:37 [01;34mproc[0m
+drwxr-xr-x  18 root root       4060 Sep 19 23:40 [01;34mdev[0m
+drwxr-xr-x 134 root root      12288 Sep 20 15:12 [01;34metc[0m
+drwxr-xr-x  36 root root       1060 Sep 20 15:48 [01;34mrun[0m
+drwxrwxrwt  29 root root       4096 Sep 20 18:55 [30;42mtmp[0m
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ whomai
+
+Command 'whomai' not found, did you mean:
+
+  command 'whoami' from deb coreutils (8.30-3ubuntu2)
+
+Try: sudo apt install <deb name>
+
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ ^C
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ whoami
+naveen
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ pwd
+/
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ cd /[K[K[K[Kls -lrt
+total 2097240
+-rw-r--r--   1 root root       1105 Jul 30 15:36 Release.key
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [0m[01;34msrv[0m
+drwxr-xr-x   2 root root       4096 Jul 31 17:27 [01;34mmnt[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:28 [01;34musr[0m
+drwxr-xr-x  14 root root       4096 Jul 31 17:35 [01;34mvar[0m
+drwx------   2 root root      16384 Aug  6 21:09 [01;34mlost+found[0m
+-rw-------   1 root root 2147483648 Aug  6 21:09 swapfile
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mbin[0m -> [01;34musr/bin[0m
+lrwxrwxrwx   1 root root         10 Aug  6 21:09 [01;36mlibx32[0m -> [01;34musr/libx32[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib64[0m -> [01;34musr/lib64[0m
+lrwxrwxrwx   1 root root          9 Aug  6 21:09 [01;36mlib32[0m -> [01;34musr/lib32[0m
+lrwxrwxrwx   1 root root          7 Aug  6 21:09 [01;36mlib[0m -> [01;34musr/lib[0m
+lrwxrwxrwx   1 root root          8 Aug  6 21:09 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxrwxr-x   2 root root       4096 Aug  6 21:19 [01;34mcdrom[0m
+drwxr-xr-x   3 root root       4096 Aug  6 21:21 [01;34mhome[0m
+drwxr-xr-x   8 root root       4096 Aug  6 21:35 [01;34msnap[0m
+drwxr-xr-x   3 root root       4096 Aug  6 22:20 [01;34mmedia[0m
+-rw-r--r--   1 root root         37 Aug  9 19:53 1
+drwx------   6 root root       4096 Aug 30 13:42 [01;34mroot[0m
+drwxr-xr-x   6 root root       4096 Sep  5 22:15 [01;34mopt[0m
+drwxr-xr-x   4 root root       4096 Sep 12 17:35 [01;34mboot[0m
+dr-xr-xr-x  13 root root          0 Sep 16 20:37 [01;34msys[0m
+dr-xr-xr-x 241 root root          0 Sep 16 20:37 [01;34mproc[0m
+drwxr-xr-x  18 root root       4060 Sep 19 23:40 [01;34mdev[0m
+drwxr-xr-x 134 root root      12288 Sep 20 15:12 [01;34metc[0m
+drwxr-xr-x  36 root root       1060 Sep 20 15:48 [01;34mrun[0m
+drwxrwxrwt  29 root root       4096 Sep 20 18:56 [30;42mtmp[0m
+]0;naveen@naveen-VirtualBox: /[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/[00m$ cd /hp[Kome
+]0;naveen@naveen-VirtualBox: /home[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/home[00m$ ls -lrt
+total 4
+drwxr-xr-x 22 naveen naveen 4096 Sep 20 18:31 [0m[01;34mnaveen[0m
+]0;naveen@naveen-VirtualBox: /home[01;32mnaveen@naveen-VirtualBox[00m:[01;34m/home[00m$ cd naveen/
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ ls
+[0m[01;34mansilab[0m  [01;34mDesktop[0m  [01;34mDocuments[0m  [01;34mDownloads[0m  [01;34mgit_workspace[0m  mozilla.pdf  [01;34mMusic[0m  [01;34mPictures[0m  [01;34mPublic[0m  [01;34mresource[0m  [01;34msnap[0m  [01;34mTemplates[0m  [01;34mVideos[0m
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ cd Doe[Kwnloads/
+]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ ls
+'Configurations_DevOpsILP2 [Jenkins].pdf'  'console output_DevOpsILP2 [Jenkins].pdf'    'Global Tool Configuration [Jenkins].pdf'
+'Configurations [Jenkins].pdf'             'console output[Jenkins].pdf'                'Project_DevOpsILP2 [Jenkins].pdf'
+'configure_DevOpsILP2 [Jenkins].pdf'       [0m[01;34m'Global Tool Configuration [Jenkins]_files'[0m
+'configure[Jenkins].pdf'                   'Global Tool Configuration [Jenkins].html'
+]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ [K]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ [K]0;naveen@naveen-VirtualBox: ~/Downloads[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/Downloads[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ pwd
+/home/naveen
+]0;naveen@naveen-VirtualBox: ~[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~[00m$ cd ansilab/
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible1.txt  ansible.cfg  ansible.log  ansiserver
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gefd[K[Kdit echo.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat echo.yaml 
+---
+  - hosts: localhost
+    tasks:
+    - name: Use echo command
+      command: 'echo "Hello world"'
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible-playbook -c[Kv echo.yaml
+[0;34mUsing /home/naveen/ansilab/ansible.cfg as config file[0m
+[0;34m[0m
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+TASK [Use echo command] ********************************************************
+[0;33mchanged: [localhost] => {"changed": true, "cmd": ["echo", "Hello world"], "delta": "0:00:01.015560", "end": "2020-09-20 19:25:00.520898", "rc": 0, "start": "2020-09-20 19:24:59.505338", "stderr": "", "stderr_lines": [], "stdout": "Hello world", "stdout_lines": ["Hello world"]}[0m
+[0;33m[0m
+PLAY RECAP *********************************************************************
+[0;33mlocalhost[0m                  : [0;32mok=2   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit hostname.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit hostname.yamlansible-playbook -v echo.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yamlh.yamlo.yamls.yamlt.yamln.yamla.yamlm.yamle.yaml
+[0;34mUsing /home/naveen/ansilab/ansible.cfg as config file[0m
+[0;34m[0m
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+TASK [Use hostname command] ****************************************************
+[0;33mchanged: [localhost] => {"changed": true, "cmd": ["hostname"], "delta": "0:00:00.059903", "end": "2020-09-20 19:36:41.509214", "rc": 0, "start": "2020-09-20 19:36:41.449311", "stderr": "", "stderr_lines": [], "stdout": "naveen-VirtualBox", "stdout_lines": ["naveen-VirtualBox"]}[0m
+[0;33m[0m
+PLAY RECAP *********************************************************************
+[0;33mlocalhost[0m                  : [0;32mok=2   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit resolv.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat resolv.yaml 
+- hosts: localhost
+  tasks:
+  - name: Use shell command
+    shell: cat /etc/resolv.conf
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat resolv.yaml gedit resolv.yamlansible-playbook -v hostname.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yamlr.yamle.yamls.yamlo.yamll.yamlv.yaml
+[0;34mUsing /home/naveen/ansilab/ansible.cfg as config file[0m
+[0;34m[0m
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+TASK [Use shell command] *******************************************************
+[0;33mchanged: [localhost] => {"changed": true, "cmd": "cat /etc/resolv.conf", "delta": "0:00:00.006291", "end": "2020-09-20 19:41:26.528705", "rc": 0, "start": "2020-09-20 19:41:26.522414", "stderr": "", "stderr_lines": [], "stdout": "# This file is managed by man:systemd-resolved(8). Do not edit.\n#\n# This is a dynamic resolv.conf file for connecting local clients to the\n# internal DNS stub resolver of systemd-resolved. This file lists all\n# configured search domains.\n#\n# Run \"resolvectl status\" to see details about the uplink DNS servers\n# currently in use.\n#\n# Third party programs must not access this file directly, but only through the\n# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,\n# replace this symlink by a static file or a different symlink.\n#\n# See man:systemd-resolved.service(8) for details about the supported modes of\n# operation for /etc/resolv.conf.\n\nnameserver 127.0.0.53\noptions edns0\nsearch lan", "stdout_lines": ["# This file is managed by man:systemd-resolved(8). Do not edit.", "#", "# This is a dynamic resolv.conf file for connecting local clients to the", "# internal DNS stub resolver of systemd-resolved. This file lists all", "# configured search domains.", "#", "# Run \"resolvectl status\" to see details about the uplink DNS servers", "# currently in use.", "#", "# Third party programs must not access this file directly, but only through the", "# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,", "# replace this symlink by a static file or a different symlink.", "#", "# See man:systemd-resolved.service(8) for details about the supported modes of", "# operation for /etc/resolv.conf.", "", "nameserver 127.0.0.53", "options edns0", "search lan"]}[0m
+[0;33m[0m
+PLAY RECAP *********************************************************************
+[0;33mlocalhost[0m                  : [0;32mok=2   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible-playbook -v resolv.yaml[C[1Presolv.yaml[1Presolv.yaml[1Presolv.yaml
+
+PLAY [localhost] *****************************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+TASK [Use shell command] *********************************************************************************************************************
+[0;33mchanged: [localhost][0m
+[0;33m[0m
+PLAY RECAP ***********************************************************************************************************************************
+[0;33mlocalhost[0m                  : [0;32mok=2   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible-playbook resolv.yaml-v resolv.yaml
+[0;34mUsing /home/naveen/ansilab/ansible.cfg as config file[0m
+[0;34m[0m
+PLAY [localhost] *****************************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+TASK [Use shell command] *********************************************************************************************************************
+[0;33mchanged: [localhost] => {"changed": true, "cmd": "cat /etc/resolv.conf", "delta": "0:00:00.009701", "end": "2020-09-20 19:42:48.388881", "rc": 0, "start": "2020-09-20 19:42:48.379180", "stderr": "", "stderr_lines": [], "stdout": "# This file is managed by man:systemd-resolved(8). Do not edit.\n#\n# This is a dynamic resolv.conf file for connecting local clients to the\n# internal DNS stub resolver of systemd-resolved. This file lists all\n# configured search domains.\n#\n# Run \"resolvectl status\" to see details about the uplink DNS servers\n# currently in use.\n#\n# Third party programs must not access this file directly, but only through the\n# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,\n# replace this symlink by a static file or a different symlink.\n#\n# See man:systemd-resolved.service(8) for details about the supported modes of\n# operation for /etc/resolv.conf.\n\nnameserver 127.0.0.53\noptions edns0\nsearch lan", "stdout_lines": ["# This file is managed by man:systemd-resolved(8). Do not edit.", "#", "# This is a dynamic resolv.conf file for connecting local clients to the", "# internal DNS stub resolver of systemd-resolved. This file lists all", "# configured search domains.", "#", "# Run \"resolvectl status\" to see details about the uplink DNS servers", "# currently in use.", "#", "# Third party programs must not access this file directly, but only through the", "# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,", "# replace this symlink by a static file or a different symlink.", "#", "# See man:systemd-resolved.service(8) for details about the supported modes of", "# operation for /etc/resolv.conf.", "", "nameserver 127.0.0.53", "options edns0", "search lan"]}[0m
+[0;33m[0m
+PLAY RECAP ***********************************************************************************************************************************
+[0;33mlocalhost[0m                  : [0;32mok=2   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [K]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit file.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit file.yamlansible-playbook -v resolv.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yamlf.yamli.yamll.yamle.yaml
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+TASK [To create a folder] ******************************************************
+[0;33mchanged: [localhost][0m
+[0;33m[0m
+TASK [To create a file] ********************************************************
+[0;33mchanged: [localhost][0m
+[0;33m[0m
+PLAY RECAP *********************************************************************
+[0;33mlocalhost[0m                  : [0;32mok=3   [0m [0;33mchanged=2   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ;d[K[Kls
+ansible1.txt  ansible.log  echo.yaml  hostname.yaml  resolv.yaml
+ansible.cfg   ansiserver   file.yaml  [0m[01;34mNEWSAMPLE[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cd [K[K[Kls NEWSAMPLE/
+new_file
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ LS
+LS: command not found
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ^C
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ LS
+LS: command not found
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible1.txt  ansible.log  echo.yaml  hostname.yaml  resolv.yaml
+ansible.cfg   ansiserver   file.yaml  [0m[01;34mNEWSAMPLE[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cp file.yaml file.yaml [1@1
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit fileq[K1.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls -lrt
+total 52
+-rw-rw-r-- 1 naveen naveen   104 Sep 20 15:00 ansiserver
+-rw-rw-r-- 1 naveen naveen    99 Sep 20 17:16 ansible.cfg
+-rw-rw-r-- 1 naveen naveen  3352 Sep 20 18:30 ansible1.txt
+-rw-rw-r-- 1 naveen naveen   101 Sep 20 19:23 echo.yaml
+-rw-rw-r-- 1 naveen naveen    81 Sep 20  2020 hostname.yaml
+-rw-rw-r-- 1 naveen naveen    88 Sep 20  2020 resolv.yaml
+-rw-rw-r-- 1 naveen naveen   258 Sep 20  2020 file.yaml
+drwxr-xr-x 2 naveen naveen  4096 Sep 20  2020 [0m[01;34mNEWSAMPLE[0m
+-rw-rw-r-- 1 naveen naveen 14172 Sep 20  2020 ansible.log
+-rw-rw-r-- 1 naveen naveen   258 Sep 20  2020 file1.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit file1.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat file1
+cat: file1: No such file or directory
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat file1.yaml 
+- hosts: localhost
+
+  vars:
+    folder_path: /home/naveen/ansilab
+    
+  tasks:
+  - name: To create a folder
+    file:
+      path: "{{folder_path}}/NEWSAMPLE2"
+      state: directory
+      mode: 0755
+      
+  - name: To create a file
+    file:
+      path: "{{folder_path}}/NEWSAMPLE2/new_file2"
+      state: touch
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat file1.yaml [Kgedit file1.yaml [10Pls -lrtgedit file1.yaml [7@cp file.yaml[C[C[C[C[C[C[C[C[C[C[C[Cls[KLSls NEWSAMPLE/[Kansible-playbook file.yaml1.yaml
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+TASK [To create a folder] ******************************************************
+[0;33mchanged: [localhost][0m
+[0;33m[0m
+TASK [To create a file] ********************************************************
+[0;33mchanged: [localhost][0m
+[0;33m[0m
+PLAY RECAP *********************************************************************
+[0;33mlocalhost[0m                  : [0;32mok=3   [0m [0;33mchanged=2   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible1.txt  ansiserver  file.yaml      [0m[01;34mNEWSAMPLE2[0m
+ansible.cfg   echo.yaml   hostname.yaml  resolv.yaml
+ansible.log   file1.yaml  [01;34mNEWSAMPLE[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls NEWSAMPLE2
+new_file2
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ LS
+LS: command not found
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible1.txt  ansiserver  file.yaml      [0m[01;34mNEWSAMPLE2[0m
+ansible.cfg   echo.yaml   hostname.yaml  resolv.yaml
+ansible.log   file1.yaml  [01;34mNEWSAMPLE[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cp file1.yaml file1.yaml [1@2[1P
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit file2.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit file2.yaml [8@cp file1.yaml[C[C[C[C[C[C[C[C[C[C[C[Cls[KLSls NEWSAMPLE2[Kansible-playbook file1.yaml[1P.yaml2.yaml
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+TASK [To create a folder] ******************************************************
+[0;31mERROR! The requested handler 'To Create a file1' was not found in either the main handlers list nor in the listening handlers list[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit file2.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit file2.yaml ansible-playbook file2.yaml
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+TASK [To create a folder] ******************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+PLAY RECAP *********************************************************************
+[0;32mlocalhost[0m                  : [0;32mok=2   [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible1.txt  ansiserver  file2.yaml     [0m[01;34mNEWSAMPLE[0m   resolv.yaml
+ansible.cfg   echo.yaml   file.yaml      [01;34mNEWSAMPLE2[0m
+ansible.log   file1.yaml  hostname.yaml  [01;34mNEWSAMPLE3[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ mkdir ri[Kols[Kes
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible1.txt  ansiserver  file2.yaml     [0m[01;34mNEWSAMPLE[0m   resolv.yaml
+ansible.cfg   echo.yaml   file.yaml      [01;34mNEWSAMPLE2[0m  [01;34mroles[0m
+ansible.log   file1.yaml  hostname.yaml  [01;34mNEWSAMPLE3[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit ansil[Kble.cfg 
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ mkdir ./roles/sample
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ tree t[Kroles
+[01;34mroles[00m
+└── [01;34msample[00m
+
+1 directory, 0 files
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ tree rolesmkdir ./roles/sample/vars
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ mkdir ./roles/sample/vars[K[K[K[Ktasks
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ mkdir ./roles/sample/tasks[K[K[K[K[Khandlers
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ mkdir ./roles/sample/handlers[3Ptasks[1Pvars[15Ptree roles
+[01;34mroles[00m
+└── [01;34msample[00m
+    ├── [01;34mhandlers[00m
+    ├── [01;34mtasks[00m
+    └── [01;34mvars[00m
+
+4 directories, 0 files
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ tree rolesmkdir ./roles/sample/handlers[3Ptasks[1Pvars/main.yaml[1P ./roles/sample/vars/main.yaml[1P ./roles/sample/vars/main.yaml[1P ./roles/sample/vars/main.yaml[1P ./roles/sample/vars/main.yaml[1P ./roles/sample/vars/main.yamlg ./roles/sample/vars/main.yamle ./roles/sample/vars/main.yamld ./roles/sample/vars/main.yamli ./roles/sample/vars/main.yamlt ./roles/sample/vars/main.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit ./roles/sample/vars/main.yaml[1P/main.yaml[1P/main.yaml[1P/main.yaml[1P/main.yamlh/main.yamla/main.yamln/main.yamld/main.yamll/main.yamle/main.yamlr/main.yaml [A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cs/main.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit ./roles/sample/handlers/main.yaml[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cs/main.yaml [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Ps/main.yaml
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Ps/main.yaml[1Ps/main.yaml[1Ps/main.yaml[1Ps/main.yaml[1Ps/main.yamlts/main.yamlas/main.yaml[Cs/main.yamlks/main.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit ./roles/sample/tasks/main.yaml[1P.yaml[1P.yaml[1P.yaml[1P.yamls.yamle.yamlr.yamlv.yamle.yamlr.yaml [A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/server.yaml
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/server.yaml[1P/server.yaml[1P/server.yaml[1P/server.yaml[1Pserver.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ gedit ./roles/sample/server.yaml[C[C[C[1P ./roles/sample/server.yaml[1P ./roles/sample/server.yaml[1P ./roles/sample/server.yaml[1P ./roles/sample/server.yaml[1P ./roles/sample/server.yamla ./roles/sample/server.yamln ./roles/sample/server.yamls ./roles/sample/server.yamli ./roles/sample/server.yamlb ./roles/sample/server.yamll ./roles/sample/server.yamle ./roles/sample/server.yaml- ./roles/sample/server.yamlp ./roles/sample/server.yamll ./roles/sample/server.yamla ./roles/sample/server.yaml [A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[Cy ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[Cb ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[Co ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[Co ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ck ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[0;31mERROR! Syntax Error while loading YAML.[0m
+[0;31m  mapping values are not allowed in this context[0m
+[0;31m[0m
+[0;31mThe error appears to be in '/home/naveen/ansilab/roles/sample/handlers/main.yaml': line 2, column 7, but may[0m
+[0;31mbe elsewhere in the file depending on the exact syntax problem.[0m
+[0;31m[0m
+[0;31mThe offending line appears to be:[0m
+[0;31m[0m
+[0;31m-name: To create a file[0m
+[0;31m  file:[0m
+[0;31m      ^ here[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ls
+ansible1.txt  ansiserver  file2.yaml     [0m[01;34mNEWSAMPLE[0m   resolv.yaml
+ansible.cfg   echo.yaml   file.yaml      [01;34mNEWSAMPLE2[0m  [01;34mroles[0m
+ansible.log   file1.yaml  hostname.yaml  [01;34mNEWSAMPLE3[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ tree roles
+[01;34mroles[00m
+└── [01;34msample[00m
+    ├── [01;34mhandlers[00m
+    │   └── main.yaml
+    ├── server.yaml
+    ├── [01;34mtasks[00m
+    │   └── main.yaml
+    └── [01;34mvars[00m
+        └── main.yaml
+
+4 directories, 4 files
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ca[K[Ktree rolesls[Kansible-playbook ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [6Pgedit ./roles/sample/server.yaml
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctasks/main.yamlhandlers/main.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Pvars/main.yaml
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1@c[1@a
+folder_path: /home/naveen/ansilab
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat ./roles/sample/vars/main.yaml[1Prs/main.yaml[1Prs/main.yamlhrs/main.yamlars/main.yamlnrs/main.yamldrs/main.yamllrs/main.yamlers/main.yaml
+-name: To create a file
+  file:
+    path: "{{folder_path}}/NEWSAMPLE4/new_file4"
+    state: touch
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat ./roles/sample/handlers/main.yaml[1P[1P[1@v[1@i[1P ./roles/sample/handlers/main.yaml
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;18r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[18;1H"./roles/sample/handlers/main.yaml" 4 lines, 98 characters[1;1H-name: To create a file
+  file:
+    path: "{{folder_path}}/NEWSAMPLE4/new_file4"
+    state: touch
+[94m~                                                                         [6;1H~                                                                         [7;1H~                                                                         [8;1H~                                                                         [9;1H~                                                                         [10;1H~                                                                         [11;1H~                                                                         [12;1H~                                                                         [13;1H~                                                                         [14;1H~                                                                         [15;1H~                                                                         [16;1H~                                                                         [17;1H~                                                                         [1;1H[?25h[m-[?2004l[>4;m[?25l name: To create a file- [?25h[?2004h[>4;2m[?25l[18;1H[K[18;1H:[?2004h[?25hwq![?25l[?2004l"./roles/sample/handlers/main.yaml" 4 lines, 99 characters written
+[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ vi ./roles/sample/handlers/main.yaml[1@cat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+- name: To create a file
+  file:
+    path: "{{folder_path}}/NEWSAMPLE4/new_file4"
+    state: touch
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ cat ./roles/sample/handlers/main.yaml[1Pvi[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@cat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[4Pvars/main.yamltree roles[Kls[Kansible-playbook ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [6Pgedit ./roles/sample/server.yaml
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cansible-playbook ./roles/sample/server.yaml
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+[0;32m[0m
+TASK [sample : To create a folder] *********************************************
+[0;33mchanged: [localhost][0m
+[0;33m[0m
+RUNNING HANDLER [sample : To create a file] ************************************
+[0;33mchanged: [localhost][0m
+[0;33m[0m
+PLAY RECAP *********************************************************************
+[0;33mlocalhost[0m                  : [0;32mok=3   [0m [0;33mchanged=2   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible-playbook ./roles/sample/server.yaml[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C ./roles/sample/server.y[1Paml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C ./roles/sample/server.ya[1Pml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C ./roles/sample/server.yam[1Pl[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C ./roles/sample/server.yaml[K[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C ./roles/sample/server.yaml [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P ./roles/sample/server.yaml
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P ./roles/sample/server.yaml[1P ./roles/sample/server.yamlg ./roles/sample/server.yamla ./roles/sample/server.yamll ./roles/sample/server.yaml [A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[Ca ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[Cx ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[Cy ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cn ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ct ./roles/sample/server.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cample/serve[1Pr.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cmple/server[1P.yaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cple/server.[1Pyaml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cle/server.y[1Paml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce/server.ya[1Pml[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/server.yam[1Pl[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cserver.yaml[K[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cerver.yaml [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Prver.yaml
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pver.yaml[1Per.yaml[1Pr.yaml[1P.yaml[1Pyaml[1Paml[1Pml[1Pl[Ksample/new role
+- Role ./roles/sample/newrole was created successfully
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible-galaxy init ./roles/sample/newrole[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/newro[1Ple[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/newrol[1Pe[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/newrole[K[A]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/newrole [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/newrole
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/newrole[1Pnewrole
+- Role ./roles/newrole was created successfully
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ ansible-galaxy init ./roles/newrole[C[C[C[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrole[1P ./roles/newrolet ./roles/newroler ./roles/newrolee ./roles/newrolee ./roles/newrole
+[01;34m./roles/newrole[00m
+├── [01;34mdefaults[00m
+│   └── main.yml
+├── [01;34mfiles[00m
+├── [01;34mhandlers[00m
+│   └── main.yml
+├── [01;34mmeta[00m
+│   └── main.yml
+├── README.md
+├── [01;34mtasks[00m
+│   └── main.yml
+├── [01;34mtemplates[00m
+├── [01;34mtests[00m
+│   ├── inventory
+│   └── test.yml
+└── [01;34mvars[00m
+    └── main.yml
+
+8 directories, 8 files
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ 
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ 
+]0;naveen@naveen-VirtualBox: ~/ansilab[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab[00m$ exit
+exit
+
+Script done on 2020-09-20 21:00:55+01:00 [COMMAND_EXIT_CODE="0"]
