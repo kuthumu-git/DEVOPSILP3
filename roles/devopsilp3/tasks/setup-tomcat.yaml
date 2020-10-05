@@ -1,0 +1,74 @@
+---
+- name: add tomcat group
+  group:
+    name: tomcat
+
+- name: add tomcat user
+  user:
+    name: tomcat
+    group: tomcat
+    home: /user/share/tomcat
+    createhome: no
+
+- name: create /opt/tomcat directory
+  file:
+    path: /opt/tomcat
+    state: directory
+    mode: 0755
+
+- name: download & unarchive
+  unarchive:
+    src: https://mirrors.gethosted.online/apache/tomcat/tomcat-7/v7.0.106/bin/apache-tomcat-7.0.106.tar.gz
+    dest: /opt/tomcat
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+
+- name: Change ownership
+  file:
+    path: /opt/tomcat
+    owner: tomcat
+    group: tomcat
+    mode: "u+rwx,g+rx,o=rx"
+    recurse: yes
+    state: directory
+
+- name: create a systemd until file
+  file:
+    path: "/etc/systemd/system/tomcat.service"
+    state: touch
+    mode: 0777
+    #owner: tomcat
+
+- name: create environment variables
+  template:
+    src: tomcat.service.j2
+    dest: /etc/systemd/system/tomcat.service
+
+- name: Change the tomcat port
+  become: yes
+  template:
+    src: server.xml.j2
+    dest: /opt/tomcat/conf/server.xml
+    
+- name: Copy the WAR file
+  become: yes
+  copy:
+    #src: "{{ warRemotePathSrc }}{{ warNameSrc }}"
+    #dest: "{{warRemotePathTgt}}"
+    src: /var/lib/jenkins/workspace/DevOpsILP3/target/DEVOPSILP2-1.0-SNAPSHOT.war
+    dest: /opt/tomcat/webapps/
+    mode: 0755
+    owner: tomcat
+    group: tomcat
+  #remote_src: yes 
+
+- name: Start tomcat service
+  systemd:
+    name: tomcat
+    state: started
+    enabled: true
+    daemon_reload: true
+  #shell: nohup systemctl daemon-reload &
+  #shell: nohup systemctl start tomcat &
+  #shell: nohup /opt/tomcat/bin/startup.sh &
+  #shell: nohup systemctl enable tomcat &

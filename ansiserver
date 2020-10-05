@@ -1,0 +1,5 @@
+[localh]
+127.0.0.1
+
+[aws_webserver]	#group name
+18.191.241.58	ansible_ssh_user=webuser ansible_ssh_private_key_file=/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key

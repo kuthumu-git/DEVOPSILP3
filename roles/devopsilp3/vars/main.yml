@@ -1,0 +1,9 @@
+---
+# vars file for ./roles/devopsilp3
+    tomcat_port: 8081
+    set_java: java-8-openjdk-amd64
+    warNameSrc: DEVOPSILP2-1.0-SNAPSHOT.war
+    warRemotePathSrc: /var/lib/jenkins/workspace/DevOpsILP3/target
+    #warNameTgt: DEVOPSILP3-1.0-SNAPSHOT.war
+    warRemotePathTgt: /opt/tomcat/webapps/ROOT
+

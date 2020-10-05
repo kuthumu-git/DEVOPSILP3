@@ -1,0 +1,1162 @@
+Script started on 2020-10-04 16:34:36+01:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="142" LINES="32"]
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ansible-galaxy init ./roles/devopsilp3/[K --offline
+- Role ./roles/devopsilp3 was created successfully
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ tree ./roles/devopsilp3
+[01;34m./roles/devopsilp3[00m
+├── [01;34mdefaults[00m
+│   └── main.yml
+├── [01;34mfiles[00m
+├── [01;34mhandlers[00m
+│   └── main.yml
+├── [01;34mmeta[00m
+│   └── main.yml
+├── README.md
+├── [01;34mtasks[00m
+│   └── main.yml
+├── [01;34mtemplates[00m
+├── [01;34mtests[00m
+│   ├── inventory
+│   └── test.yml
+└── [01;34mvars[00m
+    └── main.yml
+
+8 directories, 8 files
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ gedit ./roles/devopsilp3/tasks/main.yml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cat include: setup-tomcat.yaml
+cat: 'include:': No such file or directory
+cat: setup-tomcat.yaml: No such file or directory
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cat ./roles/devopsilp3/tasks/main.yml
+---
+# tasks file for ./roles/devopsilp3
+    - name: Install Java
+      #include: setup-java.yaml
+      import_tasks: setup-java.yaml
+      
+    - name: Install Tomcat
+      #include: setup-tomcat.yaml
+      import_tasks: setup-tomcat.yaml
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ./roles/devopsilp3/tasks
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ ls -lrt
+total 4
+-rw-rw-r-- 1 naveen naveen 240 Oct  4 16:23 main.yml
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ gedit setup-java.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cat setup-java.yaml 
+---
+- name: Add the webupd8 APT repository
+  apt_repository: repo="deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" state=present
+
+- name: Automatically select the Oracle License
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+  changed_when: false
+
+- name: Install Oracle Java
+  apt: name={{item}} state=present force=yes state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+  #- oracle-java8-installer
+  - openjdk-8-jre-headless
+  - openjdk-8-jdk-headless
+
+- name: Set JAVA_HOME
+  lineinfile:
+    dest: /etc/environment
+    state: present
+    regexp: '^JAVA_HOME'
+    line: 'JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64'
+  #shell: sudo echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> ~/.bashrc
+  #shell: echo JAVA_HOME is $JAVA_HOME
+  #environment:
+  #  JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+  #register: shellout
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ gedit setup-tomcat.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cat setup-tomcat.yaml 
+---
+- name: add tomcat group
+  group:
+    name: tomcat
+
+- name: add tomcat user
+  user:
+    name: tomcat
+    group: tomcat
+    home: /user/share/tomcat
+    createhome: no
+
+- name: create /opt/tomcat directory
+  file:
+    path: /opt/tomcat
+    state: directory
+    mode: 0755
+
+- name: download & unarchive
+  unarchive:
+    src: https://mirrors.gethosted.online/apache/tomcat/tomcat-7/v7.0.106/bin/apache-tomcat-7.0.106.tar.gz
+    dest: /opt/tomcat
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+
+- name: Change ownership
+  file:
+    path: /opt/tomcat
+    owner: tomcat
+    group: tomcat
+    mode: "u+rwx,g+rx,o=rx"
+    recurse: yes
+    state: directory
+
+- name: create a systemd until file
+  file:
+    path: "/etc/systemd/system/tomcat.service"
+    state: touch
+    mode: 0777
+    #owner: tomcat
+
+- name: create environment variables
+  template:
+    src: tomcat.service.j2
+    dest: /etc/systemd/system/tomcat.service
+
+- name: Change the tomcat port
+  become: yes
+  template:
+    src: server.xml.j2
+    dest: /opt/tomcat/conf/server.xml
+
+- name: Start tomcat service
+  systemd:
+    name: tomcat
+    state: started
+    enabled: true
+    daemon_reload: true
+  #shell: nohup systemctl daemon-reload &
+  #shell: nohup systemctl start tomcat &
+  #shell: nohup /opt/tomcat/bin/startup.sh &
+  #shell: nohup systemctl enable tomcat &
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd ../../../playbook/templates/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/playbook/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/playbook/templates[00m$ cp * ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/playbook/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/playbook/templates[00m$ cd ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ ls -lrt
+total 12
+-rw-rwx--- 1 naveen naveen 6700 Oct  4 17:17 [0m[01;32mserver.xml.j2[0m
+-rw-rwxr-- 1 naveen naveen  608 Oct  4 17:17 [01;32mtomcat.service.j2[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ ls -lrt
+total 36
+-rw-rw-r-- 1 naveen naveen 1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [0m[01;34mfiles[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [01;34mvars[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [01;34mmeta[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [01;34mdefaults[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [01;34mtests[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [01;34mhandlers[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 17:04 [01;34mtasks[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 17:17 [01;34mtemplates[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ cd vars[K[K[K[K[K[K[Kgedit ./vars/main.yml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ cat ---
+cat: unrecognised option '---'
+Try 'cat --help' for more information.
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$   - name: Install and configure Tomcat
+cat-: command not found
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$     hosts: aws_webserver
+ 
+Command 'hosts:' not found, did you mean:
+
+  command 'hosts' from deb golang-github-vmware-govmomi-dev (0.15.0-1)
+
+Try: sudo apt install <deb name>
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$     #gather_facts: false
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$     become: yes
+become:: command not found
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$     #user: naveen
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$     #become: yes
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$     vars:
+vars:: command not found
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$       tomcat_port: 8081
+tomcat_port:: command not found
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$       set_java: java-8-openjdk-amd64
+set_java:: command not found
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ cat ./vars/main.yml
+---
+# vars file for ./roles/devopsilp3
+  - name: Install and configure Tomcat
+    tomcat_port: 8081
+    set_java: java-8-openjdk-amd64
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ls -lrt
+total 1116
+-rw-rwxr--+ 1 naveen naveen    121 Sep 26 17:10 [0m[01;32mansible.cfg[0m
+-rw-rwxr--+ 1 naveen naveen   1701 Sep 26 20:37 [01;32mplaybook.yaml[0m
+-rw-rwxr--+ 1 naveen naveen 618496 Oct  2 20:30 [01;32mdevopsilp3.lop[0m
+-rw-rwxr--+ 1 naveen naveen    168 Oct  3 15:15 [01;32mansiserver[0m
+drwxrwxr-x+ 3 naveen naveen   4096 Oct  3 23:08 [01;34mplaybook[0m
+drwxrwxr-x  3 naveen naveen   4096 Oct  4 16:36 [01;34mroles[0m
+-rw-rwxr--+ 1 naveen naveen 484322 Oct  4 16:36 [01;32mansible.log[0m
+-rw-rw-r--  1 naveen naveen   8192 Oct  4 17:31 devopsilp3.log
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ gedit runsetup.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cat runsetup.yaml 
+---
+  - name: Install and configure Tomcat
+    hosts: aws_webserver
+    #gather_facts: false
+    become: yes
+    #user: naveen
+    #become: yes
+    roles:
+    - devopsilp3
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ansible-playbook runst[Ketup.yaml 
+[0;31mERROR! failed to combine variables, expected dicts but got a 'dict' and a 'AnsibleSequence': [0m
+[0;31m{}[0m
+[0;31m[{"name": "Install and configure Tomcat", "tomcat_port": 8081, "set_java": "java-8-openjdk-amd64"}][0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ~/ansilab/DEVOPSILP3/roles/devopsilp3/vars
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[00m$ cat main.yml 
+---
+# vars file for ./roles/devopsilp3
+    tomcat_port: 8081
+    set_java: java-8-openjdk-amd64
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[00m$ cat main.yml d ~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[14Pansible-playbook runsetup.yaml 
+[0;31mERROR! the playbook: runsetup.yaml could not be found[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ..ansible-playbook runsetup.yaml 
+
+PLAY [Install and configure Tomcat] **********************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************
+[1;31mfatal: [18.191.241.58]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nPermissions 0670 for '/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key' are too open.\r\nIt is required that your private key files are NOT accessible by others.\r\nThis private key will be ignored.\r\nLoad key \"/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key\": bad permissions\r\nwebuser@18.191.241.58: Permission denied (publickey).", "unreachable": true}[0m
+[1;31m[0m
+PLAY RECAP ***********************************************************************************************************************************
+[0;31m18.191.241.58[0m              : ok=0    changed=0    [1;31munreachable=1   [0m failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd .ssh
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ ls -lrt
+total 4
+-rw-rwx---+ 1 naveen naveen 2611 Sep 26 15:56 [0m[01;32mremote-web.key[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ chmod 600 remote-web.key 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ..hmod 600 remote-web.key ls -lrt[Kcd .sshansible-playbook runsetup.yaml 
+
+PLAY [Install and configure Tomcat] **********************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Add the webupd8 APT repository] *******************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Automatically select the Oracle License] **********************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Install Oracle Java] ******************************************************************************************************
+[0;35m[DEPRECATION WARNING]: Invoking "apt" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply [0m
+[0;35mmultiple items and specifying `name: "{{item}}"`, please use `name: ['openjdk-8-jre-headless', 'openjdk-8-jdk-headless']` and remove the [0m
+[0;35mloop. This feature will be removed in version 2.11. Deprecation warnings can be disabled by setting deprecation_warnings=False in [0m
+[0;35mansible.cfg.[0m
+[0;35m[0m[0;32mok: [18.191.241.58] => (item=['openjdk-8-jre-headless', 'openjdk-8-jdk-headless'])[0m
+[0;32m[0m
+TASK [devopsilp3 : Set JAVA_HOME] ************************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : add tomcat group] *********************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : add tomcat user] **********************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : create /opt/tomcat directory] *********************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : download & unarchive] *****************************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : Change ownership] *********************************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : create a systemd until file] **********************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : create environment variables] *********************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Change the tomcat port] ***************************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : Start tomcat service] *****************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+PLAY RECAP ***********************************************************************************************************************************
+[0;33m18.191.241.58[0m              : [0;32mok=14  [0m [0;33mchanged=4   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ sudo setfacl -R -m user:jenkins:r ./.ssh
+[sudo] password for naveen: 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd .ssh
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ ls -lrt
+total 4
+-rw-r-----+ 1 naveen naveen 2611 Sep 26 15:56 remote-web.key
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ cd [K[K[Kls -dlrt .ssh
+ls: cannot access '.ssh': No such file or directory
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ..ls -dlrt .ssh
+drwxr-xr-x+ 2 naveen naveen 4096 Sep 26 15:56 [0m[01;34m.ssh[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd .sh[Ksh
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ ls -lrt
+total 4
+-rw-r-----+ 1 naveen naveen 2611 Sep 26 15:56 remote-web.key
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ ls -lrtcd .ssh[6@ls -dlrt[C[C[C[C[C[8Pcd ..ls -dlrt .ssh[6Plrtcd .sshsudo setfacl -R -m user:jenkins:r ./.ssh[K[K[K[K[K[Kremote-web.key 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ ls -lrt
+total 4
+-rw-r-----+ 1 naveen naveen 2611 Sep 26 15:56 remote-web.key
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ..ls -lrtsudo setfacl -R -m user:jenkins:r remote-web.key [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls -lrt[Kcd .ssh[6@ls -dlrt[C[C[C[C[C[8Pcd ..ls -dlrt .ssh[6Plrtcd .sshsudo setfacl -R -m user:jenkins:r ./.ssh[9Pansible-playbook runsetup.yaml cd ..[Kansible-playbook runsetup.yaml 
+
+PLAY [Install and configure Tomcat] **********************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************
+[1;31mfatal: [18.191.241.58]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nPermissions 0640 for '/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key' are too open.\r\nIt is required that your private key files are NOT accessible by others.\r\nThis private key will be ignored.\r\nLoad key \"/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key\": bad permissions\r\nwebuser@18.191.241.58: Permission denied (publickey).", "unreachable": true}[0m
+[1;31m[0m
+PLAY RECAP ***********************************************************************************************************************************
+[0;31m18.191.241.58[0m              : ok=0    changed=0    [1;31munreachable=1   [0m failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd .ssh
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ cd .sshansible-playbook runsetup.yaml cd ..[Kls -lrtsudo setfacl -R -m user:jenkins:r remote-web.key ls -lrt[Ksudo setfacl -R -m user:jenkins:r remote-web.key ls -lrt[Kcd .ssh[6@ls -dlrt[C[C[C[C[C[8Pcd ..ls -dlrt .ssh[6Plrtcd .sshsudo setfacl -R -m user:jenkins:r ./.ssh[9Pansible-playbook runsetup.yaml cd ..[Khmod 600 remote-web.key ls -lrt[Kchmod 600 remote-web.key 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ chmod 600 remote-web.key d .ssh[Kansible-playbook runsetup.yaml [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ..hmod 600 remote-web.key d .ssh[Kansible-playbook runsetup.yaml 
+
+PLAY [Install and configure Tomcat] **********************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Add the webupd8 APT repository] *******************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Automatically select the Oracle License] **********************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Install Oracle Java] ******************************************************************************************************
+[0;35m[DEPRECATION WARNING]: Invoking "apt" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply [0m
+[0;35mmultiple items and specifying `name: "{{item}}"`, please use `name: ['openjdk-8-jre-headless', 'openjdk-8-jdk-headless']` and remove the [0m
+[0;35mloop. This feature will be removed in version 2.11. Deprecation warnings can be disabled by setting deprecation_warnings=False in [0m
+[0;35mansible.cfg.[0m
+[0;35m[0m[0;32mok: [18.191.241.58] => (item=['openjdk-8-jre-headless', 'openjdk-8-jdk-headless'])[0m
+[0;32m[0m
+TASK [devopsilp3 : Set JAVA_HOME] ************************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : add tomcat group] *********************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : add tomcat user] **********************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : create /opt/tomcat directory] *********************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : download & unarchive] *****************************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : Change ownership] *********************************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : create a systemd until file] **********************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : create environment variables] *********************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Change the tomcat port] ***************************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : Start tomcat service] *****************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+PLAY RECAP ***********************************************************************************************************************************
+[0;33m18.191.241.58[0m              : [0;32mok=14  [0m [0;33mchanged=4   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ sudo groupadd ansiblegrp[1Pgrp[1Pgrp[1Pgrp[1Pgrprgrp[1Pgrpigrpbgrplgrpegrp
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ sudo usermod -a -G ansiblegrp naveen 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ sudo usermod -a -G ansiblegrp naveen [K[K[K[K[K[K[Kjenkins 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ sudo chgrp -R ansiblegrp ./.ssh
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ sudo chgrp -R ansiblegrp ./.ssh[1P[1P[1P[1P[1P[1P[1@m[1@o[1@d[C[1@ [1@-[1@R[C[1@ [1@7[1@7[1@0[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P ./.ssh
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ;s [K[K[Kls -alrt
+total 1168
+drwxrwx---+  2 naveen ansiblegrp   4096 Sep 26 15:56 [0m[01;34m.ssh[0m
+-rw-rwxr--+  1 naveen naveen        121 Sep 26 17:10 [01;32mansible.cfg[0m
+-rw-rwxr--+  1 naveen naveen       1701 Sep 26 20:37 [01;32mplaybook.yaml[0m
+-rw-rwxr--+  1 naveen naveen     618496 Oct  2 20:30 [01;32mdevopsilp3.lop[0m
+-rw-rwxr--+  1 naveen naveen        168 Oct  3 15:15 [01;32mansiserver[0m
+drwxrwxr-x+  3 naveen naveen       4096 Oct  3 23:08 [01;34mplaybook[0m
+drwxrwxr-x  10 naveen naveen       4096 Oct  4 16:34 [01;34m..[0m
+drwxrwxr-x   3 naveen naveen       4096 Oct  4 16:36 [01;34mroles[0m
+-rw-rw-r--   1 naveen naveen        173 Oct  4 17:35 runsetup.yaml
+drwxrwxr-x+  5 naveen naveen       4096 Oct  4 17:35 [01;34m.[0m
+-rw-rw-r--   1 naveen naveen      28672 Oct  4 18:49 devopsilp3.log
+-rw-rwxr--+  1 naveen naveen     497286 Oct  4 18:49 [01;32mansible.log[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ls -alrtsudo chmod -R 770 ./.ssh[7@grp -R ansiblegrp[C[C[C[C[C[C[Cusermod -a -G ansiblegrp jenkins [1Pnaveen[C[13Pgroupadd ansiblegrpansible-playbook runsetup.yaml cd ..[Kansible-playbook runsetup.yaml 
+
+PLAY [Install and configure Tomcat] **********************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************
+[1;31mfatal: [18.191.241.58]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nPermissions 0770 for '/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key' are too open.\r\nIt is required that your private key files are NOT accessible by others.\r\nThis private key will be ignored.\r\nLoad key \"/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key\": bad permissions\r\nwebuser@18.191.241.58: Permission denied (publickey).", "unreachable": true}[0m
+[1;31m[0m
+PLAY RECAP ***********************************************************************************************************************************
+[0;31m18.191.241.58[0m              : ok=0    changed=0    [1;31munreachable=1   [0m failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd .ssh
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ k[Kls -lrt
+total 4
+-rwxrwx---+ 1 naveen ansiblegrp 2611 Sep 26 15:56 [0m[01;32mremote-web.key[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ chmod 660 remote-web.key 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ cd [K[K[Kcd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ..hmod 660 remote-web.key ls -lrt[Kcd .sshansible-playbook runsetup.yaml 
+
+PLAY [Install and configure Tomcat] **********************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************
+[1;31mfatal: [18.191.241.58]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nPermissions 0660 for '/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key' are too open.\r\nIt is required that your private key files are NOT accessible by others.\r\nThis private key will be ignored.\r\nLoad key \"/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key\": bad permissions\r\nwebuser@18.191.241.58: Permission denied (publickey).", "unreachable": true}[0m
+[1;31m[0m
+PLAY RECAP ***********************************************************************************************************************************
+[0;31m18.191.241.58[0m              : ok=0    changed=0    [1;31munreachable=1   [0m failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd .ssh
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ ls -lrt
+total 4
+-rw-rw----+ 1 naveen ansiblegrp 2611 Sep 26 15:56 remote-web.key
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ chmod 800 [K[K[K[K600 remote-web.key 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/.ssh[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/.ssh[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ..hmod 600 remote-web.key ls -lrt[Kcd .sshansible-playbook runsetup.yaml cd ..[Kansible-playbook runsetup.yaml 
+
+PLAY [Install and configure Tomcat] **********************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Add the webupd8 APT repository] *******************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Automatically select the Oracle License] **********************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Install Oracle Java] ******************************************************************************************************
+[0;35m[DEPRECATION WARNING]: Invoking "apt" only once while using a loop via squash_actions is deprecated. Instead of using a loop to supply [0m
+[0;35mmultiple items and specifying `name: "{{item}}"`, please use `name: ['openjdk-8-jre-headless', 'openjdk-8-jdk-headless']` and remove the [0m
+[0;35mloop. This feature will be removed in version 2.11. Deprecation warnings can be disabled by setting deprecation_warnings=False in [0m
+[0;35mansible.cfg.[0m
+[0;35m[0m[0;32mok: [18.191.241.58] => (item=['openjdk-8-jre-headless', 'openjdk-8-jdk-headless'])[0m
+[0;32m[0m
+TASK [devopsilp3 : Set JAVA_HOME] ************************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : add tomcat group] *********************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : add tomcat user] **********************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : create /opt/tomcat directory] *********************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : download & unarchive] *****************************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : Change ownership] *********************************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : create a systemd until file] **********************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : create environment variables] *********************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+TASK [devopsilp3 : Change the tomcat port] ***************************************************************************************************
+[0;33mchanged: [18.191.241.58][0m
+[0;33m[0m
+TASK [devopsilp3 : Start tomcat service] *****************************************************************************************************
+[0;32mok: [18.191.241.58][0m
+[0;32m[0m
+PLAY RECAP ***********************************************************************************************************************************
+[0;33m18.191.241.58[0m              : [0;32mok=14  [0m [0;33mchanged=4   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd .ssh[K[K[K[K[K[Khown -R jenkins@[K:jenkins ./.ssh
+chown: changing ownership of './.ssh/remote-web.key': Operation not permitted
+chown: changing ownership of './.ssh': Operation not permitted
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ chown -R jenkins:jenkins ./.ssh[1@s[1@u[1@d[1@o[1@ 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ls -lrt .ss
+ls: cannot access '.ss': No such file or directory
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ;s [K[K[Kls -als[Ker[K[Kl[Krt .ssh/
+ls: cannot open directory '.ssh/': Permission denied
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ls -alrt .ssh/[1@s[1@u[1@d[1@o[1@ 
+total 12
+-rw-------+ 1 jenkins jenkins 2611 Sep 26 15:56 remote-web.key
+drwxrwx---+ 2 jenkins jenkins 4096 Sep 26 15:56 .
+drwxrwxr-x+ 5 naveen  naveen  4096 Oct  4 17:35 ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ xs ==[K[K[K[K[Kxs [K[K[Kcd t[Kroles/devopsilp3/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ ls -lrt
+total 36
+-rw-rw-r-- 1 naveen naveen 1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [0m[01;34mfiles[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [01;34mmeta[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [01;34mdefaults[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [01;34mtests[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 16:36 [01;34mhandlers[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 17:04 [01;34mtasks[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 17:17 [01;34mtemplates[0m
+drwxrwxr-x 2 naveen naveen 4096 Oct  4 18:18 [01;34mvars[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ cd de[K[Ktemplates/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ ls -lrt
+total 12
+-rw-rwx--- 1 naveen naveen 6700 Oct  4 17:17 [0m[01;32mserver.xml.j2[0m
+-rw-rwxr-- 1 naveen naveen  608 Oct  4 17:17 [01;32mtomcat.service.j2[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ chown -R :ans[K[K[K[K[K[K[K[K[K[K[Kgrp -R ansu[Kiblegrp .
+chgrp: changing group of './server.xml.j2': Operation not permitted
+chgrp: changing group of './tomcat.service.j2': Operation not permitted
+chgrp: changing group of '.': Operation not permitted
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ chgrp -R ansiblegrp .[1@s[1@u[1@d[1@i[1@ [1P[1P[1@9[1@ [1P[1P[1@o[1@ 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ cd [K[K[Kls -l[K[K[K[K[Kcd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ ls -le[Krt
+total 36
+-rw-rw-r-- 1 naveen naveen     1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 [0m[01;34mfiles[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 [01;34mmeta[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 [01;34mdefaults[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 [01;34mtests[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 [01;34mhandlers[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 17:04 [01;34mtasks[0m
+drwxrwxr-x 2 naveen ansiblegrp 4096 Oct  4 17:17 [01;34mtemplates[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 18:18 [01;34mvars[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ cd templates/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ ls -lrt
+total 12
+-rw-rwx--- 1 naveen ansiblegrp 6700 Oct  4 17:17 [0m[01;32mserver.xml.j2[0m
+-rw-rwxr-- 1 naveen ansiblegrp  608 Oct  4 17:17 [01;32mtomcat.service.j2[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ memn[Kbers and[Ksiblegro[Kp
+
+Command 'members' not found, but can be installed with:
+
+sudo apt install members
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ members ansiblegrp[1@s[1@u[1@d[1@o[1@ 
+sudo: members: command not found
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ lid -g ansif[Ks[Kblegrp
+
+Command 'lid' not found, but can be installed with:
+
+sudo apt install id-utils
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ lid -g ansiblegrp[6@sudo members[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kapt-get install members
+Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+The following NEW packages will be installed
+  members
+0 to upgrade, 1 to newly install, 0 to remove and 136 not to upgrade.
+Need to get 9,320 B of archives.
+After this operation, 34.8 kB of additional disk space will be used.
+0% [Working]            Get:1 http://archive.ubuntu.com/ubuntu focal/universe amd64 members amd64 20080128.1+nmu1build1 [9,320 B]
+0% [1 members 0 B/9,320 B 0%]                             100% [Working]              Fetched 9,320 B in 0s (45.8 kB/s)
+Selecting previously unselected package members.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 198518 files and directories currently installed.)
+Preparing to unpack .../members_20080128.1+nmu1build1_amd64.deb ...
+Unpacking members (20080128.1+nmu1build1) ...
+Setting up members (20080128.1+nmu1build1) ...
+Processing triggers for man-db (2.9.1-1) ...
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ sudo apt-get install members[11Plid -g ansiblegrp[6@sudo members[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[11Pls -lrtcd templates/[6Pls -lrt[2Pcd ..sudo chgrp -R ansiblegrp .[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14Pls -lrtcd templates/[6Pls -lrtcd roles/devopsilp3/[1Psudo ls -alrt .ssh/[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Plrt .sssudo chown -R jenkins:jenkins ./.ssh[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5@sudo [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cansible-playbook runsetup.yaml cd ..[Kansible-playbook runsetup.yaml [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kmembers j[Kansiblegrp
+naveen jenkins
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ members ansiblegrpsudo apt-get install members[11Plid -g ansiblegrp[6@sudo members[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K,s [K[K[Kls l-[K[K-lrt
+total 12
+-rw-rwx--- 1 naveen ansiblegrp 6700 Oct  4 17:17 [0m[01;32mserver.xml.j2[0m
+-rw-rwxr-- 1 naveen ansiblegrp  608 Oct  4 17:17 [01;32mtomcat.service.j2[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ pwd
+/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/templates
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/templates[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ ;s =[K[K[K[Kls -lrt
+total 36
+-rw-rw-r-- 1 naveen naveen     1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 [0m[01;34mfiles[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 [01;34mmeta[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 [01;34mdefaults[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 [01;34mtests[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 [01;34mhandlers[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 17:04 [01;34mtasks[0m
+drwxrwxr-x 2 naveen ansiblegrp 4096 Oct  4 17:17 [01;34mtemplates[0m
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 18:18 [01;34mvars[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ pwd
+/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles[00m$ ls -lrt
+total 4
+drwxrwxr-x 10 naveen naveen 4096 Oct  4 16:36 [0m[01;34mdevopsilp3[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles[00m$ sudo jenkins
+sudo: jenkins: command not found
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles[00m$ sudo su - jenkins
+jenkins@naveen-VirtualBox:~$ cd /homenaveen/[K[K[K[K[K[K[K/naveen?[K/ansilab/DEVOPSILP3/cd rol[K[K[K[K[K[Kroles/
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles$ ls -lrt
+total 4
+drwxrwxr-x 10 naveen naveen 4096 Oct  4 16:36 devopsilp3
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles$ cd devopsilp3/
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ ls -lrt
+total 36
+-rw-rw-r-- 1 naveen naveen     1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 files
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 meta
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 defaults
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 tests
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 handlers
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 17:04 tasks
+drwxrwxr-x 2 naveen ansiblegrp 4096 Oct  4 17:17 templates
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 18:18 vars
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ cd templates/
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/templates$ ls -lrt
+total 12
+-rw-rwx--- 1 naveen ansiblegrp 6700 Oct  4 17:17 server.xml.j2
+-rw-rwxr-- 1 naveen ansiblegrp  608 Oct  4 17:17 tomcat.service.j2
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/templates$ cd ..
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ ;s [K[K[Kls -lrt
+total 36
+-rw-rw-r-- 1 naveen naveen     1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 files
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 meta
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 defaults
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 tests
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 16:36 handlers
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 17:04 tasks
+drwxrwxr-x 2 naveen ansiblegrp 4096 Oct  4 17:17 templates
+drwxrwxr-x 2 naveen naveen     4096 Oct  4 18:18 vars
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ cd [K[Khmod jenkins:[K templates/
+chmod: invalid mode: ‘jenkins’
+Try 'chmod --help' for more information.
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ chmod jenkins templates/[C[C[1P[1P[1P[1@o[1@w[1@n
+chown: changing ownership of 'templates/': Operation not permitted
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ chown jenkins templates/[1@s[1@u[1@d[1@o[1@ 
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ ls -lrt
+total 36
+-rw-rw-r-- 1 naveen  naveen     1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 16:36 files
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 16:36 meta
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 16:36 defaults
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 16:36 tests
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 16:36 handlers
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 17:04 tasks
+drwxrwxr-x 2 jenkins ansiblegrp 4096 Oct  4 17:17 templates
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 18:18 vars
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ cat home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/templates/server.xml.j2
+cat: home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/templates/server.xml.j2: No such file or directory
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ cat home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/templates/server.xml.j2[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/templates/server.xml.j2[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- Note:  A "Server" is not itself a "Container", so you may not
+     define subcomponents such as "Valves" at this level.
+     Documentation at /docs/config/server.html
+ -->
+<Server port="8005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+  <!-- Security listener. Documentation at /docs/config/listeners.html
+  <Listener className="org.apache.catalina.security.SecurityListener" />
+  -->
+  <!--APR library loader. Documentation at /docs/apr.html -->
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+  <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
+  <Listener className="org.apache.catalina.core.JasperListener" />
+  <!-- Prevent memory leaks due to use of particular java/javax APIs-->
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <!-- Global JNDI resources
+       Documentation at /docs/jndi-resources-howto.html
+  -->
+  <GlobalNamingResources>
+    <!-- Editable user database that can also be used by
+         UserDatabaseRealm to authenticate users
+    -->
+    <Resource name="UserDatabase" auth="Container"
+              type="org.apache.catalina.UserDatabase"
+              description="User database that can be updated and saved"
+              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+              pathname="conf/tomcat-users.xml" />
+  </GlobalNamingResources>
+
+  <!-- A "Service" is a collection of one or more "Connectors" that share
+       a single "Container" Note:  A "Service" is not itself a "Container",
+       so you may not define subcomponents such as "Valves" at this level.
+       Documentation at /docs/config/service.html
+   -->
+  <Service name="Catalina">
+
+    <!--The connectors can use a shared executor, you can define one or more named thread pools-->
+    <!--
+    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+        maxThreads="150" minSpareThreads="4"/>
+    -->
+
+
+    <!-- A "Connector" represents an endpoint by which requests are received
+         and responses are returned. Documentation at :
+         Java HTTP Connector: /docs/config/http.html (blocking & non-blocking)
+         Java AJP  Connector: /docs/config/ajp.html
+         APR (HTTP/AJP) Connector: /docs/apr.html
+         Define a non-SSL HTTP/1.1 Connector on port 8080
+    -->
+    <Connector port="{{tomcat_port}}" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    <!-- A "Connector" using the shared thread pool-->
+    <!--
+    <Connector executor="tomcatThreadPool"
+               port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    -->
+    <!-- Define an SSL HTTP/1.1 Connector on port 8443
+         This connector uses the BIO implementation that requires the JSSE
+         style configuration. When using the APR/native implementation, the
+         OpenSSL style configuration is required as described in the APR/native
+         documentation -->
+    <!--
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11Protocol"
+               maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" />
+    -->
+
+    <!-- Define an AJP 1.3 Connector on port 8009 -->
+    <!--
+    <Connector protocol="AJP/1.3"
+               address="::1"
+               port="8009"
+               redirectPort="8443" />
+    -->
+
+    <!-- An Engine represents the entry point (within Catalina) that processes
+         every request.  The Engine implementation for Tomcat stand alone
+         analyzes the HTTP headers included with the request, and passes them
+         on to the appropriate Host (virtual host).
+         Documentation at /docs/config/engine.html -->
+
+    <!-- You should set jvmRoute to support load-balancing via AJP ie :
+    <Engine name="Catalina" defaultHost="localhost" jvmRoute="jvm1">
+    -->
+    <Engine name="Catalina" defaultHost="localhost">
+
+      <!--For clustering, please take a look at documentation at:
+          /docs/cluster-howto.html  (simple how to)
+          /docs/config/cluster.html (reference documentation) -->
+      <!--
+      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster"/>
+      -->
+
+      <!-- Use the LockOutRealm to prevent attempts to guess user passwords
+           via a brute-force attack -->
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <!-- This Realm uses the UserDatabase configured in the global JNDI
+             resources under the key "UserDatabase".  Any edits
+             that are performed against this UserDatabase are immediately
+             available for use by the Realm.  -->
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+
+        <!-- SingleSignOn valve, share authentication between web applications
+             Documentation at: /docs/config/valve.html -->
+        <!--
+        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        -->
+
+        <!-- Access log processes all example.
+             Documentation at: /docs/config/valve.html
+             Note: The pattern used is equivalent to using pattern="common" -->
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log." suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+      </Host>
+    </Engine>
+  </Service>
+</Server>
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ ls -lrt
+total 36
+-rw-rw-r-- 1 naveen  naveen     1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 16:36 files
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 16:36 meta
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 16:36 defaults
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 16:36 tests
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 16:36 handlers
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 17:04 tasks
+drwxrwxr-x 2 jenkins ansiblegrp 4096 Oct  4 17:17 templates
+drwxrwxr-x 2 naveen  naveen     4096 Oct  4 18:18 vars
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ cd ..
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles$ ls -lrt
+total 4
+drwxrwxr-x 10 naveen naveen 4096 Oct  4 16:36 devopsilp3
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles$ cd ..
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3$ ls -lrt
+total 1196
+-rw-rwxr--+ 1 naveen naveen    121 Sep 26 17:10 ansible.cfg
+-rw-rwxr--+ 1 naveen naveen   1701 Sep 26 20:37 playbook.yaml
+-rw-rwxr--+ 1 naveen naveen 618496 Oct  2 20:30 devopsilp3.lop
+-rw-rwxr--+ 1 naveen naveen    168 Oct  3 15:15 ansiserver
+drwxrwxr-x+ 3 naveen naveen   4096 Oct  3 23:08 playbook
+drwxrwxr-x  3 naveen naveen   4096 Oct  4 16:36 roles
+-rw-rw-r--  1 naveen naveen    173 Oct  4 17:35 runsetup.yaml
+-rw-rwxr--+ 1 naveen naveen 505117 Oct  4 18:58 ansible.log
+-rw-rw-r--  1 naveen naveen  61440 Oct  4 19:32 devopsilp3.log
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3$ cd ..
+jenkins@naveen-VirtualBox:/home/naveen/ansilab$ ls -lrt
+total 88
+-rw-rw-r--  1 naveen naveen  104 Sep 20 15:00 ansiserver
+-rw-rw-r--  1 naveen naveen 3352 Sep 20 18:30 ansible1.txt
+-rw-rw-r--  1 naveen naveen  101 Sep 20 19:23 echo.yaml
+-rw-rw-r--  1 naveen naveen   81 Sep 20 19:35 hostname.yaml
+-rw-rw-r--  1 naveen naveen   88 Sep 20 19:40 resolv.yaml
+-rw-rw-r--  1 naveen naveen  258 Sep 20 19:50 file.yaml
+drwxr-xr-x  2 naveen naveen 4096 Sep 20 19:51 NEWSAMPLE
+-rw-rw-r--  1 naveen naveen  314 Sep 20 20:04 file1.yaml
+drwxr-xr-x  2 naveen naveen 4096 Sep 20 20:05 NEWSAMPLE2
+drwxr-xr-x  2 naveen naveen 4096 Sep 20 20:34 NEWSAMPLE3
+-rw-rw-r--  1 naveen naveen  361 Sep 20 20:35 file2.yaml
+-rw-rw-r--  1 naveen naveen  140 Sep 20 20:38 ansible.cfg
+drwxr-xr-x  2 naveen naveen 4096 Sep 20 20:58 NEWSAMPLE4
+drwxrwxrwx  4 naveen naveen 4096 Sep 21 22:33 nodejs
+drwxrwxr-x  6 naveen naveen 4096 Sep 21 22:37 roles
+drwxrwxr-x  2 naveen naveen 4096 Sep 21 22:38 tomcat
+-rw-rw-r--  1 naveen naveen  266 Sep 22 20:26 when.yaml
+-rw-rw-r--  1 naveen naveen  201 Sep 22 21:07 loop.yaml
+-rw-rw-r--  1 naveen naveen  145 Sep 22 21:11 user.yaml
+-rw-rw-r--  1 naveen naveen  335 Sep 22 21:40 loopdir.yaml
+-rw-rw-r--  1 naveen naveen  281 Sep 22 21:54 loopvar.yaml
+drwxrwxr-x+ 5 naveen naveen 4096 Oct  4 17:35 DEVOPSILP3
+jenkins@naveen-VirtualBox:/home/naveen/ansilab$ chowm[K[K[K[K[Ksdu[K[Kudo s[Kchown -R jenkins DEVOPSILP3/
+jenkins@naveen-VirtualBox:/home/naveen/ansilab$ SL[K[Kls -lrt
+total 88
+-rw-rw-r--  1 naveen  naveen  104 Sep 20 15:00 ansiserver
+-rw-rw-r--  1 naveen  naveen 3352 Sep 20 18:30 ansible1.txt
+-rw-rw-r--  1 naveen  naveen  101 Sep 20 19:23 echo.yaml
+-rw-rw-r--  1 naveen  naveen   81 Sep 20 19:35 hostname.yaml
+-rw-rw-r--  1 naveen  naveen   88 Sep 20 19:40 resolv.yaml
+-rw-rw-r--  1 naveen  naveen  258 Sep 20 19:50 file.yaml
+drwxr-xr-x  2 naveen  naveen 4096 Sep 20 19:51 NEWSAMPLE
+-rw-rw-r--  1 naveen  naveen  314 Sep 20 20:04 file1.yaml
+drwxr-xr-x  2 naveen  naveen 4096 Sep 20 20:05 NEWSAMPLE2
+drwxr-xr-x  2 naveen  naveen 4096 Sep 20 20:34 NEWSAMPLE3
+-rw-rw-r--  1 naveen  naveen  361 Sep 20 20:35 file2.yaml
+-rw-rw-r--  1 naveen  naveen  140 Sep 20 20:38 ansible.cfg
+drwxr-xr-x  2 naveen  naveen 4096 Sep 20 20:58 NEWSAMPLE4
+drwxrwxrwx  4 naveen  naveen 4096 Sep 21 22:33 nodejs
+drwxrwxr-x  6 naveen  naveen 4096 Sep 21 22:37 roles
+drwxrwxr-x  2 naveen  naveen 4096 Sep 21 22:38 tomcat
+-rw-rw-r--  1 naveen  naveen  266 Sep 22 20:26 when.yaml
+-rw-rw-r--  1 naveen  naveen  201 Sep 22 21:07 loop.yaml
+-rw-rw-r--  1 naveen  naveen  145 Sep 22 21:11 user.yaml
+-rw-rw-r--  1 naveen  naveen  335 Sep 22 21:40 loopdir.yaml
+-rw-rw-r--  1 naveen  naveen  281 Sep 22 21:54 loopvar.yaml
+drwxrwxr-x+ 5 jenkins naveen 4096 Oct  4 17:35 DEVOPSILP3
+jenkins@naveen-VirtualBox:/home/naveen/ansilab$ cd DEV
+-bash: cd: DEV: No such file or directory
+jenkins@naveen-VirtualBox:/home/naveen/ansilab$ cd DEVOPSILP3/
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3$ ls -lrt
+total 1200
+-rw-rwxr--+ 1 jenkins naveen    121 Sep 26 17:10 ansible.cfg
+-rw-rwxr--+ 1 jenkins naveen   1701 Sep 26 20:37 playbook.yaml
+-rw-rwxr--+ 1 jenkins naveen 618496 Oct  2 20:30 devopsilp3.lop
+-rw-rwxr--+ 1 jenkins naveen    168 Oct  3 15:15 ansiserver
+drwxrwxr-x+ 3 jenkins naveen   4096 Oct  3 23:08 playbook
+drwxrwxr-x  3 jenkins naveen   4096 Oct  4 16:36 roles
+-rw-rw-r--  1 jenkins naveen    173 Oct  4 17:35 runsetup.yaml
+-rw-rwxr--+ 1 jenkins naveen 505117 Oct  4 18:58 ansible.log
+-rw-rw-r--  1 jenkins naveen  65536 Oct  4 19:36 devopsilp3.log
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3$ ls -lrt
+total 1200
+-rw-rwxr--+ 1 jenkins naveen    121 Sep 26 17:10 ansible.cfg
+-rw-rwxr--+ 1 jenkins naveen   1701 Sep 26 20:37 playbook.yaml
+-rw-rwxr--+ 1 jenkins naveen 618496 Oct  2 20:30 devopsilp3.lop
+-rw-rwxr--+ 1 jenkins naveen    168 Oct  3 15:15 ansiserver
+drwxrwxr-x+ 3 jenkins naveen   4096 Oct  3 23:08 playbook
+drwxrwxr-x  3 jenkins naveen   4096 Oct  4 16:36 roles
+-rw-rw-r--  1 jenkins naveen    173 Oct  4 17:35 runsetup.yaml
+-rw-rwxr--+ 1 jenkins naveen 505117 Oct  4 18:58 ansible.log
+-rw-rw-r--  1 jenkins naveen  65536 Oct  4 19:36 devopsilp3.log
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3$ cd roles/
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles$ ls -l[K[K[K[K[Kcd devopsilp3/
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ ls -lrt
+total 36
+-rw-rw-r-- 1 jenkins naveen     1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 files
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 meta
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 defaults
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 tests
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 handlers
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 17:04 tasks
+drwxrwxr-x 2 jenkins ansiblegrp 4096 Oct  4 17:17 templates
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 18:18 vars
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ cd ~/ansilab/DEVOPSILP3/roles/devopsilp3/vars
+-bash: cd: /var/lib/jenkins/ansilab/DEVOPSILP3/roles/devopsilp3/vars: No such file or directory
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3$ cd [K[K[Kcd ~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[1P/ansilab/DEVOPSILP3/roles/devopsilp3/vars[C/ansilab/DEVOPSILP3/roles/devopsilp3/varsh/ansilab/DEVOPSILP3/roles/devopsilp3/varso/ansilab/DEVOPSILP3/roles/devopsilp3/varsm/ansilab/DEVOPSILP3/roles/devopsilp3/varse/ansilab/DEVOPSILP3/roles/devopsilp3/vars[C/ansilab/DEVOPSILP3/roles/devopsilp3/varsn/ansilab/DEVOPSILP3/roles/devopsilp3/varsa/ansilab/DEVOPSILP3/roles/devopsilp3/varsv/ansilab/DEVOPSILP3/roles/devopsilp3/varse/ansilab/DEVOPSILP3/roles/devopsilp3/varse/ansilab/DEVOPSILP3/roles/devopsilp3/varsn/ansilab/DEVOPSILP3/roles/devopsilp3/vars
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/vars$ gedit man[Kin.yml 
+Unable to init server: Could not connect: Connection refused
+
+(gedit:83501): Gtk-[1;33mWARNING[0m **: [34m21:12:19.658[0m: cannot open display: 
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/vars$ gedit main.yml [1@a[1@u[1@s[1@o[1@ [1P[1P[1P[1P[1P[1@s[1@u[1@d[1@o[1@ 
+Unable to init server: Could not connect: Connection refused
+
+(gedit:83505): Gtk-[1;33mWARNING[0m **: [34m21:12:37.826[0m: cannot open display: 
+jenkins@naveen-VirtualBox:/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/vars$ exit
+logout
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles[00m$ cd devopsilp3/vars/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[00m$ gedit main.yml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/vars[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ ls -lrt
+total 36
+-rw-rw-r-- 1 jenkins naveen     1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 [0m[01;34mfiles[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 [01;34mmeta[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 [01;34mdefaults[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 [01;34mtests[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 [01;34mhandlers[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 17:04 [01;34mtasks[0m
+drwxrwxr-x 2 jenkins ansiblegrp 4096 Oct  4 17:17 [01;34mtemplates[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 21:32 [01;34mvars[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ cd tasks
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ ls -lrt
+total 12
+-rw-rw-r-- 1 jenkins naveen  240 Oct  4 16:23 main.yml
+-rw-rw-r-- 1 jenkins naveen  918 Oct  4 17:02 setup-java.yaml
+-rw-rw-r-- 1 jenkins naveen 1337 Oct  4 17:04 setup-tomcat.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd [K[K[Kgedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd ../..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles[00m$ ls -lrt
+total 4
+drwxrwxr-x 10 jenkins naveen 4096 Oct  4 16:36 [0m[01;34mdevopsilp3[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles[00m$ cd ..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ..ls -lrtcd ../..gedit setup-tomcat.yaml ls -lrt[Kcd tasks[1Pls -lrt[2Pcd ..gedit main.yml cd devopsilp3/vars/[2Psudo su - jenkins[5Pjenkins[5Pls -lrt[2Pcd ..[2Ppwdls -lrt[2Pcd ..[2Ppwdls -lrtmembers ansiblegrpsudo apt-get install members[11Plid -g ansiblegrp[6@sudo members[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[11Pls -lrtcd templates/[6Pls -lrt[2Pcd ..sudo chgrp -R ansiblegrp .[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14Pls -lrtcd templates/[6Pls -lrtcd roles/devopsilp3/[1Psudo ls -alrt .ssh/[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Plrt .sssudo chown -R jenkins:jenkins ./.ssh[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cansible-playbook runsetup.yaml 
+[0;31mERROR! conflicting action statements: unarchive, remote_src[0m
+[0;31m[0m
+[0;31mThe error appears to be in '/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/tasks/setup-tomcat.yaml': line 53, column 3, but may[0m
+[0;31mbe elsewhere in the file depending on the exact syntax problem.[0m
+[0;31m[0m
+[0;31mThe offending line appears to be:[0m
+[0;31m[0m
+[0;31m[0m
+[0;31m- name: Copy the WAR file[0m
+[0;31m  ^ here[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ansible-playbook runsetup.yaml cd ..[Kls -lrtcd ../..gedit setup-tomcat.yaml [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcd roles/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles[00m$ cd devopsilp3/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ ls -lrt
+total 36
+-rw-rw-r-- 1 jenkins naveen     1328 Oct  4 16:36 README.md
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 [0m[01;34mfiles[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 [01;34mmeta[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 [01;34mdefaults[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 [01;34mtests[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 16:36 [01;34mhandlers[0m
+drwxrwxr-x 2 jenkins ansiblegrp 4096 Oct  4 17:17 [01;34mtemplates[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 21:32 [01;34mvars[0m
+drwxrwxr-x 2 jenkins naveen     4096 Oct  4 21:55 [01;34mtasks[0m
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3[00m$ cd tasks/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ ls -lrt
+total 12
+-rw-rw-r-- 1 jenkins naveen  240 Oct  4 16:23 main.yml
+-rw-rw-r-- 1 jenkins naveen  918 Oct  4 17:02 setup-java.yaml
+-rw-rw-r-- 1 jenkins naveen 1516 Oct  4 21:55 setup-tomcat.yaml
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ gedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd ../../..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ../../..gedit setup-tomcat.yaml ls -lrt[Kcd tasks/[2Pls -lrtcd devopsilp3/[5Proles/ansible-playbook runsetup.yaml 
+[0;31mERROR! conflicting action statements: copy, remote_src[0m
+[0;31m[0m
+[0;31mThe error appears to be in '/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/tasks/setup-tomcat.yaml': line 53, column 3, but may[0m
+[0;31mbe elsewhere in the file depending on the exact syntax problem.[0m
+[0;31m[0m
+[0;31mThe offending line appears to be:[0m
+[0;31m[0m
+[0;31m[0m
+[0;31m- name: Copy the WAR file[0m
+[0;31m  ^ here[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd roles/devopsilp3/tasks/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd ../../..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ../../..gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml 
+[0;31mERROR! Syntax Error while loading YAML.[0m
+[0;31m  did not find expected key[0m
+[0;31m[0m
+[0;31mThe error appears to be in '/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/tasks/setup-tomcat.yaml': line 56, column 30, but may[0m
+[0;31mbe elsewhere in the file depending on the exact syntax problem.[0m
+[0;31m[0m
+[0;31mThe offending line appears to be:[0m
+[0;31m[0m
+[0;31m  copy:[0m
+[0;31m    src: {{warRemotePathSrc}}/{{warNameSrc}}[0m
+[0;31m                             ^ here[0m
+[0;31mWe could be wrong, but this one looks like it might be an issue with[0m
+[0;31mmissing quotes. Always quote template expression brackets when they[0m
+[0;31mstart a value. For instance:[0m
+[0;31m[0m
+[0;31m    with_items:[0m
+[0;31m      - {{ foo }}[0m
+[0;31m[0m
+[0;31mShould be written as:[0m
+[0;31m[0m
+[0;31m    with_items:[0m
+[0;31m      - "{{ foo }}"[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd roles/devopsilp3/tasks/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd ../../../[K
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ../../..gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml 
+[0;31mERROR! Syntax Error while loading YAML.[0m
+[0;31m  did not find expected key[0m
+[0;31m[0m
+[0;31mThe error appears to be in '/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/tasks/setup-tomcat.yaml': line 56, column 30, but may[0m
+[0;31mbe elsewhere in the file depending on the exact syntax problem.[0m
+[0;31m[0m
+[0;31mThe offending line appears to be:[0m
+[0;31m[0m
+[0;31m  copy:[0m
+[0;31m    src: {{warRemotePathSrc}}{{warNameSrc}}[0m
+[0;31m                             ^ here[0m
+[0;31mWe could be wrong, but this one looks like it might be an issue with[0m
+[0;31mmissing quotes. Always quote template expression brackets when they[0m
+[0;31mstart a value. For instance:[0m
+[0;31m[0m
+[0;31m    with_items:[0m
+[0;31m      - {{ foo }}[0m
+[0;31m[0m
+[0;31mShould be written as:[0m
+[0;31m[0m
+[0;31m    with_items:[0m
+[0;31m      - "{{ foo }}"[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd roles/devopsilp3/tasks/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd ../../..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ../../..gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml 
+[0;31mERROR! Syntax Error while loading YAML.[0m
+[0;31m  did not find expected key[0m
+[0;31m[0m
+[0;31mThe error appears to be in '/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/tasks/setup-tomcat.yaml': line 56, column 32, but may[0m
+[0;31mbe elsewhere in the file depending on the exact syntax problem.[0m
+[0;31m[0m
+[0;31mThe offending line appears to be:[0m
+[0;31m[0m
+[0;31m  copy:[0m
+[0;31m    src: {{ warRemotePathSrc }}/{{ warNameSrc }}[0m
+[0;31m                               ^ here[0m
+[0;31mWe could be wrong, but this one looks like it might be an issue with[0m
+[0;31mmissing quotes. Always quote template expression brackets when they[0m
+[0;31mstart a value. For instance:[0m
+[0;31m[0m
+[0;31m    with_items:[0m
+[0;31m      - {{ foo }}[0m
+[0;31m[0m
+[0;31mShould be written as:[0m
+[0;31m[0m
+[0;31m    with_items:[0m
+[0;31m      - "{{ foo }}"[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd roles/devopsilp3/tasks/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd ../../..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ../../..gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml 
+[0;31mERROR! Syntax Error while loading YAML.[0m
+[0;31m  did not find expected key[0m
+[0;31m[0m
+[0;31mThe error appears to be in '/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/tasks/setup-tomcat.yaml': line 56, column 34, but may[0m
+[0;31mbe elsewhere in the file depending on the exact syntax problem.[0m
+[0;31m[0m
+[0;31mThe offending line appears to be:[0m
+[0;31m[0m
+[0;31m  copy:[0m
+[0;31m    src: "{{ warRemotePathSrc }}"/"{{ warNameSrc }}"[0m
+[0;31m                                 ^ here[0m
+[0;31mWe could be wrong, but this one looks like it might be an issue with[0m
+[0;31mmissing quotes. Always quote template expression brackets when they[0m
+[0;31mstart a value. For instance:[0m
+[0;31m[0m
+[0;31m    with_items:[0m
+[0;31m      - {{ foo }}[0m
+[0;31m[0m
+[0;31mShould be written as:[0m
+[0;31m[0m
+[0;31m    with_items:[0m
+[0;31m      - "{{ foo }}"[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$  cd roles/p[Kplayb[K[K[K[K[Kdevopsilp3/ts[Kasks/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ ansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd ../..//[K..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ../../..gedit setup-tomcat.yaml [7@ansible-playbook runsetup[C[C[C[C[C[C
+[0;31mERROR! conflicting action statements: copy, remote_src[0m
+[0;31m[0m
+[0;31mThe error appears to be in '/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/tasks/setup-tomcat.yaml': line 53, column 3, but may[0m
+[0;31mbe elsewhere in the file depending on the exact syntax problem.[0m
+[0;31m[0m
+[0;31mThe offending line appears to be:[0m
+[0;31m[0m
+[0;31m[0m
+[0;31m- name: Copy the WAR file[0m
+[0;31m  ^ here[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd roles/devopsilp3/tasks/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd ../../..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ../../..gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml 
+[0;31mERROR! conflicting action statements: copy, remote_src[0m
+[0;31m[0m
+[0;31mThe error appears to be in '/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/tasks/setup-tomcat.yaml': line 53, column 3, but may[0m
+[0;31mbe elsewhere in the file depending on the exact syntax problem.[0m
+[0;31m[0m
+[0;31mThe offending line appears to be:[0m
+[0;31m[0m
+[0;31m[0m
+[0;31m- name: Copy the WAR file[0m
+[0;31m  ^ here[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [5Pcd roles/devopsilp3/tasks/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..ansible-playbook runsetup.yaml [5Pcd roles/devopsilp3/tasks/[Kcd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ../../..gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml 
+[0;31mERROR! conflicting action statements: copy, remote_src[0m
+[0;31m[0m
+[0;31mThe error appears to be in '/home/naveen/ansilab/DEVOPSILP3/roles/devopsilp3/tasks/setup-tomcat.yaml': line 53, column 3, but may[0m
+[0;31mbe elsewhere in the file depending on the exact syntax problem.[0m
+[0;31m[0m
+[0;31mThe offending line appears to be:[0m
+[0;31m[0m
+[0;31m[0m
+[0;31m- name: Copy the WAR file[0m
+[0;31m  ^ here[0m
+[0;31m[0m]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ ansible-playbook runsetup.yaml [20Pcd ../../..ansible-playbook runsetup.yaml [Kansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ cd ../../..gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml 
+
+PLAY [Install and configure Tomcat] **********************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************
+[1;31mfatal: [18.191.241.58]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: load pubkey \"/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key\": Permission denied\r\nload pubkey \"/home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key\": Permission denied\r\nno such identity: /home/naveen/ansilab/DEVOPSILP3/.ssh/remote-web.key: Permission denied\r\nwebuser@18.191.241.58: Permission denied (publickey).", "unreachable": true}[0m
+[1;31m[0m
+PLAY RECAP ***********************************************************************************************************************************
+[0;31m18.191.241.58[0m              : ok=0    changed=0    [1;31munreachable=1   [0m failed=0    skipped=0    rescued=0    ignored=0   
+
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3[00m$ SUDO [K[K[K[K[Ksudo [K[K[K[K[Kansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml cd roles/devopsilp3/tasks/
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ cd roles/devopsilp3/tasks/ansible-playbook runsetup.yaml [20Pcd ../../..gedit setup-tomcat.yaml 
+]0;naveen@naveen-VirtualBox: ~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[01;32mnaveen@naveen-VirtualBox[00m:[01;34m~/ansilab/DEVOPSILP3/roles/devopsilp3/tasks[00m$ exit
+exit
+
+Script done on 2020-10-04 23:02:09+01:00 [COMMAND_EXIT_CODE="0"]

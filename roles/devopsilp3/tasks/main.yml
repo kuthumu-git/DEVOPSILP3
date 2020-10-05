@@ -1,0 +1,10 @@
+---
+# tasks file for ./roles/devopsilp3
+    - name: Install Java
+      #include: setup-java.yaml
+      import_tasks: setup-java.yaml
+      
+    - name: Install Tomcat
+      #include: setup-tomcat.yaml
+      import_tasks: setup-tomcat.yaml
+

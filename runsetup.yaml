@@ -1,0 +1,10 @@
+---
+  - name: Install and configure Tomcat
+    hosts: aws_webserver
+    #gather_facts: false
+    become: yes
+    #user: naveen
+    #become: yes
+    roles:
+    - devopsilp3
+
